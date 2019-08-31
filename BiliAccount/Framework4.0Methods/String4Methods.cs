@@ -4,6 +4,20 @@ namespace BiliAccount
 {
     internal static class String40Methods
     {
+        #region Public Methods
+
+        public static bool IsAllDigit(string str)
+        {
+            foreach (var c in str)
+            {
+                if (!char.IsDigit(c))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         /// <summary>
         /// The IsNullOrWhiteSpace method from Framework4.0
         /// </summary>
@@ -33,16 +47,6 @@ namespace BiliAccount
             return new string(result);
         }
 
-        public static bool IsAllDigit(string str)
-        {
-            foreach (var c in str)
-            {
-                if (!char.IsDigit(c))
-                {
-                    return false;
-                }
-            }
-            return true;
-        }
+        #endregion Public Methods
     }
 }

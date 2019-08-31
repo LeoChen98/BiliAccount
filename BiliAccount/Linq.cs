@@ -8,8 +8,6 @@ namespace BiliAccount.Linq
 {
     public class ByPassword
     {
-        
-
         #region Public Methods
 
         /// <summary>
@@ -43,8 +41,6 @@ namespace BiliAccount.Linq
             return account;
         }
 
-       
-
         /// <summary>
         /// token续期
         /// </summary>
@@ -65,20 +61,70 @@ namespace BiliAccount.Linq
         {
             return Core.ByPassword.SSO(access_token);
         }
-        
+
         #endregion Public Methods
     }
 
     public class ByQRCode
     {
+        #region Public Delegates
+
         /// <summary>
-        /// 用二维码登录
+        /// 二维码刷新处理程序
         /// </summary>
-        /// <returns>二维码图片实例</returns>
-        public static Bitmap LoginByQrCode()
+        /// <param name="newQrCode">新二维码</param>
+        public delegate void QrCodeRefresh_Handle(Bitmap newQrCode);
+
+        /// <summary>
+        /// 二维码登录状态变更处理程序
+        /// </summary>
+        /// <param name="status">二维码状态</param>
+        /// <param name="account">登录成功时有值，账号信息实例</param>
+        public delegate void QrCodeStatus_Changed_Handle(QrCodeStatus status, Account account = null);
+
+        #endregion Public Delegates
+
+        #region Public Events
+
+        /// <summary>
+        /// 二维码刷新事件
+        /// </summary>
+        public static event QrCodeRefresh_Handle QrCodeRefresh;
+
+        /// <summary>
+        /// 二维码登录状态变更事件
+        /// </summary>
+        public static event QrCodeStatus_Changed_Handle QrCodeStatus_Changed;
+
+        #endregion Public Events
+
+        #region Public Enums
+
+        /// <summary>
+        /// 二维码登录状态枚举
+        /// </summary>
+        public enum QrCodeStatus
         {
-            return Core.ByQrCode.GetQrcode();
+            #region Public Fields
+
+            Wating,
+            Scaned,
+            Success
+
+            #endregion Public Fields
         }
+
+        #endregion Public Enums
+
+        #region Public Methods
+
+        /// <summary>
+        /// 删除对象
+        /// </summary>
+        /// <param name="hObject">对象指针</param>
+        /// <returns></returns>
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        public static extern bool DeleteObject(IntPtr hObject);
 
         /// <summary>
         /// 获取WPF显示用的ImageSource
@@ -97,52 +143,27 @@ namespace BiliAccount.Linq
         }
 
         /// <summary>
-        /// 删除对象
+        /// 用二维码登录
         /// </summary>
-        /// <param name="hObject">对象指针</param>
-        /// <returns></returns>
-        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
-        public static extern bool DeleteObject(IntPtr hObject);
+        /// <returns>二维码图片实例</returns>
+        public static Bitmap LoginByQrCode()
+        {
+            return Core.ByQrCode.GetQrcode();
+        }
+
+        #endregion Public Methods
+
+        #region Internal Methods
 
         /// <summary>
-        /// 二维码刷新处理程序
+        /// 调起二维码刷新
         /// </summary>
         /// <param name="newQrCode">新二维码</param>
-        public delegate void QrCodeRefresh_Handle(Bitmap newQrCode);
-
-        /// <summary>
-        /// 二维码登录状态变更处理程序
-        /// </summary>
-        /// <param name="status">二维码状态</param>
-        /// <param name="account">登录成功时有值，账号信息实例</param>
-        public delegate void QrCodeStatus_Changed_Handle(QrCodeStatus status, Account account = null);
-
-
-
-        #region Public Events
-
-        /// <summary>
-        /// 二维码刷新事件
-        /// </summary>
-        public static event QrCodeRefresh_Handle QrCodeRefresh;
-
-        /// <summary>
-        /// 二维码登录状态变更事件
-        /// </summary>
-        public static event QrCodeStatus_Changed_Handle QrCodeStatus_Changed;
-
-        #endregion Public Events
-
-
-        /// <summary>
-        /// 二维码登录状态枚举
-        /// </summary>
-        public enum QrCodeStatus
+        internal static void RaiseQrCodeRefresh(Bitmap newQrCode)
         {
-            Wating,
-            Scaned,
-            Success
+            QrCodeRefresh(newQrCode);
         }
+
         /// <summary>
         /// 调起二维码登录状态变更
         /// </summary>
@@ -153,13 +174,6 @@ namespace BiliAccount.Linq
             QrCodeStatus_Changed(status, account);
         }
 
-        /// <summary>
-        /// 调起二维码刷新
-        /// </summary>
-        /// <param name="newQrCode">新二维码</param>
-        internal static void RaiseQrCodeRefresh(Bitmap newQrCode)
-        {
-            QrCodeRefresh(newQrCode);
-        }
+        #endregion Internal Methods
     }
 }

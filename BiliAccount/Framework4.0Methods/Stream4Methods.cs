@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace BiliAccount
+﻿namespace BiliAccount
 {
-    class Stream4Methods
+    internal class Stream4Methods
     {
+        #region Public Methods
+
         public static void CopyTo(System.IO.Stream input, System.IO.Stream output)
         {
             byte[] buffer = new byte[16 * 1024];
@@ -16,5 +13,7 @@ namespace BiliAccount
                 output.Write(buffer, 0, bytesRead);
             }
         }
+
+        #endregion Public Methods
     }
 }

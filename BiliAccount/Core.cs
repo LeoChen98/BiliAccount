@@ -15,6 +15,7 @@ namespace BiliAccount
     internal class Core
     {
         #region Internal Classes
+
         /// <summary>
         /// 通过密码登录
         /// </summary>
@@ -93,7 +94,7 @@ namespace BiliAccount
                             if (i.name == "bili_jct")
                                 account.CsrfToken = i.value;
                         }
-                        account.strCookies = account.strCookies.Substring(0,account.strCookies.Length - 2);
+                        account.strCookies = account.strCookies.Substring(0, account.strCookies.Length - 2);
                         account.LoginStatus = Account.LoginStatusEnum.ByPassword;
                     }
                 }
@@ -325,37 +326,6 @@ namespace BiliAccount
 
             #endregion Private Methods
 
-            #region Public Classes
-
-            /// <summary>
-            /// token续期数据模板
-            /// </summary>
-            private class RefreshToken_DataTemplete
-            {
-                #region Public Fields
-
-                public int code;
-                public Data_Templete data;
-                public long ts;
-
-                #endregion Public Fields
-
-                #region Public Classes
-
-                public class Data_Templete
-                {
-                    #region Public Fields
-
-                    public long expiress_in;
-
-                    #endregion Public Fields
-                }
-
-                #endregion Public Classes
-            }
-
-            #endregion Public Classes
-
             #region Private Classes
 
             /// <summary>
@@ -494,6 +464,33 @@ namespace BiliAccount
                 #endregion Public Classes
             }
 
+            /// <summary>
+            /// token续期数据模板
+            /// </summary>
+            private class RefreshToken_DataTemplete
+            {
+                #region Public Fields
+
+                public int code;
+                public Data_Templete data;
+                public long ts;
+
+                #endregion Public Fields
+
+                #region Public Classes
+
+                public class Data_Templete
+                {
+                    #region Public Fields
+
+                    public long expiress_in;
+
+                    #endregion Public Fields
+                }
+
+                #endregion Public Classes
+            }
+
             #endregion Private Classes
         }
 
@@ -502,14 +499,21 @@ namespace BiliAccount
         /// </summary>
         internal class ByQrCode
         {
+            #region Private Fields
+
             /// <summary>
             /// 状态监视器
             /// </summary>
             private static Timer Monitor;
+
             /// <summary>
             /// 刷新监视器
             /// </summary>
             private static Timer Refresher;
+
+            #endregion Private Fields
+
+            #region Public Methods
 
             /// <summary>
             /// 获取登陆二维码并显示
@@ -535,7 +539,7 @@ namespace BiliAccount
                         //生成二维码位图
                         qrCodeImage = qrcode.GetGraphic(5, Color.Black, Color.White, null, 0, 6, false);
 
-                        Monitor = new Timer(MonitorCallback,obj.data.oauthKey, 1000, 1000);
+                        Monitor = new Timer(MonitorCallback, obj.data.oauthKey, 1000, 1000);
                         Refresher = new Timer(RefresherCallback, null, 180000, Timeout.Infinite);
                     }
                 }
@@ -544,29 +548,9 @@ namespace BiliAccount
                 return qrCodeImage;
             }
 
-            /// <summary>
-            /// 获取二维码的数据模板
-            /// </summary>
-            private class GetQrcode_DataTemplete
-            {
-                public int code;
-                public Data_Templete data;
+            #endregion Public Methods
 
-                public class Data_Templete
-                {
-                    public string url;
-                    public string oauthKey;
-                }
-            }
-
-            /// <summary>
-            /// 刷新监视器回调
-            /// </summary>
-            /// <param name="state"></param>
-            private static void RefresherCallback(object state)
-            {
-               Linq.ByQRCode.RaiseQrCodeRefresh(GetQrcode());
-            }
+            #region Private Methods
 
             /// <summary>
             /// 状态监视器回调
@@ -589,7 +573,7 @@ namespace BiliAccount
 
                         Account account = new Account();
 
-                        string Querystring = Regex.Split((obj.data as Dictionary<string,object>)["url"].ToString(), "\\?")[1];
+                        string Querystring = Regex.Split((obj.data as Dictionary<string, object>)["url"].ToString(), "\\?")[1];
                         string[] KeyValuePair = Regex.Split(Querystring, "&");
                         account.Cookies = new CookieCollection();
                         for (int i = 0; i < KeyValuePair.Length - 1; i++)
@@ -616,6 +600,7 @@ namespace BiliAccount
                                 case "gourl":
 
                                     break;
+
                                 default:
                                     account.strCookies += KeyValuePair[i] + "; ";
                                     account.Cookies.Add(new Cookie(tmp[0], tmp[1]));
@@ -637,30 +622,82 @@ namespace BiliAccount
                             case -5://已扫描
                                 Linq.ByQRCode.RaiseQrCodeStatus_Changed(Linq.ByQRCode.QrCodeStatus.Scaned);
                                 break;
+
                             default:
                                 break;
                         }
                     }
                 }
             }
+
             /// <summary>
-            /// 状态监视器回调数据模板（父）
+            /// 刷新监视器回调
             /// </summary>
-            private class MonitorCallBack_Templete
+            /// <param name="state"></param>
+            private static void RefresherCallback(object state)
             {
-                public bool status;
-                public object data;
+                Linq.ByQRCode.RaiseQrCodeRefresh(GetQrcode());
             }
+
+            #endregion Private Methods
+
+            #region Private Classes
+
+            /// <summary>
+            /// 获取二维码的数据模板
+            /// </summary>
+            private class GetQrcode_DataTemplete
+            {
+                #region Public Fields
+
+                public int code;
+                public Data_Templete data;
+
+                #endregion Public Fields
+
+                #region Public Classes
+
+                public class Data_Templete
+                {
+                    #region Public Fields
+
+                    public string oauthKey;
+                    public string url;
+
+                    #endregion Public Fields
+                }
+
+                #endregion Public Classes
+            }
+
             /// <summary>
             /// 状态监视器回调数据模板（子）
             /// </summary>
             private class MonitorCallBack_DataTemplete
             {
+                #region Public Fields
+
                 public string url;
+
+                #endregion Public Fields
             }
 
+            /// <summary>
+            /// 状态监视器回调数据模板（父）
+            /// </summary>
+            private class MonitorCallBack_Templete
+            {
+                #region Public Fields
+
+                public object data;
+                public bool status;
+
+                #endregion Public Fields
+            }
+
+            #endregion Private Classes
         }
-        
+
         #endregion Internal Classes
     }
 }
