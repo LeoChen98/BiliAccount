@@ -82,7 +82,7 @@ namespace BiliAccount
                         account.Uid = obj.data.token_info.mid;
                         account.AccessToken = obj.data.token_info.access_token;
                         account.RefreshToken = obj.data.token_info.refresh_token;
-                        account.Expires_AccessToken = DateTime.Now.AddSeconds(obj.data.token_info.expires_in);
+                        account.Expires_AccessToken = DateTime.Parse("1970-01-01 08:00:00").AddSeconds(obj.ts + obj.data.token_info.expires_in);
 
                         account.Cookies = new CookieCollection();
                         foreach (DoLogin_DataTemplete.Data_Templete.Cookie_Info_Templete.Cookie_Templete i in obj.data.cookie_info.cookies)
@@ -336,6 +336,7 @@ namespace BiliAccount
                 #region Public Fields
 
                 public int code;
+                public long ts;
                 public Data_Templete data;
 
                 #endregion Public Fields
