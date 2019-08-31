@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
-namespace BiliAccount
+namespace BiliAccount.Linq
 {
-    public class Linq
+    public class ByPassword
     {
         
 
@@ -40,6 +43,34 @@ namespace BiliAccount
             return account;
         }
 
+       
+
+        /// <summary>
+        /// token续期
+        /// </summary>
+        /// <param name="access_token"></param>
+        /// <param name="refresh_token"></param>
+        /// <returns>到期时间</returns>
+        public static DateTime? RefreshToken(string access_token, string refresh_token)
+        {
+            return Core.ByPassword.RefreshToken(access_token, refresh_token);
+        }
+
+        /// <summary>
+        /// SSO
+        /// </summary>
+        /// <param name="access_token"></param>
+        /// <returns>[0]=>(string)strCookies,[1]=>(string)csrf_token,[2]=>(DateTime)Expiress,[3]=>(CookieCollection)Cookies</returns>
+        public static object[] SSO(string access_token)
+        {
+            return Core.ByPassword.SSO(access_token);
+        }
+        
+        #endregion Public Methods
+    }
+
+    public class ByQRCode
+    {
         /// <summary>
         /// 用二维码登录
         /// </summary>
@@ -49,6 +80,29 @@ namespace BiliAccount
             return Core.ByQrCode.GetQrcode();
         }
 
+        /// <summary>
+        /// 获取WPF显示用的ImageSource
+        /// </summary>
+        /// <param name="qrCodeImage">二维码图片Bitmap</param>
+        /// <returns>ImageSource</returns>
+        public static ImageSource GetQrCodeImageSource(Bitmap qrCodeImage)
+        {
+            IntPtr myImagePtr = qrCodeImage.GetHbitmap();     //创建GDI对象，返回指针
+
+            BitmapSource imgsource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(myImagePtr, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());  //创建imgSource
+
+            DeleteObject(myImagePtr);
+
+            return imgsource;
+        }
+
+        /// <summary>
+        /// 删除对象
+        /// </summary>
+        /// <param name="hObject">对象指针</param>
+        /// <returns></returns>
+        [System.Runtime.InteropServices.DllImport("gdi32.dll")]
+        public static extern bool DeleteObject(IntPtr hObject);
 
         /// <summary>
         /// 二维码刷新处理程序
@@ -89,28 +143,6 @@ namespace BiliAccount
             Scaned,
             Success
         }
-
-        /// <summary>
-        /// token续期
-        /// </summary>
-        /// <param name="access_token"></param>
-        /// <param name="refresh_token"></param>
-        /// <returns>到期时间</returns>
-        public static DateTime? RefreshToken(string access_token, string refresh_token)
-        {
-            return Core.ByPassword.RefreshToken(access_token, refresh_token);
-        }
-
-        /// <summary>
-        /// SSO
-        /// </summary>
-        /// <param name="access_token"></param>
-        /// <returns>[0]=>(string)strCookies,[1]=>(string)csrf_token,[2]=>(DateTime)Expiress,[3]=>(CookieCollection)Cookies</returns>
-        public static object[] SSO(string access_token)
-        {
-            return Core.ByPassword.SSO(access_token);
-        }
-
         /// <summary>
         /// 调起二维码登录状态变更
         /// </summary>
@@ -121,10 +153,13 @@ namespace BiliAccount
             QrCodeStatus_Changed(status, account);
         }
 
+        /// <summary>
+        /// 调起二维码刷新
+        /// </summary>
+        /// <param name="newQrCode">新二维码</param>
         internal static void RaiseQrCodeRefresh(Bitmap newQrCode)
         {
             QrCodeRefresh(newQrCode);
         }
-        #endregion Public Methods
     }
 }

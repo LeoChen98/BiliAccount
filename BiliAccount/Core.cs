@@ -1,5 +1,6 @@
 ﻿using MSScriptControl;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Net;
 using System.Security.Cryptography;
@@ -82,12 +83,15 @@ namespace BiliAccount
                         account.RefreshToken = obj.data.token_info.refresh_token;
                         account.Expires_AccessToken = DateTime.Now.AddSeconds(obj.data.token_info.expires_in);
 
-                        account.Cookies = new System.Net.CookieCollection();
+                        account.Cookies = new CookieCollection();
                         foreach (DoLogin_DataTemplete.Data_Templete.Cookie_Info_Templete.Cookie_Templete i in obj.data.cookie_info.cookies)
                         {
                             account.strCookies += i.name + "=" + i.value + "; ";
-                            account.Cookies.Add(new System.Net.Cookie(i.name, i.value));
+                            account.Cookies.Add(new Cookie(i.name, i.value));
                             account.Expires_Cookies = DateTime.Parse("1970-01-01 08:00:00").AddSeconds(i.expires);
+
+                            if (i.name == "bili_jct")
+                                account.CsrfToken = i.value;
                         }
                         account.strCookies = account.strCookies.Substring(0,account.strCookies.Length - 2);
                         account.LoginStatus = Account.LoginStatusEnum.ByPassword;
@@ -561,7 +565,7 @@ namespace BiliAccount
             /// <param name="state"></param>
             private static void RefresherCallback(object state)
             {
-               Linq.RaiseQrCodeRefresh(GetQrcode());
+               Linq.ByQRCode.RaiseQrCodeRefresh(GetQrcode());
             }
 
             /// <summary>
@@ -572,7 +576,7 @@ namespace BiliAccount
             {
                 string oauthKey = o.ToString();
 
-                string str = Http.PostBody("https://passport.bilibili.com/qrcode/getLoginInfo", "oauthKey=" + oauthKey + "&gourl=https%3A%2F%2Fwww.bilibili.com%2F", null, "https://passport.bilibili.com/login");
+                string str = Http.PostBody("https://passport.bilibili.com/qrcode/getLoginInfo", "oauthKey=" + oauthKey + "&gourl=https%3A%2F%2Fwww.bilibili.com%2F", null, "application/x-www-form-urlencoded; charset=UTF-8", "https://passport.bilibili.com/login");
                 if (!string.IsNullOrEmpty(str))
                 {
                     MonitorCallBack_Templete obj = (new JavaScriptSerializer()).Deserialize<MonitorCallBack_Templete>(str);
@@ -583,10 +587,9 @@ namespace BiliAccount
                         Monitor.Change(Timeout.Infinite, Timeout.Infinite);
                         Refresher.Change(Timeout.Infinite, Timeout.Infinite);
 
-                        MonitorCallBack_DataTemplete data = (new JavaScriptSerializer()).Deserialize<MonitorCallBack_DataTemplete>(obj.data.ToString());
                         Account account = new Account();
 
-                        string Querystring = Regex.Split(data.url, "\\?")[1];
+                        string Querystring = Regex.Split((obj.data as Dictionary<string,object>)["url"].ToString(), "\\?")[1];
                         string[] KeyValuePair = Regex.Split(Querystring, "&");
                         account.Cookies = new CookieCollection();
                         for (int i = 0; i < KeyValuePair.Length - 1; i++)
@@ -606,7 +609,7 @@ namespace BiliAccount
                                     account.Cookies.Add(new Cookie(tmp[0], tmp[1]));
                                     break;
 
-                                case "Expiress":
+                                case "Expires":
                                     account.Expires_Cookies = DateTime.Now.AddSeconds(double.Parse(tmp[1]));
                                     break;
 
@@ -621,18 +624,18 @@ namespace BiliAccount
                         }
                         account.strCookies = account.strCookies.Substring(0, account.strCookies.Length - 2);
                         account.LoginStatus = Account.LoginStatusEnum.ByQrCode;
-                        Linq.RaiseQrCodeStatus_Changed(Linq.QrCodeStatus.Success, account);
+                        Linq.ByQRCode.RaiseQrCodeStatus_Changed(Linq.ByQRCode.QrCodeStatus.Success, account);
                     }
                     else
                     {
                         switch ((int)obj.data)
                         {
                             case -4://未扫描
-                                Linq.RaiseQrCodeStatus_Changed(Linq.QrCodeStatus.Wating);
+                                Linq.ByQRCode.RaiseQrCodeStatus_Changed(Linq.ByQRCode.QrCodeStatus.Wating);
                                 break;
 
                             case -5://已扫描
-                                Linq.RaiseQrCodeStatus_Changed(Linq.QrCodeStatus.Scaned);
+                                Linq.ByQRCode.RaiseQrCodeStatus_Changed(Linq.ByQRCode.QrCodeStatus.Scaned);
                                 break;
                             default:
                                 break;
