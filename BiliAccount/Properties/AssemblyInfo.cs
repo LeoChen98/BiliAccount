@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("BiliAccount")]
+[assembly: AssemblyTitle("BiliAccount用于处理B站账号类的操作")]
 [assembly: AssemblyDescription("用于处理B站账号类的操作")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("zhangbudademao.com")]
