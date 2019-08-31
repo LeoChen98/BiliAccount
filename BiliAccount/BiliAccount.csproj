@@ -85,7 +85,7 @@
     <None Include="Init.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="pwd.js" />
+    <None Include="pwd.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
