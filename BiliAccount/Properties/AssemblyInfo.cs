@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("用于处理B站账号类的操作")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("zhangbudademao.com")]
-[assembly: AssemblyProduct("BiliAccountService")]
+[assembly: AssemblyProduct("BiliAccount")]
 [assembly: AssemblyCopyright("Copyright ©  2019 zhangbudademao.com, all rights reserved.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
