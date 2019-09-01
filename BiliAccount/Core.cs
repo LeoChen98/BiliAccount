@@ -672,19 +672,7 @@ namespace BiliAccount
             }
 
             /// <summary>
-            /// 状态监视器回调数据模板（子）
-            /// </summary>
-            private class MonitorCallBack_DataTemplete
-            {
-                #region Public Fields
-
-                public string url;
-
-                #endregion Public Fields
-            }
-
-            /// <summary>
-            /// 状态监视器回调数据模板（父）
+            /// 状态监视器回调数据模板
             /// </summary>
             private class MonitorCallBack_Templete
             {
