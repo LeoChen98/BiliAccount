@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Net;
 
 namespace BiliAccount
@@ -16,6 +17,11 @@ namespace BiliAccount
         public string AccessToken;
 
         /// <summary>
+        /// 验证码图片（仅当需要验证码验证时有值）
+        /// </summary>
+        public Bitmap CaptchaPic = null;
+
+        /// <summary>
         /// Cookies集合实例
         /// </summary>
         public CookieCollection Cookies;
@@ -24,6 +30,11 @@ namespace BiliAccount
         /// csrf_token
         /// </summary>
         public string CsrfToken;
+
+        /// <summary>
+        /// 加密过的密码（使用二维码登录时此项为空）
+        /// </summary>
+        public string EncryptedPassword;
 
         /// <summary>
         /// Access_Token有效期（使用二维码登录时此项为空）
@@ -56,9 +67,19 @@ namespace BiliAccount
         public string strCookies;
 
         /// <summary>
+        /// 手机号（仅当需要手机验证的时候有值）
+        /// </summary>
+        public string Tel;
+
+        /// <summary>
         /// 用户数字id
         /// </summary>
         public string Uid;
+
+        /// <summary>
+        /// 手机验证链接（仅当需要手机验证的时候有值）
+        /// </summary>
+        public string Url;
 
         /// <summary>
         /// 用户名（使用二维码登录时此项为空）
@@ -74,6 +95,21 @@ namespace BiliAccount
         /// </summary>
         public enum LoginStatusEnum
         {
+            /// <summary>
+            /// 手机验证(验证成功后重新登录）
+            /// </summary>
+            NeedTelVerify = -3,
+
+            /// <summary>
+            /// 图片验证码
+            /// </summary>
+            NeedCaptcha = -2,
+
+            /// <summary>
+            /// 密码错误
+            /// </summary>
+            WrongPassword = -1,
+
             /// <summary>
             /// 未登录
             /// </summary>

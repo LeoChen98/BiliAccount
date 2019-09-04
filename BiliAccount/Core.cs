@@ -67,37 +67,128 @@ namespace BiliAccount
             /// </summary>
             /// <param name="username">用户名（邮箱/手机号）</param>
             /// <param name="password">加密后密码</param>
-            /// <returns>账号信息实例</returns>
-            public static void DoLogin(string username, string password, ref Account account)
+            /// <param name="account">账号实例</param>
+            public static void DoLogin(ref Account account)
             {
-                string parm = "appkey=" + Appkey + "&build=" + Build + "&mobi_app=android&password=" + password + "&platform=android&ts=" + TimeStamp + "&username=" + username;
+                string parm = "appkey=" + Appkey + "&build=" + Build + "&mobi_app=android&password=" + account.EncryptedPassword + "&platform=android&ts=" + TimeStamp + "&username=" + account.UserName;
                 parm += "&sign=" + GetSign(parm);
-                string str = Http.PostBody("http://passport.bilibili.com/api/v2/oauth2/login", parm);
+                string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v2/oauth2/login", out account.Cookies, parm);
                 if (!string.IsNullOrEmpty(str))
                 {
                     DoLogin_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<DoLogin_DataTemplete>(str);
 
-                    if (obj.code == 0)
+                    switch (obj.code)
                     {
-                        account.Uid = obj.data.token_info.mid;
-                        account.AccessToken = obj.data.token_info.access_token;
-                        account.RefreshToken = obj.data.token_info.refresh_token;
-                        account.Expires_AccessToken = DateTime.Parse("1970-01-01 08:00:00").AddSeconds(obj.ts + obj.data.token_info.expires_in);
+                        case 0:
+                            if(obj.data.status == 0)//登录成功
+                            {
+                                account.Uid = obj.data.token_info.mid;
+                                account.AccessToken = obj.data.token_info.access_token;
+                                account.RefreshToken = obj.data.token_info.refresh_token;
+                                account.Expires_AccessToken = DateTime.Parse("1970-01-01 08:00:00").AddSeconds(obj.ts + obj.data.token_info.expires_in);
 
-                        account.Cookies = new CookieCollection();
-                        foreach (DoLogin_DataTemplete.Data_Templete.Cookie_Info_Templete.Cookie_Templete i in obj.data.cookie_info.cookies)
-                        {
-                            account.strCookies += i.name + "=" + i.value + "; ";
-                            account.Cookies.Add(new Cookie(i.name, i.value));
-                            account.Expires_Cookies = DateTime.Parse("1970-01-01 08:00:00").AddSeconds(i.expires);
+                                account.Cookies = new CookieCollection();
+                                foreach (DoLogin_DataTemplete.Data_Templete.Cookie_Info_Templete.Cookie_Templete i in obj.data.cookie_info.cookies)
+                                {
+                                    account.strCookies += i.name + "=" + i.value + "; ";
+                                    account.Cookies.Add(new Cookie(i.name, i.value));
+                                    account.Expires_Cookies = DateTime.Parse("1970-01-01 08:00:00").AddSeconds(i.expires);
 
-                            if (i.name == "bili_jct")
-                                account.CsrfToken = i.value;
-                        }
-                        account.strCookies = account.strCookies.Substring(0, account.strCookies.Length - 2);
-                        account.LoginStatus = Account.LoginStatusEnum.ByPassword;
+                                    if (i.name == "bili_jct")
+                                        account.CsrfToken = i.value;
+                                }
+                                account.strCookies = account.strCookies.Substring(0, account.strCookies.Length - 2);
+                                account.LoginStatus = Account.LoginStatusEnum.ByPassword;
+                            }
+                            else//需要手机验证
+                            {
+                                Regex reg = new Regex("&tel=.*?&");
+                                Match match = reg.Match(obj.data.url);
+                                account.Tel = match.Value.Substring(5, match.Value.Length - 6);
+                                account.LoginStatus = Account.LoginStatusEnum.NeedTelVerify;
+                            }
+                            break;
+                        case -105://需要验证码
+                            account.LoginStatus = Account.LoginStatusEnum.NeedCaptcha;
+                            break;
+                        case -629://密码错误
+                            account.LoginStatus = Account.LoginStatusEnum.WrongPassword;
+                            break;
+                        default:
+                            account.LoginStatus = Account.LoginStatusEnum.None;
+                            break;
                     }
+
                 }
+            }
+
+            /// <summary>
+            /// 登录（带验证码）
+            /// </summary>
+            /// <param name="captcha">验证码字符</param>
+            /// <param name="account">账号实例</param>
+            public static void DoLoginWithCatpcha(string captcha, ref Account account)
+            {
+                string parm = "actionKey=" + Appkey + "&appkey=" + Appkey + "&build=" + Build + "&captcha=" + captcha + "&mobi_app=android&password=" + account.EncryptedPassword + "&device=android&platform=android&ts=" + TimeStamp + "&username=" + account.UserName;
+                parm += "&sign=" + GetSign(parm);
+                string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v2/oauth2/login", out account.Cookies, parm, account.Cookies);
+                if (!string.IsNullOrEmpty(str))
+                {
+                    DoLogin_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<DoLogin_DataTemplete>(str);
+
+                    switch (obj.code)
+                    {
+                        case 0://登录成功
+                            if (obj.data.status == 0)//登录成功
+                            {
+                                account.Uid = obj.data.token_info.mid;
+                                account.AccessToken = obj.data.token_info.access_token;
+                                account.RefreshToken = obj.data.token_info.refresh_token;
+                                account.Expires_AccessToken = DateTime.Parse("1970-01-01 08:00:00").AddSeconds(obj.ts + obj.data.token_info.expires_in);
+
+                                account.Cookies = new CookieCollection();
+                                foreach (DoLogin_DataTemplete.Data_Templete.Cookie_Info_Templete.Cookie_Templete i in obj.data.cookie_info.cookies)
+                                {
+                                    account.strCookies += i.name + "=" + i.value + "; ";
+                                    account.Cookies.Add(new Cookie(i.name, i.value));
+                                    account.Expires_Cookies = DateTime.Parse("1970-01-01 08:00:00").AddSeconds(i.expires);
+
+                                    if (i.name == "bili_jct")
+                                        account.CsrfToken = i.value;
+                                }
+                                account.strCookies = account.strCookies.Substring(0, account.strCookies.Length - 2);
+                                account.LoginStatus = Account.LoginStatusEnum.ByPassword;
+                            }
+                            else//需要手机验证
+                            {
+                                Regex reg = new Regex("&tel=.*?&");
+                                Match match = reg.Match(obj.data.url);
+                                account.Url = obj.data.url;
+                                account.Tel = match.Value.Substring(5, match.Value.Length - 6);
+                                account.LoginStatus = Account.LoginStatusEnum.NeedTelVerify;
+                            }
+                            break;
+                        case -105://验证码错误
+                            account.LoginStatus = Account.LoginStatusEnum.NeedCaptcha;
+                            break;
+                        case -629://密码错误
+                            account.LoginStatus = Account.LoginStatusEnum.WrongPassword;
+                            break;
+                        default:
+                            account.LoginStatus = Account.LoginStatusEnum.None;
+                            break;
+                    }
+
+                }
+            }
+
+            /// <summary>
+            /// 获取验证码图片
+            /// </summary>
+            /// <param name="account">账号实例</param>
+            public static Bitmap GetCaptcha(ref Account account)
+            {
+                return Http.GetPicOutCookies("https://passport.bilibili.com/captcha", out account.Cookies, account.Cookies);
             }
 
             /// <summary>
@@ -117,11 +208,11 @@ namespace BiliAccount
             /// </summary>
             /// <param name="hash">输出hash</param>
             /// <param name="key">输出key</param>
-            public static void GetKey(out string hash, out string key)
+            public static void GetKey(out string hash, out string key, out CookieCollection cookies)
             {
                 string parm = "appkey=" + Appkey;
                 parm += "&sign=" + GetSign(parm);
-                string str = Http.PostBody("http://passport.bilibili.com/api/oauth2/getKey", parm);
+                string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/oauth2/getKey",out cookies, parm);
                 if (!string.IsNullOrEmpty(str))
                 {
                     GetKey_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<GetKey_DataTemplete>(str);
@@ -347,6 +438,8 @@ namespace BiliAccount
                 {
                     #region Public Fields
 
+                    public int status;
+                    public string url;
                     public Cookie_Info_Templete cookie_info;
                     public Token_Info_Templete token_info;
 

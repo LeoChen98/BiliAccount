@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Net;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -34,11 +35,20 @@ namespace BiliAccount.Linq
                 UserName = username,
                 Password = password
             };
-            string hash, key;
-            Core.ByPassword.GetKey(out hash, out key);
-            password = Core.ByPassword.EncryptPwd(password, key, hash);
-            Core.ByPassword.DoLogin(username, password, ref account);
+            Core.ByPassword.GetKey(out string hash, out string key, out account.Cookies);
+            account.EncryptedPassword = Core.ByPassword.EncryptPwd(password, key, hash);
+            Core.ByPassword.DoLogin(ref account);
             return account;
+        }
+
+        /// <summary>
+        /// 带验证码的账号密码登录
+        /// </summary>
+        /// <param name="Captcha">验证码</param>
+        /// <param name="account">账号信息实例</param>
+        public static void LoginByPasswordWithCaptcha(string Captcha, ref Account account)
+        {
+            Core.ByPassword.DoLoginWithCatpcha(Captcha, ref account);
         }
 
         /// <summary>
