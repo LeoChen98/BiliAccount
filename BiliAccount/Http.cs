@@ -72,7 +72,7 @@ namespace BiliAccount
         /// <param name="user_agent">User-agent</param>
         /// <param name="specialheaders">除前面之外的Headers</param>
         /// <returns>请求返回体</returns>
-        public static string GetBodyOutCookies(string url,out CookieCollection out_cookies, CookieCollection cookie = null,
+        public static string GetBodyOutCookies(string url, out CookieCollection out_cookies, CookieCollection cookie = null,
             string referer = "", string user_agent = "", WebHeaderCollection specialheaders = null)
         {
             string result = "";
@@ -157,13 +157,16 @@ namespace BiliAccount
                 rep = (HttpWebResponse)req.GetResponse();
 
                 result = new Bitmap(rep.GetResponseStream());
-                
-                foreach (string i in rep.Headers.GetValues("Set-Cookie"))
-                {
-                    string[] tmp = i.Split(';');
-                    string[] tmp2 = tmp[0].Split('=');
 
-                    out_cookies.Add(new Cookie(tmp2[0], tmp2[1]) { Expires = DateTime.Parse(tmp[2].Split('=')[1]) });
+                if (rep.Headers.GetValues("Set-Cookie") != null && rep.Headers.GetValues("Set-Cookie").Length > 0)
+                {
+                    foreach (string i in rep.Headers.GetValues("Set-Cookie"))
+                    {
+                        string[] tmp = i.Split(';');
+                        string[] tmp2 = tmp[0].Split('=');
+
+                        out_cookies.Add(new Cookie(tmp2[0], tmp2[1]) { Expires = DateTime.Parse(tmp[2].Split('=')[1]) });
+                    }
                 }
             }
             finally
@@ -286,12 +289,15 @@ namespace BiliAccount
                     result = reader.ReadToEnd();
                 }
 
-                foreach (string i in rep.Headers.GetValues("Set-Cookie"))
+                if (rep.Headers.GetValues("Set-Cookie") != null && rep.Headers.GetValues("Set-Cookie").Length > 0)
                 {
-                    string[] tmp = i.Split(';');
-                    string[] tmp2 = tmp[0].Split('=');
+                    foreach (string i in rep.Headers.GetValues("Set-Cookie"))
+                    {
+                        string[] tmp = i.Split(';');
+                        string[] tmp2 = tmp[0].Split('=');
 
-                    out_cookies.Add(new Cookie(tmp2[0], tmp2[1]) { Expires = DateTime.Parse(tmp[2].Split('=')[1]) });
+                        out_cookies.Add(new Cookie(tmp2[0], tmp2[1]) { Expires = DateTime.Parse(tmp[2].Split('=')[1]) });
+                    }
                 }
             }
             finally

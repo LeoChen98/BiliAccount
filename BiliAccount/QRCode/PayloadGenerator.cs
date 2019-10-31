@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 
+#pragma warning disable CS0612
+
 namespace BiliAccount
 {
     public static class PayloadGenerator

@@ -1,5 +1,4 @@
-﻿using MSScriptControl;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Net;
@@ -9,6 +8,8 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using System.Web.Script.Serialization;
+
+#pragma warning disable CS0649
 
 namespace BiliAccount
 {
@@ -80,7 +81,7 @@ namespace BiliAccount
                     switch (obj.code)
                     {
                         case 0:
-                            if(obj.data.status == 0)//登录成功
+                            if (obj.data.status == 0)//登录成功
                             {
                                 account.Uid = obj.data.token_info.mid;
                                 account.AccessToken = obj.data.token_info.access_token;
@@ -108,17 +109,19 @@ namespace BiliAccount
                                 account.LoginStatus = Account.LoginStatusEnum.NeedTelVerify;
                             }
                             break;
+
                         case -105://需要验证码
                             account.LoginStatus = Account.LoginStatusEnum.NeedCaptcha;
                             break;
+
                         case -629://密码错误
                             account.LoginStatus = Account.LoginStatusEnum.WrongPassword;
                             break;
+
                         default:
                             account.LoginStatus = Account.LoginStatusEnum.None;
                             break;
                     }
-
                 }
             }
 
@@ -168,17 +171,19 @@ namespace BiliAccount
                                 account.LoginStatus = Account.LoginStatusEnum.NeedTelVerify;
                             }
                             break;
+
                         case -105://验证码错误
                             account.LoginStatus = Account.LoginStatusEnum.NeedCaptcha;
                             break;
+
                         case -629://密码错误
                             account.LoginStatus = Account.LoginStatusEnum.WrongPassword;
                             break;
+
                         default:
                             account.LoginStatus = Account.LoginStatusEnum.None;
                             break;
                     }
-
                 }
             }
 
@@ -200,7 +205,12 @@ namespace BiliAccount
             /// <returns>加密后密码</returns>
             public static string EncryptPwd(string password, string key, string hash)
             {
-                return UrlEncode(ExecuteScript("getpwd(\"" + key.Replace("\n", "").Replace("-----BEGIN PUBLIC KEY-----", "").Replace("-----END PUBLIC KEY-----", "") + "\",\"" + hash + "\",\"" + password + "\")", Properties.Resources.js_pwd));
+                string purposetext = null;
+                char purposecode = '\0';
+                byte[] pem = RSA.PemUnpack(key, ref purposetext, ref purposecode);
+                RSACryptoServiceProvider rsa = RSA.PemDecodePublicKey(pem);
+                return UrlEncode(Convert.ToBase64String(RSA.Encrypt(rsa, Encoding.UTF8.GetBytes(hash + password))));
+                //return UrlEncode(ExecuteScript("getpwd(\"" + key.Replace("\n", "").Replace("-----BEGIN PUBLIC KEY-----", "").Replace("-----END PUBLIC KEY-----", "") + "\",\"" + hash + "\",\"" + password + "\");", Properties.Resources.js_pwd));
             }
 
             /// <summary>
@@ -212,7 +222,7 @@ namespace BiliAccount
             {
                 string parm = "appkey=" + Appkey;
                 parm += "&sign=" + GetSign(parm);
-                string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/oauth2/getKey",out cookies, parm);
+                string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/oauth2/getKey", out cookies, parm);
                 if (!string.IsNullOrEmpty(str))
                 {
                     GetKey_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<GetKey_DataTemplete>(str);
@@ -362,23 +372,6 @@ namespace BiliAccount
             #endregion Public Methods
 
             #region Private Methods
-
-            /// <summary>
-            /// 运行js
-            /// </summary>
-            /// <param name="sExperssion"></param>
-            /// <param name="sCode"></param>
-            /// <returns></returns>
-            private static string ExecuteScript(string sExperssion, string sCode)
-            {
-                ScriptControl scriptControl = new ScriptControl
-                {
-                    UseSafeSubset = true,
-                    Language = "JScript"
-                };
-                scriptControl.AddCode(sCode);
-                return scriptControl.Eval(sExperssion);
-            }
 
             /// <summary>
             /// 获取文件md5
@@ -642,6 +635,15 @@ namespace BiliAccount
                 return qrCodeImage;
             }
 
+            /// <summary>
+            /// 取消登录
+            /// </summary>
+            public static void CancelLogin()
+            {
+                Monitor.Dispose();
+                Refresher.Dispose();
+            }
+
             #endregion Public Methods
 
             #region Private Methods
@@ -662,8 +664,8 @@ namespace BiliAccount
                     if (obj.status)
                     {
                         //关闭监视器
-                        Monitor.Change(Timeout.Infinite, Timeout.Infinite);
-                        Refresher.Change(Timeout.Infinite, Timeout.Infinite);
+                        Monitor.Dispose();
+                        Refresher.Dispose();
 
                         Account account = new Account();
 

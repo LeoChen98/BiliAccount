@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Net;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -127,6 +126,14 @@ namespace BiliAccount.Linq
         #endregion Public Enums
 
         #region Public Methods
+
+        /// <summary>
+        /// 取消登录
+        /// </summary>
+        public static void CancelLogin()
+        {
+            Core.ByQrCode.CancelLogin();
+        }
 
         /// <summary>
         /// 删除对象
