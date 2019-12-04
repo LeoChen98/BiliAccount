@@ -178,7 +178,7 @@ namespace BiliAccount.Linq
         /// <param name="newQrCode">新二维码</param>
         internal static void RaiseQrCodeRefresh(Bitmap newQrCode)
         {
-            QrCodeRefresh(newQrCode);
+            QrCodeRefresh?.Invoke(newQrCode);
         }
 
         /// <summary>
@@ -188,7 +188,7 @@ namespace BiliAccount.Linq
         /// <param name="account">登录成功时有值，账号信息实例</param>
         internal static void RaiseQrCodeStatus_Changed(QrCodeStatus status, Account account = null)
         {
-            QrCodeStatus_Changed(status, account);
+            QrCodeStatus_Changed?.Invoke(status, account);
         }
 
         #endregion Internal Methods
