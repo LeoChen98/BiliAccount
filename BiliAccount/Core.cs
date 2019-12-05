@@ -66,8 +66,6 @@ namespace BiliAccount
             /// <summary>
             /// 登录
             /// </summary>
-            /// <param name="username">用户名（邮箱/手机号）</param>
-            /// <param name="password">加密后密码</param>
             /// <param name="account">账号实例</param>
             public static void DoLogin(ref Account account)
             {
@@ -218,6 +216,7 @@ namespace BiliAccount
             /// </summary>
             /// <param name="hash">输出hash</param>
             /// <param name="key">输出key</param>
+            /// <param name="cookies">输出cookies</param>
             public static void GetKey(out string hash, out string key, out CookieCollection cookies)
             {
                 string parm = "appkey=" + Appkey;
@@ -376,7 +375,7 @@ namespace BiliAccount
             /// <summary>
             /// 获取文件md5
             /// </summary>
-            /// <param name="fileName">文件路径</param>
+            /// <param name="str">文本</param>
             /// <returns>md5</returns>
             private static string GetMD5(string str)
             {

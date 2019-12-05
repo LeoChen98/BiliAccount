@@ -4,6 +4,9 @@ using System.Security.Cryptography;
 
 namespace BiliAccount
 {
+    /// <summary>
+    /// RSA工具类
+    /// </summary>
     public class RSA
     {
         #region Public Methods
@@ -93,7 +96,7 @@ namespace BiliAccount
         /// <summary>
         /// 解码 PKCS#8 编码的私钥，获取私钥的RSA加解密对象.
         /// </summary>
-        /// <param name="privkey">私钥数据。</param>
+        /// <param name="pkcs8">私钥数据。</param>
         /// <returns>返回私钥的RSA加解密对象. 失败时返回null.</returns>
         public static RSACryptoServiceProvider PemDecodePkcs8PrivateKey(byte[] pkcs8)
         {
@@ -105,7 +108,6 @@ namespace BiliAccount
             MemoryStream mem = new MemoryStream(pkcs8);
             int lenstream = (int)mem.Length;
             BinaryReader binr = new BinaryReader(mem);    //wrap Memory Stream with BinaryReader for easy reading
-            byte bt = 0;
             ushort twobytes = 0;
 
             try
@@ -118,7 +120,7 @@ namespace BiliAccount
                 else
                     return null;
 
-                bt = binr.ReadByte();
+                byte bt = binr.ReadByte();
                 if (bt != 0x02)
                     return null;
 
@@ -235,12 +237,9 @@ namespace BiliAccount
             // --------- Set up stream to decode the asn.1 encoded RSA private key ------
             MemoryStream mem = new MemoryStream(privkey);
             BinaryReader binr = new BinaryReader(mem);  //wrap Memory Stream with BinaryReader for easy reading
-            byte bt = 0;
-            ushort twobytes = 0;
-            int elems = 0;
             try
             {
-                twobytes = binr.ReadUInt16();
+                ushort twobytes = binr.ReadUInt16();
                 if (twobytes == 0x8130) //data read as little endian order (actual data order for Sequence is 30 81)
                     binr.ReadByte();    //advance 1 byte
                 else if (twobytes == 0x8230)
@@ -251,12 +250,12 @@ namespace BiliAccount
                 twobytes = binr.ReadUInt16();
                 if (twobytes != 0x0102) //version number
                     return null;
-                bt = binr.ReadByte();
+                byte bt = binr.ReadByte();
                 if (bt != 0x00)
                     return null;
 
                 //------ all private key components are Integer sequences ----
-                elems = GetIntegerSize(binr);
+                int elems = GetIntegerSize(binr);
                 MODULUS = binr.ReadBytes(elems);
 
                 elems = GetIntegerSize(binr);
@@ -461,22 +460,19 @@ namespace BiliAccount
         /// <returns>返回整数大小.</returns>
         private static int GetIntegerSize(BinaryReader binr)
         {
-            byte bt = 0;
-            byte lowbyte = 0x00;
-            byte highbyte = 0x00;
-            int count = 0;
-            bt = binr.ReadByte();
+            byte bt = binr.ReadByte();
             if (bt != 0x02)    //expect integer
                 return 0;
             bt = binr.ReadByte();
 
+            int count;
             if (bt == 0x81)
                 count = binr.ReadByte();    // data size in next byte
             else
                 if (bt == 0x82)
             {
-                highbyte = binr.ReadByte(); // data size in next 2 bytes
-                lowbyte = binr.ReadByte();
+                byte highbyte = binr.ReadByte();
+                byte lowbyte = binr.ReadByte();
                 byte[] modint = { lowbyte, highbyte, 0x00, 0x00 };
                 count = BitConverter.ToInt32(modint, 0);
             }

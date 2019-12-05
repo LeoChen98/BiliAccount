@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace BiliAccount
 {
+#pragma warning disable CS1591
     using System;
     using System.IO;
     using System.IO.Compression;

@@ -6,6 +6,9 @@ using System.Windows.Media.Imaging;
 
 namespace BiliAccount.Linq
 {
+    /// <summary>
+    /// 账号密码登录模式
+    /// </summary>
     public class ByPassword
     {
         #region Public Methods
@@ -74,6 +77,9 @@ namespace BiliAccount.Linq
         #endregion Public Methods
     }
 
+    /// <summary>
+    /// 二维码登录
+    /// </summary>
     public class ByQRCode
     {
         #region Public Delegates
@@ -115,9 +121,17 @@ namespace BiliAccount.Linq
         public enum QrCodeStatus
         {
             #region Public Fields
-
+            /// <summary>
+            /// 等待扫描
+            /// </summary>
             Wating,
+            /// <summary>
+            /// 等待确认
+            /// </summary>
             Scaned,
+            /// <summary>
+            /// 登录成功
+            /// </summary>
             Success
 
             #endregion Public Fields

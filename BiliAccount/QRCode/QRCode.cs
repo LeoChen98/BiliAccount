@@ -3,6 +3,7 @@ using System.Drawing.Drawing2D;
 
 namespace BiliAccount
 {
+#pragma warning disable CS1591
     using System;
 
     public class QRCode : AbstractQRCode, IDisposable

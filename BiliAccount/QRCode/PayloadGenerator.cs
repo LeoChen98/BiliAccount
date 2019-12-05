@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 
 namespace BiliAccount
 {
+#pragma warning disable CS1591
     public static class PayloadGenerator
     {
         #region Public Methods
@@ -154,7 +155,6 @@ namespace BiliAccount
             /// <param name="mandateId">Manadate id (Mandatsreferenz)</param>
             /// <param name="dateOfSignature">Signature date (Erteilungsdatum des Mandats)</param>
             /// <param name="reason">Reason (Verwendungszweck)</param>
-            /// <param name="postingKey">Transfer Key (Textschlüssel, z.B. Spendenzahlung = 69)</param>
             /// <param name="sepaReference">SEPA reference (SEPA-Referenz)</param>
             /// <param name="currency">Currency (Währung)</param>
             /// <param name="executionDate">Execution date (Ausführungsdatum)</param>
