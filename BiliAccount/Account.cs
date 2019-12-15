@@ -86,9 +86,9 @@ namespace BiliAccount
         /// </summary>
         public string UserName;
 
-        #endregion Public Fields
+#endregion Public Fields
 
-        #region Public Enums
+#region Public Enums
 
         /// <summary>
         /// 登录状态枚举
@@ -126,6 +126,6 @@ namespace BiliAccount
             ByPassword
         }
 
-        #endregion Public Enums
+#endregion Public Enums
     }
 }

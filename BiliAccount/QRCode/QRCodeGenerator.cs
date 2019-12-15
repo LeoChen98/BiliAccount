@@ -1,3 +1,4 @@
+#if !NETSTANDARD2_0
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ namespace BiliAccount
 #pragma warning disable CS1591
     public class QRCodeGenerator : IDisposable
     {
-        #region Private Fields
+#region Private Fields
 
         private static readonly char[] alphanumEncTable = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z', ' ', '$', '%', '*', '+', '-', '.', '/', ':' };
         private static readonly char[] numTable = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
@@ -23,9 +24,9 @@ namespace BiliAccount
         private List<Antilog> galoisField;
         private int[] remainderBits = { 0, 7, 7, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0 };
 
-        #endregion Private Fields
+#endregion Private Fields
 
-        #region Public Constructors
+#region Public Constructors
 
         public QRCodeGenerator()
         {
@@ -36,9 +37,9 @@ namespace BiliAccount
             this.CreateAlignmentPatternTable();
         }
 
-        #endregion Public Constructors
+#endregion Public Constructors
 
-        #region Public Enums
+#region Public Enums
 
         /// <summary>
         /// Error correction level. These define the tolerance levels for how much of the code can be
@@ -75,9 +76,9 @@ namespace BiliAccount
             Utf8 = 26
         }
 
-        #endregion Public Enums
+#endregion Public Enums
 
-        #region Private Enums
+#region Private Enums
 
         private enum EncodingMode
         {
@@ -88,9 +89,9 @@ namespace BiliAccount
             ECI = 7
         }
 
-        #endregion Private Enums
+#endregion Private Enums
 
-        #region Public Methods
+#region Public Methods
 
         public QRCodeData CreateQrCode(PayloadGenerator.Payload payload)
         {
@@ -157,9 +158,9 @@ namespace BiliAccount
             this.remainderBits = null;
         }
 
-        #endregion Public Methods
+#endregion Public Methods
 
-        #region Private Methods
+#region Private Methods
 
         private static string DecToBin(int decNum)
         {
@@ -865,23 +866,23 @@ namespace BiliAccount
             return resultPolynom;
         }
 
-        #endregion Private Methods
+#endregion Private Methods
 
-        #region Private Structs
+#region Private Structs
 
         private struct AlignmentPattern
         {
-            #region Public Fields
+#region Public Fields
 
             public List<Point> PatternPositions;
             public int Version;
 
-            #endregion Public Fields
+#endregion Public Fields
         }
 
         private struct Antilog
         {
-            #region Public Constructors
+#region Public Constructors
 
             public Antilog(int exponentAlpha, int integerValue)
             {
@@ -889,19 +890,19 @@ namespace BiliAccount
                 this.IntegerValue = integerValue;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Properties
+#region Public Properties
 
             public int ExponentAlpha { get; }
             public int IntegerValue { get; }
 
-            #endregion Public Properties
+#endregion Public Properties
         }
 
         private struct CodewordBlock
         {
-            #region Public Constructors
+#region Public Constructors
 
             public CodewordBlock(int groupNumber, int blockNumber, string bitString, List<string> codeWords,
                 List<string> eccWords, List<int> codeWordsInt, List<int> eccWordsInt)
@@ -915,9 +916,9 @@ namespace BiliAccount
                 this.ECCWordsInt = eccWordsInt;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Properties
+#region Public Properties
 
             public string BitString { get; }
             public int BlockNumber { get; }
@@ -927,12 +928,12 @@ namespace BiliAccount
             public List<int> ECCWordsInt { get; }
             public int GroupNumber { get; }
 
-            #endregion Public Properties
+#endregion Public Properties
         }
 
         private struct ECCInfo
         {
-            #region Public Constructors
+#region Public Constructors
 
             public ECCInfo(int version, ECCLevel errorCorrectionLevel, int totalDataCodewords, int eccPerBlock, int blocksInGroup1,
                 int codewordsInGroup1, int blocksInGroup2, int codewordsInGroup2)
@@ -947,9 +948,9 @@ namespace BiliAccount
                 this.CodewordsInGroup2 = codewordsInGroup2;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Properties
+#region Public Properties
 
             public int BlocksInGroup1 { get; }
             public int BlocksInGroup2 { get; }
@@ -960,12 +961,12 @@ namespace BiliAccount
             public int TotalDataCodewords { get; }
             public int Version { get; }
 
-            #endregion Public Properties
+#endregion Public Properties
         }
 
         private struct PolynomItem
         {
-            #region Public Constructors
+#region Public Constructors
 
             public PolynomItem(int coefficient, int exponent)
             {
@@ -973,19 +974,19 @@ namespace BiliAccount
                 this.Exponent = exponent;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Properties
+#region Public Properties
 
             public int Coefficient { get; }
             public int Exponent { get; }
 
-            #endregion Public Properties
+#endregion Public Properties
         }
 
         private struct VersionInfo
         {
-            #region Public Constructors
+#region Public Constructors
 
             public VersionInfo(int version, List<VersionInfoDetails> versionInfoDetails)
             {
@@ -993,19 +994,19 @@ namespace BiliAccount
                 this.Details = versionInfoDetails;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Properties
+#region Public Properties
 
             public List<VersionInfoDetails> Details { get; }
             public int Version { get; }
 
-            #endregion Public Properties
+#endregion Public Properties
         }
 
         private struct VersionInfoDetails
         {
-            #region Public Constructors
+#region Public Constructors
 
             public VersionInfoDetails(ECCLevel errorCorrectionLevel, Dictionary<EncodingMode, int> capacityDict)
             {
@@ -1013,23 +1014,23 @@ namespace BiliAccount
                 this.CapacityDict = capacityDict;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Properties
+#region Public Properties
 
             public Dictionary<EncodingMode, int> CapacityDict { get; }
             public ECCLevel ErrorCorrectionLevel { get; }
 
-            #endregion Public Properties
+#endregion Public Properties
         }
 
-        #endregion Private Structs
+#endregion Private Structs
 
-        #region Private Classes
+#region Private Classes
 
         private static class ModulePlacer
         {
-            #region Public Methods
+#region Public Methods
 
             public static void AddQuietZone(ref QRCodeData qrCode)
             {
@@ -1304,9 +1305,9 @@ namespace BiliAccount
                 }
             }
 
-            #endregion Public Methods
+#endregion Public Methods
 
-            #region Private Methods
+#region Private Methods
 
             private static bool Intersects(Rectangle r1, Rectangle r2)
             {
@@ -1335,13 +1336,13 @@ namespace BiliAccount
                 return newStr;
             }
 
-            #endregion Private Methods
+#endregion Private Methods
 
-            #region Private Classes
+#region Private Classes
 
             private static class MaskPattern
             {
-                #region Public Methods
+#region Public Methods
 
                 public static bool Pattern1(int x, int y)
                 {
@@ -1508,15 +1509,15 @@ namespace BiliAccount
                     return score1 + score2 + score3 + score4;
                 }
 
-                #endregion Public Methods
+#endregion Public Methods
             }
 
-            #endregion Private Classes
+#endregion Private Classes
         }
 
         private class Point
         {
-            #region Public Constructors
+#region Public Constructors
 
             public Point(int x, int y)
             {
@@ -1524,34 +1525,34 @@ namespace BiliAccount
                 this.Y = y;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Properties
+#region Public Properties
 
             public int X { get; }
             public int Y { get; }
 
-            #endregion Public Properties
+#endregion Public Properties
         }
 
         private class Polynom
         {
-            #region Public Constructors
+#region Public Constructors
 
             public Polynom()
             {
                 this.PolyItems = new List<PolynomItem>();
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Properties
+#region Public Properties
 
             public List<PolynomItem> PolyItems { get; set; }
 
-            #endregion Public Properties
+#endregion Public Properties
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
@@ -1565,12 +1566,12 @@ namespace BiliAccount
                 return sb.ToString().TrimEnd(new[] { ' ', '+' });
             }
 
-            #endregion Public Methods
+#endregion Public Methods
         }
 
         private class Rectangle
         {
-            #region Public Constructors
+#region Public Constructors
 
             public Rectangle(int x, int y, int w, int h)
             {
@@ -1580,18 +1581,19 @@ namespace BiliAccount
                 this.Height = h;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Properties
+#region Public Properties
 
             public int Height { get; }
             public int Width { get; }
             public int X { get; }
             public int Y { get; }
 
-            #endregion Public Properties
+#endregion Public Properties
         }
 
-        #endregion Private Classes
+#endregion Private Classes
     }
 }
+#endif

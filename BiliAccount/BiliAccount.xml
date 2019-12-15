@@ -1,0 +1,1050 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BiliAccount</name>
+    </assembly>
+    <members>
+        <member name="T:BiliAccount.Account">
+            <summary>
+            账号信息模板
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.AccessToken">
+            <summary>
+            Access_Token（使用二维码登录时此项为空）
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.CaptchaPic">
+            <summary>
+            验证码图片（仅当需要验证码验证时有值）
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.Cookies">
+            <summary>
+            Cookies集合实例
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.CsrfToken">
+            <summary>
+            csrf_token
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.EncryptedPassword">
+            <summary>
+            加密过的密码（使用二维码登录时此项为空）
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.Expires_AccessToken">
+            <summary>
+            Access_Token有效期（使用二维码登录时此项为空）
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.Expires_Cookies">
+            <summary>
+            Cookies有效期
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.LoginStatus">
+            <summary>
+            指示是否登录成功
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.Password">
+            <summary>
+            密码（使用二维码登录时此项为空）
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.RefreshToken">
+            <summary>
+            Refresh_Token（使用二维码登录时此项为空）
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.strCookies">
+            <summary>
+            Cookies字符串
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.Tel">
+            <summary>
+            手机号（仅当需要手机验证的时候有值）
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.Uid">
+            <summary>
+            用户数字id
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.Url">
+            <summary>
+            手机验证链接（仅当需要手机验证的时候有值）
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.UserName">
+            <summary>
+            用户名（使用二维码登录时此项为空）
+            </summary>
+        </member>
+        <member name="T:BiliAccount.Account.LoginStatusEnum">
+            <summary>
+            登录状态枚举
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.LoginStatusEnum.NeedTelVerify">
+            <summary>
+            手机验证(验证成功后重新登录）
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.LoginStatusEnum.NeedCaptcha">
+            <summary>
+            图片验证码
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.LoginStatusEnum.WrongPassword">
+            <summary>
+            密码错误
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.LoginStatusEnum.None">
+            <summary>
+            未登录
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.LoginStatusEnum.ByQrCode">
+            <summary>
+            二维码登录
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Account.LoginStatusEnum.ByPassword">
+            <summary>
+            密码登录
+            </summary>
+        </member>
+        <member name="T:BiliAccount.Core.ByPassword">
+            <summary>
+            通过密码登录
+            </summary>
+        </member>
+        <member name="P:BiliAccount.Core.ByPassword.Appkey">
+            <summary>
+            Appkey
+            </summary>
+        </member>
+        <member name="P:BiliAccount.Core.ByPassword.Appsecret">
+            <summary>
+            AppSecret
+            </summary>
+        </member>
+        <member name="P:BiliAccount.Core.ByPassword.Build">
+            <summary>
+            Build
+            </summary>
+        </member>
+        <member name="P:BiliAccount.Core.ByPassword.User_Agent">
+            <summary>
+            UA
+            </summary>
+        </member>
+        <member name="P:BiliAccount.Core.ByPassword.TimeStamp">
+            <summary>
+            Unix时间戳
+            </summary>
+        </member>
+        <member name="M:BiliAccount.Core.ByPassword.DoLogin(BiliAccount.Account@)">
+            <summary>
+            登录
+            </summary>
+            <param name="account">账号实例</param>
+        </member>
+        <member name="M:BiliAccount.Core.ByPassword.DoLoginWithCatpcha(System.String,BiliAccount.Account@)">
+            <summary>
+            登录（带验证码）
+            </summary>
+            <param name="captcha">验证码字符</param>
+            <param name="account">账号实例</param>
+        </member>
+        <member name="M:BiliAccount.Core.ByPassword.GetCaptcha(BiliAccount.Account@)">
+            <summary>
+            获取验证码图片
+            </summary>
+            <param name="account">账号实例</param>
+        </member>
+        <member name="M:BiliAccount.Core.ByPassword.EncryptPwd(System.String,System.String,System.String)">
+            <summary>
+            密码加密
+            </summary>
+            <param name="password">未加密密码</param>
+            <param name="key">key</param>
+            <param name="hash">hash</param>
+            <returns>加密后密码</returns>
+        </member>
+        <member name="M:BiliAccount.Core.ByPassword.GetKey(System.String@,System.String@,System.Net.CookieCollection@)">
+            <summary>
+            获取key
+            </summary>
+            <param name="hash">输出hash</param>
+            <param name="key">输出key</param>
+            <param name="cookies">输出cookies</param>
+        </member>
+        <member name="M:BiliAccount.Core.ByPassword.Init">
+            <summary>
+            初始化登录模块
+            </summary>
+        </member>
+        <member name="M:BiliAccount.Core.ByPassword.IsTokenAvailable(System.String)">
+            <summary>
+            检查token可用性
+            </summary>
+            <param name="access_token">token</param>
+            <returns>是否可用</returns>
+        </member>
+        <member name="M:BiliAccount.Core.ByPassword.RefreshToken(System.String,System.String)">
+            <summary>
+            token续期
+            </summary>
+            <param name="access_token"></param>
+            <param name="refresh_token"></param>
+            <returns>到期时间</returns>
+        </member>
+        <member name="M:BiliAccount.Core.ByPassword.SSO(System.String)">
+            <summary>
+            SSO
+            </summary>
+            <param name="access_token"></param>
+            <returns>[0]=>(string)strCookies,[1]=>(string)csrf_token,[2]=>(DateTime)Expiress,[3]=>(CookieCollection)Cookies</returns>
+        </member>
+        <member name="M:BiliAccount.Core.ByPassword.GetMD5(System.String)">
+            <summary>
+            获取文件md5
+            </summary>
+            <param name="str">文本</param>
+            <returns>md5</returns>
+        </member>
+        <member name="M:BiliAccount.Core.ByPassword.GetSign(System.String)">
+            <summary>
+            获取参数签名
+            </summary>
+            <param name="strReq">请求参数</param>
+            <returns>签名</returns>
+        </member>
+        <member name="T:BiliAccount.Core.ByPassword.DoLogin_DataTemplete">
+            <summary>
+            登录数据模板
+            </summary>
+        </member>
+        <member name="T:BiliAccount.Core.ByPassword.GetKey_DataTemplete">
+            <summary>
+            GetKey返回值的数据模板
+            </summary>
+        </member>
+        <member name="T:BiliAccount.Core.ByPassword.Init_DataTemplete">
+            <summary>
+            初始化数据模板
+            </summary>
+        </member>
+        <member name="T:BiliAccount.Core.ByPassword.IsTokenAvailable_DataTemplete">
+            <summary>
+            检查token可用性数据模板
+            </summary>
+        </member>
+        <member name="T:BiliAccount.Core.ByPassword.RefreshToken_DataTemplete">
+            <summary>
+            token续期数据模板
+            </summary>
+        </member>
+        <member name="T:BiliAccount.Core.ByQrCode">
+            <summary>
+            通过二维码登录
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Core.ByQrCode.Monitor">
+            <summary>
+            状态监视器
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Core.ByQrCode.Refresher">
+            <summary>
+            刷新监视器
+            </summary>
+        </member>
+        <member name="M:BiliAccount.Core.ByQrCode.GetQrcode">
+            <summary>
+            获取登陆二维码并显示
+            </summary>
+        </member>
+        <member name="M:BiliAccount.Core.ByQrCode.CancelLogin">
+            <summary>
+            取消登录
+            </summary>
+        </member>
+        <member name="M:BiliAccount.Core.ByQrCode.MonitorCallback(System.Object)">
+            <summary>
+            状态监视器回调
+            </summary>
+            <param name="o">oauthKey</param>
+        </member>
+        <member name="M:BiliAccount.Core.ByQrCode.RefresherCallback(System.Object)">
+            <summary>
+            刷新监视器回调
+            </summary>
+            <param name="state"></param>
+        </member>
+        <member name="T:BiliAccount.Core.ByQrCode.GetQrcode_DataTemplete">
+            <summary>
+            获取二维码的数据模板
+            </summary>
+        </member>
+        <member name="T:BiliAccount.Core.ByQrCode.MonitorCallBack_Templete">
+            <summary>
+            状态监视器回调数据模板
+            </summary>
+        </member>
+        <member name="M:BiliAccount.String40Methods.IsNullOrWhiteSpace(System.String)">
+            <summary>
+            The IsNullOrWhiteSpace method from Framework4.0
+            </summary>
+            <returns>
+              <c>true</c> if the <paramref name="value"/> is null or white space; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:BiliAccount.Http">
+            <summary>
+            HTTP封装类
+            </summary>
+        </member>
+        <member name="M:BiliAccount.Http.GetBody(System.String,System.Net.CookieCollection,System.String,System.String,System.Net.WebHeaderCollection)">
+            <summary>
+            Get方法
+            </summary>
+            <param name="url">URL</param>
+            <param name="cookie">cookies集合实例</param>
+            <param name="referer">Referer</param>
+            <param name="user_agent">User-agent</param>
+            <param name="specialheaders">除前面之外的Headers</param>
+            <returns>请求返回体</returns>
+        </member>
+        <member name="M:BiliAccount.Http.GetBodyOutCookies(System.String,System.Net.CookieCollection@,System.Net.CookieCollection,System.String,System.String,System.Net.WebHeaderCollection)">
+            <summary>
+            会返回cookies的Get方法
+            </summary>
+            <param name="url">URL</param>
+            <param name="out_cookies">返回的cookies集合实例</param>
+            <param name="cookie">cookies集合实例</param>
+            <param name="referer">Referer</param>
+            <param name="user_agent">User-agent</param>
+            <param name="specialheaders">除前面之外的Headers</param>
+            <returns>请求返回体</returns>
+        </member>
+        <member name="M:BiliAccount.Http.GetPicOutCookies(System.String,System.Net.CookieCollection@,System.Net.CookieCollection,System.String,System.String,System.Net.WebHeaderCollection)">
+            <summary>
+            会返回cookies的Get方法
+            </summary>
+            <param name="url">URL</param>
+            <param name="out_cookies">返回的cookies集合实例</param>
+            <param name="cookie">cookies集合实例</param>
+            <param name="referer">Referer</param>
+            <param name="user_agent">User-agent</param>
+            <param name="specialheaders">除前面之外的Headers</param>
+            <returns>请求返回体</returns>
+        </member>
+        <member name="M:BiliAccount.Http.PostBody(System.String,System.String,System.Net.CookieCollection,System.String,System.String,System.String,System.Net.WebHeaderCollection)">
+            <summary>
+            POST方法
+            </summary>
+            <param name="url">URL</param>
+            <param name="data">要POST发送的文本</param>
+            <param name="cookie">cookies集合实例</param>
+            <param name="contenttype">数据类型</param>
+            <param name="referer">Referer</param>
+            <param name="user_agent">User-agent</param>
+            <param name="specialheaders">除前面之外的Headers</param>
+            <returns>请求返回体</returns>
+        </member>
+        <member name="M:BiliAccount.Http.PostBodyOutCookies(System.String,System.Net.CookieCollection@,System.String,System.Net.CookieCollection,System.String,System.String,System.String,System.Net.WebHeaderCollection)">
+            <summary>
+            返回cookies的POST方法
+            </summary>
+            <param name="url">URL</param>
+            <param name="out_cookies">返回的cookies集合实例</param>
+            <param name="data">要POST发送的文本</param>
+            <param name="cookie">cookies集合实例</param>
+            <param name="contenttype">数据类型</param>
+            <param name="referer">Referer</param>
+            <param name="user_agent">User-agent</param>
+            <param name="specialheaders">除前面之外的Headers</param>
+            <returns>请求返回体</returns>
+        </member>
+        <member name="M:BiliAccount.Http.Options(System.String,System.Net.CookieCollection,System.String,System.String,System.Net.WebHeaderCollection)">
+            <summary>
+            OPTIONS方法
+            </summary>
+            <param name="url">URL</param>
+            <param name="cookie">cookies集合实例</param>
+            <param name="referer">Referer</param>
+            <param name="user_agent">User-agent</param>
+            <param name="specialheaders">除前面之外的Headers</param>
+            <returns>请求返回体</returns>
+        </member>
+        <member name="T:BiliAccount.Linq.ByPassword">
+            <summary>
+            账号密码登录模式
+            </summary>
+        </member>
+        <member name="M:BiliAccount.Linq.ByPassword.IsTokenAvailable(System.String)">
+            <summary>
+            检查token可用性
+            </summary>
+            <param name="access_token">token</param>
+            <returns>是否可用</returns>
+        </member>
+        <member name="M:BiliAccount.Linq.ByPassword.LoginByPassword(System.String,System.String)">
+            <summary>
+            用账号密码登录
+            </summary>
+            <param name="username">用户名（邮箱/手机）</param>
+            <param name="password">密码（明文）</param>
+            <returns>账号信息实例</returns>
+        </member>
+        <member name="M:BiliAccount.Linq.ByPassword.LoginByPasswordWithCaptcha(System.String,BiliAccount.Account@)">
+            <summary>
+            带验证码的账号密码登录
+            </summary>
+            <param name="Captcha">验证码</param>
+            <param name="account">账号信息实例</param>
+        </member>
+        <member name="M:BiliAccount.Linq.ByPassword.RefreshToken(System.String,System.String)">
+            <summary>
+            token续期
+            </summary>
+            <param name="access_token"></param>
+            <param name="refresh_token"></param>
+            <returns>到期时间</returns>
+        </member>
+        <member name="M:BiliAccount.Linq.ByPassword.SSO(System.String)">
+            <summary>
+            SSO
+            </summary>
+            <param name="access_token"></param>
+            <returns>[0]=>(string)strCookies,[1]=>(string)csrf_token,[2]=>(DateTime)Expiress,[3]=>(CookieCollection)Cookies</returns>
+        </member>
+        <member name="T:BiliAccount.Linq.ByQRCode">
+            <summary>
+            二维码登录
+            </summary>
+        </member>
+        <member name="T:BiliAccount.Linq.ByQRCode.QrCodeRefresh_Handle">
+            <summary>
+            二维码刷新处理程序
+            </summary>
+            <param name="newQrCode">新二维码</param>
+        </member>
+        <member name="T:BiliAccount.Linq.ByQRCode.QrCodeStatus_Changed_Handle">
+            <summary>
+            二维码登录状态变更处理程序
+            </summary>
+            <param name="status">二维码状态</param>
+            <param name="account">登录成功时有值，账号信息实例</param>
+        </member>
+        <member name="E:BiliAccount.Linq.ByQRCode.QrCodeRefresh">
+            <summary>
+            二维码刷新事件
+            </summary>
+        </member>
+        <member name="E:BiliAccount.Linq.ByQRCode.QrCodeStatus_Changed">
+            <summary>
+            二维码登录状态变更事件
+            </summary>
+        </member>
+        <member name="T:BiliAccount.Linq.ByQRCode.QrCodeStatus">
+            <summary>
+            二维码登录状态枚举
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Linq.ByQRCode.QrCodeStatus.Wating">
+            <summary>
+            等待扫描
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Linq.ByQRCode.QrCodeStatus.Scaned">
+            <summary>
+            等待确认
+            </summary>
+        </member>
+        <member name="F:BiliAccount.Linq.ByQRCode.QrCodeStatus.Success">
+            <summary>
+            登录成功
+            </summary>
+        </member>
+        <member name="M:BiliAccount.Linq.ByQRCode.CancelLogin">
+            <summary>
+            取消登录
+            </summary>
+        </member>
+        <member name="M:BiliAccount.Linq.ByQRCode.DeleteObject(System.IntPtr)">
+            <summary>
+            删除对象
+            </summary>
+            <param name="hObject">对象指针</param>
+            <returns></returns>
+        </member>
+        <member name="M:BiliAccount.Linq.ByQRCode.GetQrCodeImageSource(System.Drawing.Bitmap)">
+            <summary>
+            获取WPF显示用的ImageSource
+            </summary>
+            <param name="qrCodeImage">二维码图片Bitmap</param>
+            <returns>ImageSource</returns>
+        </member>
+        <member name="M:BiliAccount.Linq.ByQRCode.LoginByQrCode">
+            <summary>
+            用二维码登录
+            </summary>
+            <returns>二维码图片实例</returns>
+        </member>
+        <member name="M:BiliAccount.Linq.ByQRCode.RaiseQrCodeRefresh(System.Drawing.Bitmap)">
+            <summary>
+            调起二维码刷新
+            </summary>
+            <param name="newQrCode">新二维码</param>
+        </member>
+        <member name="M:BiliAccount.Linq.ByQRCode.RaiseQrCodeStatus_Changed(BiliAccount.Linq.ByQRCode.QrCodeStatus,BiliAccount.Account)">
+            <summary>
+            调起二维码登录状态变更
+            </summary>
+            <param name="status">二维码状态</param>
+            <param name="account">登录成功时有值，账号信息实例</param>
+        </member>
+        <member name="M:BiliAccount.AbstractQRCode.SetQRCodeData(BiliAccount.QRCodeData)">
+            <summary>
+            Set a QRCodeData object that will be used to generate QR code. Used in COM Objects connections
+            </summary>
+            <param name="data">Need a QRCodeData object generated by QRCodeGenerator.CreateQrCode()</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.BezahlCode.#ctor(BiliAccount.PayloadGenerator.BezahlCode.AuthorityType,System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Constructor for contact data
+            </summary>
+            <param name="authority">Type of the bank transfer</param>
+            <param name="name">Name of the receiver (Empfänger)</param>
+            <param name="account">Bank account (Kontonummer)</param>
+            <param name="bnc">Bank institute (Bankleitzahl)</param>
+            <param name="iban">IBAN</param>
+            <param name="bic">BIC</param>
+            <param name="reason">Reason (Verwendungszweck)</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.BezahlCode.#ctor(BiliAccount.PayloadGenerator.BezahlCode.AuthorityType,System.String,System.String,System.String,System.Decimal,System.String,System.Int32,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.Int32,BiliAccount.PayloadGenerator.BezahlCode.Currency,System.Nullable{System.DateTime})">
+            <summary>
+            Constructor for non-SEPA payments
+            </summary>
+            <param name="authority">Type of the bank transfer</param>
+            <param name="name">Name of the receiver (Empfänger)</param>
+            <param name="account">Bank account (Kontonummer)</param>
+            <param name="bnc">Bank institute (Bankleitzahl)</param>
+            <param name="amount">Amount (Betrag)</param>
+            <param name="periodicTimeunit">
+            Unit of intervall for payment ('M' = monthly, 'W' = weekly)
+            </param>
+            <param name="periodicTimeunitRotation">
+            Intervall for payment. This value is combined with 'periodicTimeunit'
+            </param>
+            <param name="periodicFirstExecutionDate">Date of first periodic execution</param>
+            <param name="periodicLastExecutionDate">Date of last periodic execution</param>
+            <param name="reason">Reason (Verwendungszweck)</param>
+            <param name="postingKey">Transfer Key (Textschlüssel, z.B. Spendenzahlung = 69)</param>
+            <param name="currency">Currency (Währung)</param>
+            <param name="executionDate">Execution date (Ausführungsdatum)</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.BezahlCode.#ctor(BiliAccount.PayloadGenerator.BezahlCode.AuthorityType,System.String,System.String,System.String,System.Decimal,System.String,System.Int32,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.String,System.Nullable{System.DateTime},System.String,System.String,BiliAccount.PayloadGenerator.BezahlCode.Currency,System.Nullable{System.DateTime})">
+            <summary>
+            Constructor for SEPA payments
+            </summary>
+            <param name="authority">Type of the bank transfer</param>
+            <param name="name">Name of the receiver (Empfänger)</param>
+            <param name="iban">IBAN</param>
+            <param name="bic">BIC</param>
+            <param name="amount">Amount (Betrag)</param>
+            <param name="periodicTimeunit">
+            Unit of intervall for payment ('M' = monthly, 'W' = weekly)
+            </param>
+            <param name="periodicTimeunitRotation">
+            Intervall for payment. This value is combined with 'periodicTimeunit'
+            </param>
+            <param name="periodicFirstExecutionDate">Date of first periodic execution</param>
+            <param name="periodicLastExecutionDate">Date of last periodic execution</param>
+            <param name="creditorId">Creditor id (Gläubiger ID)</param>
+            <param name="mandateId">Manadate id (Mandatsreferenz)</param>
+            <param name="dateOfSignature">Signature date (Erteilungsdatum des Mandats)</param>
+            <param name="reason">Reason (Verwendungszweck)</param>
+            <param name="sepaReference">SEPA reference (SEPA-Referenz)</param>
+            <param name="currency">Currency (Währung)</param>
+            <param name="executionDate">Execution date (Ausführungsdatum)</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.BezahlCode.#ctor(BiliAccount.PayloadGenerator.BezahlCode.AuthorityType,System.String,System.String,System.String,System.String,System.String,System.Decimal,System.String,System.Int32,System.Nullable{System.DateTime},System.Nullable{System.DateTime},System.String,System.String,System.Nullable{System.DateTime},System.String,System.Int32,System.String,BiliAccount.PayloadGenerator.BezahlCode.Currency,System.Nullable{System.DateTime},System.Int32)">
+            <summary>
+            Generic constructor. Please use specific (non-SEPA or SEPA) constructor
+            </summary>
+            <param name="authority">Type of the bank transfer</param>
+            <param name="name">Name of the receiver (Empfänger)</param>
+            <param name="account">Bank account (Kontonummer)</param>
+            <param name="bnc">Bank institute (Bankleitzahl)</param>
+            <param name="iban">IBAN</param>
+            <param name="bic">BIC</param>
+            <param name="amount">Amount (Betrag)</param>
+            <param name="periodicTimeunit">
+            Unit of intervall for payment ('M' = monthly, 'W' = weekly)
+            </param>
+            <param name="periodicTimeunitRotation">
+            Intervall for payment. This value is combined with 'periodicTimeunit'
+            </param>
+            <param name="periodicFirstExecutionDate">Date of first periodic execution</param>
+            <param name="periodicLastExecutionDate">Date of last periodic execution</param>
+            <param name="creditorId">Creditor id (Gläubiger ID)</param>
+            <param name="mandateId">Manadate id (Mandatsreferenz)</param>
+            <param name="dateOfSignature">Signature date (Erteilungsdatum des Mandats)</param>
+            <param name="reason">Reason (Verwendungszweck)</param>
+            <param name="postingKey">Transfer Key (Textschlüssel, z.B. Spendenzahlung = 69)</param>
+            <param name="sepaReference">SEPA reference (SEPA-Referenz)</param>
+            <param name="currency">Currency (Währung)</param>
+            <param name="executionDate">Execution date (Ausführungsdatum)</param>
+            <param name="internalMode">Only used for internal state handdling</param>
+        </member>
+        <member name="T:BiliAccount.PayloadGenerator.BezahlCode.AuthorityType">
+            <summary>
+            Operation modes of the BezahlCode
+            </summary>
+        </member>
+        <member name="F:BiliAccount.PayloadGenerator.BezahlCode.AuthorityType.singlepayment">
+            <summary>
+            Single payment (Überweisung)
+            </summary>
+        </member>
+        <member name="F:BiliAccount.PayloadGenerator.BezahlCode.AuthorityType.singlepaymentsepa">
+            <summary>
+            Single SEPA payment (SEPA-Überweisung)
+            </summary>
+        </member>
+        <member name="F:BiliAccount.PayloadGenerator.BezahlCode.AuthorityType.singledirectdebit">
+            <summary>
+            Single debit (Lastschrift)
+            </summary>
+        </member>
+        <member name="F:BiliAccount.PayloadGenerator.BezahlCode.AuthorityType.singledirectdebitsepa">
+            <summary>
+            Single SEPA debit (SEPA-Lastschrift)
+            </summary>
+        </member>
+        <member name="F:BiliAccount.PayloadGenerator.BezahlCode.AuthorityType.periodicsinglepayment">
+            <summary>
+            Periodic payment (Dauerauftrag)
+            </summary>
+        </member>
+        <member name="F:BiliAccount.PayloadGenerator.BezahlCode.AuthorityType.periodicsinglepaymentsepa">
+            <summary>
+            Periodic SEPA payment (SEPA-Dauerauftrag)
+            </summary>
+        </member>
+        <member name="F:BiliAccount.PayloadGenerator.BezahlCode.AuthorityType.contact">
+            <summary>
+            Contact data
+            </summary>
+        </member>
+        <member name="F:BiliAccount.PayloadGenerator.BezahlCode.AuthorityType.contact_v2">
+            <summary>
+            Contact data V2
+            </summary>
+        </member>
+        <member name="T:BiliAccount.PayloadGenerator.BezahlCode.Currency">
+            <summary>
+            ISO 4217 currency codes
+            </summary>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.BitcoinAddress.#ctor(System.String,System.Nullable{System.Double},System.String,System.String)">
+            <summary>
+            Generates a Bitcoin payment payload. QR Codes with this payload can open a Bitcoin
+            payment app.
+            </summary>
+            <param name="address">Bitcoin address of the payment receiver</param>
+            <param name="amount">Amount of Bitcoins to transfer</param>
+            <param name="label">Reference label</param>
+            <param name="message">Referece text aka message</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.Bookmark.#ctor(System.String,System.String)">
+            <summary>
+            Generates a bookmark payload. Scanned by an QR Code reader, this one creates a
+            browser bookmark.
+            </summary>
+            <param name="url">Url of the bookmark</param>
+            <param name="title">Title of the bookmark</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.CalendarEvent.#ctor(System.String,System.String,System.String,System.DateTime,System.DateTime,System.Boolean,BiliAccount.PayloadGenerator.CalendarEvent.EventEncoding)">
+            <summary>
+            Generates a calender entry/event payload.
+            </summary>
+            <param name="subject">Subject/title of the calender event</param>
+            <param name="description">Description of the event</param>
+            <param name="location">Location (lat:long or address) of the event</param>
+            <param name="start">Start time of the event</param>
+            <param name="end">End time of the event</param>
+            <param name="allDayEvent">Is it a full day event?</param>
+            <param name="encoding">Type of encoding (universal or iCal)</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.ContactData.#ctor(BiliAccount.PayloadGenerator.ContactData.ContactOutputType,System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.DateTime},System.String,System.String,System.String,System.String,System.String,System.String,System.String,System.String,BiliAccount.PayloadGenerator.ContactData.AddressOrder)">
+            <summary>
+            Generates a vCard or meCard contact dataset
+            </summary>
+            <param name="outputType">Payload output type</param>
+            <param name="firstname">The firstname</param>
+            <param name="lastname">The lastname</param>
+            <param name="nickname">The displayname</param>
+            <param name="phone">Normal phone number</param>
+            <param name="mobilePhone">Mobile phone</param>
+            <param name="workPhone">Office phone number</param>
+            <param name="email">E-Mail address</param>
+            <param name="birthday">Birthday</param>
+            <param name="website">Website / Homepage</param>
+            <param name="street">Street</param>
+            <param name="houseNumber">Housenumber</param>
+            <param name="city">City</param>
+            <param name="stateRegion">State or Region</param>
+            <param name="zipCode">Zip code</param>
+            <param name="country">Country</param>
+            <param name="addressOrder">The address order format to use</param>
+            <param name="note">Memo text / notes</param>
+        </member>
+        <member name="T:BiliAccount.PayloadGenerator.ContactData.AddressOrder">
+            <summary>
+            define the address format
+            Default: European format, ([Street] [House Number] and [Postal Code] [City]
+            Reversed: North American and others format ([House Number] [Street] and [City]
+                      [Postal Code])
+            </summary>
+        </member>
+        <member name="T:BiliAccount.PayloadGenerator.ContactData.ContactOutputType">
+            <summary>
+            Possible output types. Either vCard 2.1, vCard 3.0, vCard 4.0 or MeCard.
+            </summary>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.Geolocation.#ctor(System.String,System.String,BiliAccount.PayloadGenerator.Geolocation.GeolocationEncoding)">
+            <summary>
+            Generates a geo location payload. Supports raw location (GEO encoding) or Google Maps
+            link (GoogleMaps encoding)
+            </summary>
+            <param name="latitude">Latitude with . as splitter</param>
+            <param name="longitude">Longitude with . as splitter</param>
+            <param name="encoding">Encoding type - GEO or GoogleMaps</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.Girocode.#ctor(System.String,System.String,System.String,System.Decimal,System.String,BiliAccount.PayloadGenerator.Girocode.TypeOfRemittance,System.String,System.String,BiliAccount.PayloadGenerator.Girocode.GirocodeVersion,BiliAccount.PayloadGenerator.Girocode.GirocodeEncoding)">
+            <summary>
+            Generates the payload for a Girocode (QR-Code with credit transfer information).
+            Attention: When using Girocode payload, QR code must be generated with ECC level M!
+            </summary>
+            <param name="iban">Account number of the Beneficiary. Only IBAN is allowed.</param>
+            <param name="bic">BIC of the Beneficiary Bank.</param>
+            <param name="name">Name of the Beneficiary.</param>
+            <param name="amount">
+            Amount of the Credit Transfer in Euro. (Amount must be more than 0.01 and less than 999999999.99)
+            </param>
+            <param name="remittanceInformation">
+            Remittance Information (Purpose-/reference text). (optional)
+            </param>
+            <param name="typeOfRemittance">
+            Type of remittance information. Either structured (e.g. ISO 11649 RF Creditor
+            Reference) and max. 35 chars or unstructured and max. 140 chars.
+            </param>
+            <param name="purposeOfCreditTransfer">Purpose of the Credit Transfer (optional)</param>
+            <param name="messageToGirocodeUser">Beneficiary to originator information. (optional)</param>
+            <param name="version">Girocode version. Either 001 or 002. Default: 001.</param>
+            <param name="encoding">Encoding of the Girocode payload. Default: ISO-8859-1</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.Mail.#ctor(System.String,BiliAccount.PayloadGenerator.Mail.MailEncoding)">
+            <summary>
+            Creates an empty email payload
+            </summary>
+            <param name="mailReceiver">Receiver's email address</param>
+            <param name="encoding">
+            Payload encoding type. Choose dependent on your QR Code scanner app.
+            </param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.Mail.#ctor(System.String,System.String,BiliAccount.PayloadGenerator.Mail.MailEncoding)">
+            <summary>
+            Creates an email payload with subject
+            </summary>
+            <param name="mailReceiver">Receiver's email address</param>
+            <param name="subject">Subject line of the email</param>
+            <param name="encoding">
+            Payload encoding type. Choose dependent on your QR Code scanner app.
+            </param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.Mail.#ctor(System.String,System.String,System.String,BiliAccount.PayloadGenerator.Mail.MailEncoding)">
+            <summary>
+            Creates an email payload with subject and message/text
+            </summary>
+            <param name="mailReceiver">Receiver's email address</param>
+            <param name="subject">Subject line of the email</param>
+            <param name="message">Message content of the email</param>
+            <param name="encoding">
+            Payload encoding type. Choose dependent on your QR Code scanner app.
+            </param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.MMS.#ctor(System.String,BiliAccount.PayloadGenerator.MMS.MMSEncoding)">
+            <summary>
+            Creates a MMS payload without text
+            </summary>
+            <param name="number">Receiver phone number</param>
+            <param name="encoding">Encoding type</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.MMS.#ctor(System.String,System.String,BiliAccount.PayloadGenerator.MMS.MMSEncoding)">
+            <summary>
+            Creates a MMS payload with text (subject)
+            </summary>
+            <param name="number">Receiver phone number</param>
+            <param name="subject">Text of the MMS</param>
+            <param name="encoding">Encoding type</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.MoneroTransaction.#ctor(System.String,System.Nullable{System.Single},System.String,System.String,System.String)">
+            <summary>
+            Creates a monero transaction payload
+            </summary>
+            <param name="address">Receiver's monero address</param>
+            <param name="txAmount">Amount to transfer</param>
+            <param name="txPaymentId">Payment id</param>
+            <param name="recipientName">Receipient's name</param>
+            <param name="txDescription">Reference text / payment description</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.PhoneNumber.#ctor(System.String)">
+            <summary>
+            Generates a phone call payload
+            </summary>
+            <param name="number">Phonenumber of the receiver</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.ShadowSocksConfig.#ctor(System.String,System.Int32,System.String,BiliAccount.PayloadGenerator.ShadowSocksConfig.Method,System.String)">
+            <summary>
+            Generates a ShadowSocks proxy config payload.
+            </summary>
+            <param name="hostname">Hostname of the ShadowSocks proxy</param>
+            <param name="port">Port of the ShadowSocks proxy</param>
+            <param name="password">Password of the SS proxy</param>
+            <param name="method">Encryption type</param>
+            <param name="tag">Optional tag line</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.SkypeCall.#ctor(System.String)">
+            <summary>
+            Generates a Skype call payload
+            </summary>
+            <param name="skypeUsername">Skype username which will be called</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.SMS.#ctor(System.String,BiliAccount.PayloadGenerator.SMS.SMSEncoding)">
+            <summary>
+            Creates a SMS payload without text
+            </summary>
+            <param name="number">Receiver phone number</param>
+            <param name="encoding">Encoding type</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.SMS.#ctor(System.String,System.String,BiliAccount.PayloadGenerator.SMS.SMSEncoding)">
+            <summary>
+            Creates a SMS payload with text (subject)
+            </summary>
+            <param name="number">Receiver phone number</param>
+            <param name="subject">Text of the SMS</param>
+            <param name="encoding">Encoding type</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.SwissQrCode.#ctor(BiliAccount.PayloadGenerator.SwissQrCode.Iban,BiliAccount.PayloadGenerator.SwissQrCode.Currency,BiliAccount.PayloadGenerator.SwissQrCode.Contact,BiliAccount.PayloadGenerator.SwissQrCode.Reference,BiliAccount.PayloadGenerator.SwissQrCode.Contact,System.Nullable{System.Decimal},System.Nullable{System.DateTime},BiliAccount.PayloadGenerator.SwissQrCode.Contact,System.String,System.String)">
+            <summary>
+            Generates the payload for a SwissQrCode. (Don't forget to use ECC-Level M and set the
+            Swiss flag icon to the final QR code.)
+            </summary>
+            <param name="iban">IBAN object</param>
+            <param name="currency">Currency (either EUR or CHF)</param>
+            <param name="creditor">Creditor (payee) information</param>
+            <param name="reference">Reference information</param>
+            <param name="debitor">Debitor (payer) information</param>
+            <param name="amount">Amount</param>
+            <param name="requestedDateOfPayment">Requested date of debitor's payment</param>
+            <param name="ultimateCreditor">
+            Ultimate creditor information (use only in consultation with your bank!)
+            </param>
+            <param name="alternativeProcedure1">
+            Optional command for alternative processing mode - line 1
+            </param>
+            <param name="alternativeProcedure2">
+            Optional command for alternative processing mode - line 2
+            </param>
+        </member>
+        <member name="T:BiliAccount.PayloadGenerator.SwissQrCode.Currency">
+            <summary>
+            ISO 4217 currency codes
+            </summary>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.SwissQrCode.Contact.#ctor(System.String,System.String,System.String,System.String,System.String,System.String)">
+            <summary>
+            Contact type. Can be used for payee, ultimate payee, etc.
+            </summary>
+            <param name="name">Last name or company (optional first name)</param>
+            <param name="zipCode">Zip-/Postcode</param>
+            <param name="city">City name</param>
+            <param name="country">Two-letter country code as defined in ISO 3166-1</param>
+            <param name="street">Streetname without house number</param>
+            <param name="houseNumber">House number</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.SwissQrCode.Iban.#ctor(System.String,BiliAccount.PayloadGenerator.SwissQrCode.Iban.IbanType)">
+            <summary>
+            IBAN object with type information
+            </summary>
+            <param name="iban">IBAN</param>
+            <param name="ibanType">Type of IBAN (normal or QR-IBAN)</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.SwissQrCode.Reference.#ctor(BiliAccount.PayloadGenerator.SwissQrCode.Reference.ReferenceType,System.String,System.Nullable{BiliAccount.PayloadGenerator.SwissQrCode.Reference.ReferenceTextType},System.String)">
+            <summary>
+            Creates a reference object which must be passed to the SwissQrCode instance
+            </summary>
+            <param name="referenceType">Type of the reference (QRR, SCOR or NON)</param>
+            <param name="reference">Reference text</param>
+            <param name="referenceTextType">
+            Type of the reference text (QR-reference or Creditor Reference)
+            </param>
+            <param name="unstructuredMessage">Unstructured message</param>
+        </member>
+        <member name="T:BiliAccount.PayloadGenerator.SwissQrCode.Reference.ReferenceType">
+            <summary>
+            Reference type. When using a QR-IBAN you have to use either "QRR" or "SCOR"
+            </summary>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.Url.#ctor(System.String)">
+            <summary>
+            Generates a link. If not given, http/https protocol will be added.
+            </summary>
+            <param name="url">Link url target</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.WhatsAppMessage.#ctor(System.String,System.String)">
+            <summary>
+            Let's you compose a WhatApp message and send it the receiver number.
+            </summary>
+            <param name="number">Receiver phone number</param>
+            <param name="message">The message</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.WhatsAppMessage.#ctor(System.String)">
+            <summary>
+            Let's you compose a WhatApp message. When scanned the user is asked to choose a
+            contact who will receive the message.
+            </summary>
+            <param name="message">The message</param>
+        </member>
+        <member name="M:BiliAccount.PayloadGenerator.WiFi.#ctor(System.String,System.String,BiliAccount.PayloadGenerator.WiFi.Authentication,System.Boolean)">
+            <summary>
+            Generates a WiFi payload. Scanned by a QR Code scanner app, the device will connect
+            to the WiFi.
+            </summary>
+            <param name="ssid">SSID of the WiFi network</param>
+            <param name="password">Password of the WiFi network</param>
+            <param name="authenticationMode">Authentification mode (WEP, WPA, WPA2)</param>
+            <param name="isHiddenSSID">Set flag, if the WiFi network hides its SSID</param>
+        </member>
+        <member name="M:BiliAccount.QRCode.#ctor">
+            <summary>
+            Constructor without params to be used in COM Objects connections
+            </summary>
+        </member>
+        <member name="T:BiliAccount.QRCodeGenerator.ECCLevel">
+            <summary>
+            Error correction level. These define the tolerance levels for how much of the code can be
+            lost before the code cannot be recovered.
+            </summary>
+        </member>
+        <member name="F:BiliAccount.QRCodeGenerator.ECCLevel.L">
+            <summary>
+            7% may be lost before recovery is not possible
+            </summary>
+        </member>
+        <member name="F:BiliAccount.QRCodeGenerator.ECCLevel.M">
+            <summary>
+            15% may be lost before recovery is not possible
+            </summary>
+        </member>
+        <member name="F:BiliAccount.QRCodeGenerator.ECCLevel.Q">
+            <summary>
+            25% may be lost before recovery is not possible
+            </summary>
+        </member>
+        <member name="F:BiliAccount.QRCodeGenerator.ECCLevel.H">
+            <summary>
+            30% may be lost before recovery is not possible
+            </summary>
+        </member>
+        <member name="T:BiliAccount.RSA">
+            <summary>
+            RSA工具类
+            </summary>
+        </member>
+        <member name="M:BiliAccount.RSA.Decrypt(System.Security.Cryptography.RSACryptoServiceProvider,System.Byte[])">
+            <summary>
+            RSA解密. 当数据较长时, 能自动分段解密.
+            </summary>
+            <param name="rsa">加解密服务提供者. 需是已初始化的.</param>
+            <param name="data">欲解密的数据.</param>
+            <returns>返回解密后的数据.</returns>
+            <exception cref="T:System.Security.Cryptography.CryptographicException">On RSACryptoServiceProvider.Encrypt .</exception>
+        </member>
+        <member name="M:BiliAccount.RSA.Encrypt(System.Security.Cryptography.RSACryptoServiceProvider,System.Byte[])">
+            <summary>
+            RSA加密. 当数据较长时, 能自动分段加密.
+            </summary>
+            <param name="rsa">加解密服务提供者. 需是已初始化的.</param>
+            <param name="data">欲加密的数据.</param>
+            <returns>返回加密后的数据.</returns>
+            <exception cref="T:System.Security.Cryptography.CryptographicException">On RSACryptoServiceProvider.Encrypt .</exception>
+        </member>
+        <member name="M:BiliAccount.RSA.PemDecodePkcs8PrivateKey(System.Byte[])">
+            <summary>
+            解码 PKCS#8 编码的私钥，获取私钥的RSA加解密对象.
+            </summary>
+            <param name="pkcs8">私钥数据。</param>
+            <returns>返回私钥的RSA加解密对象. 失败时返回null.</returns>
+        </member>
+        <member name="M:BiliAccount.RSA.PemDecodePublicKey(System.Byte[])">
+            <summary>
+            根据PEM纯密钥数据，获取公钥的RSA加解密对象.
+            </summary>
+            <param name="pubcdata">公钥数据</param>
+            <returns>返回公钥的RSA加解密对象.</returns>
+        </member>
+        <member name="M:BiliAccount.RSA.PemDecodeX509PrivateKey(System.Byte[])">
+            <summary>
+            解码 X.509 编码的私钥，获取私钥的RSA加解密对象.
+            </summary>
+            <param name="privkey">私钥数据。</param>
+            <returns>返回私钥的RSA加解密对象. 失败时返回null.</returns>
+        </member>
+        <member name="M:BiliAccount.RSA.PemUnpack(System.String,System.String@,System.Char@)">
+            <summary>
+            PEM解包.
+            </summary>
+            <para>从PEM密钥数据中解包得到纯密钥数据. 即去掉BEGIN/END行，并作BASE64解码. 若没有BEGIN/END, 则直接做BASE64解码.</para>
+            <param name="data">源数据.</param>
+            <param name="purposetext">用途文本. 如返回“BEGIN PUBLIC KEY”中的“PUBLIC KEY”.</param>
+            <param name="purposecode">用途代码. R私钥， U公钥. 若无法识别，便保持原值.</param>
+            <returns>返回解包后的纯密钥数据.</returns>
+            <exception cref="T:System.ArgumentNullException">data is empty, or data body is empty.</exception>
+            <exception cref="T:System.FormatException">data body is not BASE64.</exception>
+        </member>
+        <member name="M:BiliAccount.RSA.GetIntegerSize(System.IO.BinaryReader)">
+            <summary>
+            取得整数大小.
+            </summary>
+            <param name="binr">BinaryReader</param>
+            <returns>返回整数大小.</returns>
+        </member>
+        <member name="M:BiliAccount.RSA.ReadASNLength(System.IO.BinaryReader)">
+            <summary>
+            Read ASN Length.
+            </summary>
+            <param name="reader">reader</param>
+            <returns>Return ASN Length.</returns>
+        </member>
+        <member name="M:BiliAccount.RSA.SequenceEqualByte(System.Byte[],System.Byte[])">
+            <summary>
+            字节数组内容是否相等.
+            </summary>
+            <param name="a">数组a</param>
+            <param name="b">数组b</param>
+            <returns>返回是否相等.</returns>
+        </member>
+    </members>
+</doc>

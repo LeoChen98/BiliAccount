@@ -1,5 +1,7 @@
+#if !NETSTANDARD2_0
 using System.Drawing;
 using System.Drawing.Drawing2D;
+
 
 namespace BiliAccount
 {
@@ -8,7 +10,7 @@ namespace BiliAccount
 
     public class QRCode : AbstractQRCode, IDisposable
     {
-        #region Public Constructors
+#region Public Constructors
 
         /// <summary>
         /// Constructor without params to be used in COM Objects connections
@@ -19,9 +21,9 @@ namespace BiliAccount
         {
         }
 
-        #endregion Public Constructors
+#endregion Public Constructors
 
-        #region Public Methods
+#region Public Methods
 
         public Bitmap GetGraphic(int pixelsPerModule)
         {
@@ -126,9 +128,9 @@ namespace BiliAccount
             return bmp;
         }
 
-        #endregion Public Methods
+#endregion Public Methods
 
-        #region Internal Methods
+#region Internal Methods
 
         internal GraphicsPath CreateRoundedRectanglePath(RectangleF rect, int cornerRadius)
         {
@@ -145,6 +147,7 @@ namespace BiliAccount
             return roundedRect;
         }
 
-        #endregion Internal Methods
+#endregion Internal Methods
     }
 }
+#endif

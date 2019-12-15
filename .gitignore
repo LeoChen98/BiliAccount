@@ -265,3 +265,7 @@ __pycache__/
 *.nupkg
 nuget.exe
 nuget_release.bat
+
+#Old files
+BiliAccount-StandardRebuild/
+BiliAccount-backup/
