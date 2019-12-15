@@ -1,8 +1,9 @@
-﻿namespace BiliAccount
+﻿
+namespace BiliAccount
 {
     internal class Stream4Methods
     {
-        #region Public Methods
+#region Public Methods
 
         public static void CopyTo(System.IO.Stream input, System.IO.Stream output)
         {
@@ -14,6 +15,6 @@
             }
         }
 
-        #endregion Public Methods
+#endregion Public Methods
     }
 }

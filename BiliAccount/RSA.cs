@@ -7,7 +7,7 @@ namespace BiliAccount
     /// <summary>
     /// RSA工具类
     /// </summary>
-    public class RSA
+    internal class RSA
     {
         #region Public Methods
 

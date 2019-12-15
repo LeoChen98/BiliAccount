@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29519.181
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiliAccount", "BiliAccount\BiliAccount.csproj", "{6F46F72F-2FAD-44FB-9B8D-E4D40A1F6987}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiliAccount-StandardRebuild", "BiliAccount-StandardRebuild\BiliAccount-StandardRebuild.csproj", "{051E5F22-F345-4871-9433-C586A0C6A968}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiliAccount", "BiliAccount\BiliAccount.csproj", "{051E5F22-F345-4871-9433-C586A0C6A968}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6F46F72F-2FAD-44FB-9B8D-E4D40A1F6987}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6F46F72F-2FAD-44FB-9B8D-E4D40A1F6987}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6F46F72F-2FAD-44FB-9B8D-E4D40A1F6987}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6F46F72F-2FAD-44FB-9B8D-E4D40A1F6987}.Release|Any CPU.Build.0 = Release|Any CPU
 		{051E5F22-F345-4871-9433-C586A0C6A968}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{051E5F22-F345-4871-9433-C586A0C6A968}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{051E5F22-F345-4871-9433-C586A0C6A968}.Release|Any CPU.ActiveCfg = Release|Any CPU

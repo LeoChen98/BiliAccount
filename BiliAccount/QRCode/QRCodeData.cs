@@ -1,3 +1,4 @@
+#if !NETSTANDARD2_0
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,7 +11,7 @@ namespace BiliAccount
 
     public class QRCodeData : IDisposable
     {
-        #region Public Constructors
+#region Public Constructors
 
         public QRCodeData(int version)
         {
@@ -90,9 +91,9 @@ namespace BiliAccount
             }
         }
 
-        #endregion Public Constructors
+#endregion Public Constructors
 
-        #region Public Enums
+#region Public Enums
 
         public enum Compression
         {
@@ -101,16 +102,16 @@ namespace BiliAccount
             GZip
         }
 
-        #endregion Public Enums
+#endregion Public Enums
 
-        #region Public Properties
+#region Public Properties
 
         public List<BitArray> ModuleMatrix { get; set; }
         public int Version { get; private set; }
 
-        #endregion Public Properties
+#endregion Public Properties
 
-        #region Public Methods
+#region Public Methods
 
         public void Dispose()
         {
@@ -185,15 +186,16 @@ namespace BiliAccount
             File.WriteAllBytes(filePath, GetRawData(compressMode));
         }
 
-        #endregion Public Methods
+#endregion Public Methods
 
-        #region Private Methods
+#region Private Methods
 
         private static int ModulesPerSideFromVersion(int version)
         {
             return 21 + (version - 1) * 4;
         }
 
-        #endregion Private Methods
+#endregion Private Methods
     }
 }
+#endif

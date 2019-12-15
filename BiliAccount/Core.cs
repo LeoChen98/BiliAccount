@@ -7,7 +7,14 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
+
+#if NETSTANDARD2_0
+using QRCoder;
+using Newtonsoft.Json;
+#else
 using System.Web.Script.Serialization;
+#endif
+
 
 #pragma warning disable CS0649
 
@@ -74,7 +81,12 @@ namespace BiliAccount
                 string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v2/oauth2/login", out account.Cookies, parm);
                 if (!string.IsNullOrEmpty(str))
                 {
+#if NETSTANDARD2_0
+                    DoLogin_DataTemplete obj = JsonConvert.DeserializeObject<DoLogin_DataTemplete>(str);
+#else
                     DoLogin_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<DoLogin_DataTemplete>(str);
+#endif
+
 
                     switch (obj.code)
                     {
@@ -135,8 +147,11 @@ namespace BiliAccount
                 string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v2/oauth2/login", out account.Cookies, parm, account.Cookies);
                 if (!string.IsNullOrEmpty(str))
                 {
+#if NETSTANDARD2_0
+                    DoLogin_DataTemplete obj = JsonConvert.DeserializeObject<DoLogin_DataTemplete>(str);
+#else
                     DoLogin_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<DoLogin_DataTemplete>(str);
-
+#endif
                     switch (obj.code)
                     {
                         case 0://登录成功
@@ -184,7 +199,6 @@ namespace BiliAccount
                     }
                 }
             }
-
             /// <summary>
             /// 获取验证码图片
             /// </summary>
@@ -193,7 +207,6 @@ namespace BiliAccount
             {
                 return Http.GetPicOutCookies("https://passport.bilibili.com/captcha", out account.Cookies, account.Cookies);
             }
-
             /// <summary>
             /// 密码加密
             /// </summary>
@@ -224,7 +237,11 @@ namespace BiliAccount
                 string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/oauth2/getKey", out cookies, parm);
                 if (!string.IsNullOrEmpty(str))
                 {
+#if NETSTANDARD2_0
+                    GetKey_DataTemplete obj = JsonConvert.DeserializeObject<GetKey_DataTemplete>(str);
+#else
                     GetKey_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<GetKey_DataTemplete>(str);
+#endif
                     if (obj.code == 0)
                     {
                         hash = obj.data.hash;
@@ -247,7 +264,11 @@ namespace BiliAccount
 
                 if (!string.IsNullOrEmpty(str))
                 {
+#if NETSTANDARD2_0
+                    Init_DataTemplete obj = JsonConvert.DeserializeObject<Init_DataTemplete>(str);
+#else
                     Init_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<Init_DataTemplete>(str);
+#endif
                     Appkey = obj.appkey;
                     Appsecret = obj.appsecret;
                     Build = obj.build;
@@ -272,7 +293,11 @@ namespace BiliAccount
 
                 if (!string.IsNullOrEmpty(str))
                 {
+#if NETSTANDARD2_0
+                    IsTokenAvailable_DataTemplete obj = JsonConvert.DeserializeObject<IsTokenAvailable_DataTemplete>(str);
+#else
                     IsTokenAvailable_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<IsTokenAvailable_DataTemplete>(str);
+#endif
 
                     if (obj.code == 0 && obj.data.expiress_in > 0)
                     {
@@ -296,8 +321,11 @@ namespace BiliAccount
 
                 if (!string.IsNullOrEmpty(str))
                 {
+#if NETSTANDARD2_0
+                    RefreshToken_DataTemplete obj = JsonConvert.DeserializeObject<RefreshToken_DataTemplete>(str);
+#else
                     RefreshToken_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<RefreshToken_DataTemplete>(str);
-
+#endif
                     if (obj.code == 0)
                     {
                         return DateTime.Parse("1970-01-01 08:00:00").AddSeconds(obj.ts + obj.data.expiress_in);
@@ -612,18 +640,31 @@ namespace BiliAccount
                 string str = Http.GetBody("https://passport.bilibili.com/qrcode/getLoginUrl", null, "https://passport.bilibili.com/login");
                 if (!string.IsNullOrEmpty(str))
                 {
+#if NETSTANDARD2_0
+                    GetQrcode_DataTemplete obj = JsonConvert.DeserializeObject<GetQrcode_DataTemplete>(str);
+#else
                     GetQrcode_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<GetQrcode_DataTemplete>(str);
+#endif
 
                     if (obj.code == 0)
                     {
                         // 生成二维码的内容
                         string strCode = obj.data.url;
+#if !NETSTANDARD2_0
                         QRCodeGenerator qrGenerator = new QRCodeGenerator();
                         QRCodeData qrCodeData = qrGenerator.CreateQrCode(strCode, QRCodeGenerator.ECCLevel.Q);
                         QRCode qrcode = new QRCode(qrCodeData);
-
                         //生成二维码位图
                         qrCodeImage = qrcode.GetGraphic(5, Color.Black, Color.White, null, 0, 6, false);
+#else
+                        
+                        QRCodeGenerator qrGenerator = new QRCodeGenerator();
+                        QRCodeData qrCodeData = qrGenerator.CreateQrCode(strCode, QRCodeGenerator.ECCLevel.Q);
+                        QRCode qrcode = new QRCode(qrCodeData);
+                        //生成二维码位图
+                        qrCodeImage = qrcode.GetGraphic(5, Color.Black, Color.White, null, 0, 6, false);
+#endif
+
 
                         Monitor = new Timer(MonitorCallback, obj.data.oauthKey, 1000, 1000);
                         Refresher = new Timer(RefresherCallback, null, 180000, Timeout.Infinite);
@@ -643,9 +684,9 @@ namespace BiliAccount
                 Refresher.Dispose();
             }
 
-            #endregion Public Methods
+#endregion Public Methods
 
-            #region Private Methods
+#region Private Methods
 
             /// <summary>
             /// 状态监视器回调
@@ -658,7 +699,11 @@ namespace BiliAccount
                 string str = Http.PostBody("https://passport.bilibili.com/qrcode/getLoginInfo", "oauthKey=" + oauthKey + "&gourl=https%3A%2F%2Fwww.bilibili.com%2F", null, "application/x-www-form-urlencoded; charset=UTF-8", "https://passport.bilibili.com/login");
                 if (!string.IsNullOrEmpty(str))
                 {
+#if NETSTANDARD2_0
+                    MonitorCallBack_Templete obj = JsonConvert.DeserializeObject<MonitorCallBack_Templete>(str);
+#else
                     MonitorCallBack_Templete obj = (new JavaScriptSerializer()).Deserialize<MonitorCallBack_Templete>(str);
+#endif
 
                     if (obj.status)
                     {
@@ -734,35 +779,35 @@ namespace BiliAccount
                 Linq.ByQRCode.RaiseQrCodeRefresh(GetQrcode());
             }
 
-            #endregion Private Methods
+#endregion Private Methods
 
-            #region Private Classes
+#region Private Classes
 
             /// <summary>
             /// 获取二维码的数据模板
             /// </summary>
             private class GetQrcode_DataTemplete
             {
-                #region Public Fields
+#region Public Fields
 
                 public int code;
                 public Data_Templete data;
 
-                #endregion Public Fields
+#endregion Public Fields
 
-                #region Public Classes
+#region Public Classes
 
                 public class Data_Templete
                 {
-                    #region Public Fields
+#region Public Fields
 
                     public string oauthKey;
                     public string url;
 
-                    #endregion Public Fields
+#endregion Public Fields
                 }
 
-                #endregion Public Classes
+#endregion Public Classes
             }
 
             /// <summary>
@@ -770,17 +815,17 @@ namespace BiliAccount
             /// </summary>
             private class MonitorCallBack_Templete
             {
-                #region Public Fields
+#region Public Fields
 
                 public object data;
                 public bool status;
 
-                #endregion Public Fields
+#endregion Public Fields
             }
 
-            #endregion Private Classes
+#endregion Private Classes
         }
 
-        #endregion Internal Classes
+#endregion Internal Classes
     }
 }

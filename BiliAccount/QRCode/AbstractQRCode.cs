@@ -1,10 +1,11 @@
-﻿namespace BiliAccount
+﻿#if !NETSTANDARD2_0
+namespace BiliAccount
 {
 #pragma warning disable CS1591
 
     public abstract class AbstractQRCode
     {
-        #region Protected Constructors
+#region Protected Constructors
 
         protected AbstractQRCode()
         {
@@ -15,15 +16,15 @@
             this.QrCodeData = data;
         }
 
-        #endregion Protected Constructors
+#endregion Protected Constructors
 
-        #region Protected Properties
+#region Protected Properties
 
         protected QRCodeData QrCodeData { get; set; }
 
-        #endregion Protected Properties
+#endregion Protected Properties
 
-        #region Public Methods
+#region Public Methods
 
         public void Dispose()
         {
@@ -39,6 +40,7 @@
             this.QrCodeData = data;
         }
 
-        #endregion Public Methods
+#endregion Public Methods
     }
 }
+#endif

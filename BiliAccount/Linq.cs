@@ -1,8 +1,14 @@
 ﻿using System;
 using System.Drawing;
+
+#if !NET20
 using System.Windows;
+#endif
+
+#if !NETSTANDARD2_0
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+#endif
 
 namespace BiliAccount.Linq
 {
@@ -149,6 +155,7 @@ namespace BiliAccount.Linq
             Core.ByQrCode.CancelLogin();
         }
 
+#if !NETSTANDARD2_0
         /// <summary>
         /// 删除对象
         /// </summary>
@@ -172,6 +179,9 @@ namespace BiliAccount.Linq
 
             return imgsource;
         }
+#endif
+
+
 
         /// <summary>
         /// 用二维码登录

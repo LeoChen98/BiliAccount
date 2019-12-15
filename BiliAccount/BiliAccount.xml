@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>BiliAccount-StandardRebuild</name>
+        <name>BiliAccount</name>
     </assembly>
     <members>
         <member name="T:BiliAccount.Account">

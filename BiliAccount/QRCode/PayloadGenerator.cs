@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if !NETSTANDARD2_0
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace BiliAccount
 #pragma warning disable CS1591
     public static class PayloadGenerator
     {
-        #region Public Methods
+#region Public Methods
 
         public static bool ChecksumMod10(string digits)
         {
@@ -30,9 +31,9 @@ namespace BiliAccount
             return checksum == Convert.ToInt32(digits[digits.Length - 1]) - 48;
         }
 
-        #endregion Public Methods
+#endregion Public Methods
 
-        #region Private Methods
+#region Private Methods
 
         private static string ConvertStringToEncoding(string message, string encoding)
         {
@@ -76,15 +77,15 @@ namespace BiliAccount
             return Regex.IsMatch(iban.Replace(" ", ""), @"^[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}$");
         }
 
-        #endregion Private Methods
+#endregion Private Methods
 
-        #region Public Classes
+#region Public Classes
 
         public class BezahlCode : Payload
         {
             //BezahlCode specification: http://www.bezahlcode.de/wp-content/uploads/BezahlCode_TechDok.pdf
 
-            #region Private Fields
+#region Private Fields
 
             private readonly decimal amount;
             private readonly AuthorityType authority;
@@ -93,9 +94,9 @@ namespace BiliAccount
             private readonly string name, iban, bic, account, bnc, sepaReference, reason, creditorId, mandateId, periodicTimeunit;
             private readonly int postingKey, periodicTimeunitRotation;
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Constructor for contact data
@@ -316,9 +317,9 @@ namespace BiliAccount
                 }
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Enums
+#region Public Enums
 
             /// <summary>
             /// Operation modes of the BezahlCode
@@ -554,9 +555,9 @@ namespace BiliAccount
                 ZWL = 932
             }
 
-            #endregion Public Enums
+#endregion Public Enums
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
@@ -639,13 +640,13 @@ namespace BiliAccount
                 return bezahlCodePayload.Trim('&');
             }
 
-            #endregion Public Methods
+#endregion Public Methods
 
-            #region Public Classes
+#region Public Classes
 
             public class BezahlCodeException : Exception
             {
-                #region Public Constructors
+#region Public Constructors
 
                 public BezahlCodeException()
                 {
@@ -661,22 +662,22 @@ namespace BiliAccount
                 {
                 }
 
-                #endregion Public Constructors
+#endregion Public Constructors
             }
 
-            #endregion Public Classes
+#endregion Public Classes
         }
 
         public class BitcoinAddress : Payload
         {
-            #region Private Fields
+#region Private Fields
 
             private readonly string address, label, message;
             private readonly double? amount;
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Generates a Bitcoin payment payload. QR Codes with this payload can open a Bitcoin
@@ -703,9 +704,9 @@ namespace BiliAccount
                 this.amount = amount;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
@@ -728,18 +729,18 @@ namespace BiliAccount
                 return $"bitcoin:{address}{query}";
             }
 
-            #endregion Public Methods
+#endregion Public Methods
         }
 
         public class Bookmark : Payload
         {
-            #region Private Fields
+#region Private Fields
 
             private readonly string url, title;
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Generates a bookmark payload. Scanned by an QR Code reader, this one creates a
@@ -753,28 +754,28 @@ namespace BiliAccount
                 this.title = EscapeInput(title);
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
                 return $"MEBKM:TITLE:{this.title};URL:{this.url};;";
             }
 
-            #endregion Public Methods
+#endregion Public Methods
         }
 
         public class CalendarEvent : Payload
         {
-            #region Private Fields
+#region Private Fields
 
             private readonly EventEncoding encoding;
             private readonly string subject, description, location, start, end;
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Generates a calender entry/event payload.
@@ -797,9 +798,9 @@ namespace BiliAccount
                 this.end = end.ToString(dtFormat);
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Enums
+#region Public Enums
 
             public enum EventEncoding
             {
@@ -807,9 +808,9 @@ namespace BiliAccount
                 Universal
             }
 
-            #endregion Public Enums
+#endregion Public Enums
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
@@ -827,12 +828,12 @@ namespace BiliAccount
                 return vEvent;
             }
 
-            #endregion Public Methods
+#endregion Public Methods
         }
 
         public class ContactData : Payload
         {
-            #region Private Fields
+#region Private Fields
 
             private readonly AddressOrder addressOrder;
             private readonly DateTime? birthday;
@@ -853,9 +854,9 @@ namespace BiliAccount
             private readonly string workPhone;
             private readonly string zipCode;
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Generates a vCard or meCard contact dataset
@@ -900,9 +901,9 @@ namespace BiliAccount
                 this.outputType = outputType;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Enums
+#region Public Enums
 
             /// <summary>
             /// define the address format
@@ -927,9 +928,9 @@ namespace BiliAccount
                 VCard4
             }
 
-            #endregion Public Enums
+#endregion Public Enums
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
@@ -1054,19 +1055,19 @@ namespace BiliAccount
                 return payload;
             }
 
-            #endregion Public Methods
+#endregion Public Methods
         }
 
         public class Geolocation : Payload
         {
-            #region Private Fields
+#region Private Fields
 
             private readonly GeolocationEncoding encoding;
             private readonly string latitude, longitude;
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Generates a geo location payload. Supports raw location (GEO encoding) or Google Maps
@@ -1082,9 +1083,9 @@ namespace BiliAccount
                 this.encoding = encoding;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Enums
+#region Public Enums
 
             public enum GeolocationEncoding
             {
@@ -1092,9 +1093,9 @@ namespace BiliAccount
                 GoogleMaps
             }
 
-            #endregion Public Enums
+#endregion Public Enums
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
@@ -1111,7 +1112,7 @@ namespace BiliAccount
                 }
             }
 
-            #endregion Public Methods
+#endregion Public Methods
         }
 
         public class Girocode : Payload
@@ -1119,7 +1120,7 @@ namespace BiliAccount
             //Keep in mind, that the ECC level has to be set to "M" when generating a Girocode!
             //Girocode specification: http://www.europeanpaymentscouncil.eu/index.cfm/knowledge-bank/epc-documents/quick-response-code-guidelines-to-enable-data-capture-for-the-initiation-of-a-sepa-credit-transfer/epc069-12-quick-response-code-guidelines-to-enable-data-capture-for-the-initiation-of-a-sepa-credit-transfer1/
 
-            #region Private Fields
+#region Private Fields
 
             private readonly decimal amount;
             private readonly GirocodeEncoding encoding;
@@ -1128,9 +1129,9 @@ namespace BiliAccount
             private readonly GirocodeVersion version;
             private string br = "\n";
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Generates the payload for a Girocode (QR-Code with credit transfer information).
@@ -1185,9 +1186,9 @@ namespace BiliAccount
                 this.messageToGirocodeUser = messageToGirocodeUser;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Enums
+#region Public Enums
 
             public enum GirocodeEncoding
             {
@@ -1213,9 +1214,9 @@ namespace BiliAccount
                 Unstructured
             }
 
-            #endregion Public Enums
+#endregion Public Enums
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
@@ -1239,13 +1240,13 @@ namespace BiliAccount
                 return ConvertStringToEncoding(girocodePayload, encoding.ToString().Replace("_", "-"));
             }
 
-            #endregion Public Methods
+#endregion Public Methods
 
-            #region Public Classes
+#region Public Classes
 
             public class GirocodeException : Exception
             {
-                #region Public Constructors
+#region Public Constructors
 
                 public GirocodeException()
                 {
@@ -1261,22 +1262,22 @@ namespace BiliAccount
                 {
                 }
 
-                #endregion Public Constructors
+#endregion Public Constructors
             }
 
-            #endregion Public Classes
+#endregion Public Classes
         }
 
         public class Mail : Payload
         {
-            #region Private Fields
+#region Private Fields
 
             private readonly MailEncoding encoding;
             private readonly string mailReceiver, subject, message;
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Creates an empty email payload
@@ -1325,9 +1326,9 @@ namespace BiliAccount
                 this.encoding = encoding;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Enums
+#region Public Enums
 
             public enum MailEncoding
             {
@@ -1336,9 +1337,9 @@ namespace BiliAccount
                 SMTP
             }
 
-            #endregion Public Enums
+#endregion Public Enums
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
@@ -1358,19 +1359,19 @@ namespace BiliAccount
                 }
             }
 
-            #endregion Public Methods
+#endregion Public Methods
         }
 
         public class MMS : Payload
         {
-            #region Private Fields
+#region Private Fields
 
             private readonly MMSEncoding encoding;
             private readonly string number, subject;
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Creates a MMS payload without text
@@ -1397,9 +1398,9 @@ namespace BiliAccount
                 this.encoding = encoding;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Enums
+#region Public Enums
 
             public enum MMSEncoding
             {
@@ -1407,9 +1408,9 @@ namespace BiliAccount
                 MMSTO
             }
 
-            #endregion Public Enums
+#endregion Public Enums
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
@@ -1426,19 +1427,19 @@ namespace BiliAccount
                 }
             }
 
-            #endregion Public Methods
+#endregion Public Methods
         }
 
         public class MoneroTransaction : Payload
         {
-            #region Private Fields
+#region Private Fields
 
             private readonly string address, txPaymentId, recipientName, txDescription;
             private readonly float? txAmount;
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Creates a monero transaction payload
@@ -1461,9 +1462,9 @@ namespace BiliAccount
                 this.txDescription = txDescription;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
@@ -1475,13 +1476,13 @@ namespace BiliAccount
                 return moneroUri.TrimEnd('&');
             }
 
-            #endregion Public Methods
+#endregion Public Methods
 
-            #region Public Classes
+#region Public Classes
 
             public class MoneroTransactionException : Exception
             {
-                #region Public Constructors
+#region Public Constructors
 
                 public MoneroTransactionException()
                 {
@@ -1497,15 +1498,15 @@ namespace BiliAccount
                 {
                 }
 
-                #endregion Public Constructors
+#endregion Public Constructors
             }
 
-            #endregion Public Classes
+#endregion Public Classes
         }
 
         public class OneTimePassword : Payload
         {
-            #region Public Enums
+#region Public Enums
 
             public enum OneTimePasswordAuthAlgorithm
             {
@@ -1528,9 +1529,9 @@ namespace BiliAccount
                 SHA512,
             }
 
-            #endregion Public Enums
+#endregion Public Enums
 
-            #region Public Properties
+#region Public Properties
 
             [Obsolete("This property is obsolete, use " + nameof(AuthAlgorithm) + " instead", false)]
             public OoneTimePasswordAuthAlgorithm Algorithm
@@ -1556,9 +1557,9 @@ namespace BiliAccount
             //https://github.com/google/google-authenticator/wiki/Key-Uri-Format
             public OneTimePasswordAuthType Type { get; set; } = OneTimePasswordAuthType.TOTP;
 
-            #endregion Public Properties
+#endregion Public Properties
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
@@ -1575,9 +1576,9 @@ namespace BiliAccount
                 }
             }
 
-            #endregion Public Methods
+#endregion Public Methods
 
-            #region Private Methods
+#region Private Methods
 
             // Note: Issuer:Label must only contain 1 : if either of the Issuer or the Label has a :
             //       then it is invalid. Defaults are 6 digits and 30 for Period
@@ -1667,35 +1668,35 @@ namespace BiliAccount
                 return sb.ToString();
             }
 
-            #endregion Private Methods
+#endregion Private Methods
         }
 
         public abstract class Payload
         {
-            #region Public Properties
+#region Public Properties
 
             public virtual QRCodeGenerator.ECCLevel EccLevel { get { return QRCodeGenerator.ECCLevel.M; } }
             public virtual QRCodeGenerator.EciMode EciMode { get { return QRCodeGenerator.EciMode.Default; } }
             public virtual int Version { get { return -1; } }
 
-            #endregion Public Properties
+#endregion Public Properties
 
-            #region Public Methods
+#region Public Methods
 
             public abstract override string ToString();
 
-            #endregion Public Methods
+#endregion Public Methods
         }
 
         public class PhoneNumber : Payload
         {
-            #region Private Fields
+#region Private Fields
 
             private readonly string number;
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Generates a phone call payload
@@ -1706,21 +1707,21 @@ namespace BiliAccount
                 this.number = number;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
                 return $"tel:{this.number}";
             }
 
-            #endregion Public Methods
+#endregion Public Methods
         }
 
         public class ShadowSocksConfig : Payload
         {
-            #region Private Fields
+#region Private Fields
 
             private readonly string hostname, password, tag, methodStr;
             private readonly Method method;
@@ -1759,9 +1760,9 @@ namespace BiliAccount
                 { "Table", "table" }
             };
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Generates a ShadowSocks proxy config payload.
@@ -1783,9 +1784,9 @@ namespace BiliAccount
                 this.tag = tag;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Enums
+#region Public Enums
 
             public enum Method
             {
@@ -1821,9 +1822,9 @@ namespace BiliAccount
                 Table
             }
 
-            #endregion Public Enums
+#endregion Public Enums
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
@@ -1832,13 +1833,13 @@ namespace BiliAccount
                 return $"ss://{connectionStringEncoded}{(!string.IsNullOrEmpty(tag) ? $"#{tag}" : string.Empty)}";
             }
 
-            #endregion Public Methods
+#endregion Public Methods
 
-            #region Public Classes
+#region Public Classes
 
             public class ShadowSocksConfigException : Exception
             {
-                #region Public Constructors
+#region Public Constructors
 
                 public ShadowSocksConfigException()
                 {
@@ -1854,21 +1855,21 @@ namespace BiliAccount
                 {
                 }
 
-                #endregion Public Constructors
+#endregion Public Constructors
             }
 
-            #endregion Public Classes
+#endregion Public Classes
         }
 
         public class SkypeCall : Payload
         {
-            #region Private Fields
+#region Private Fields
 
             private readonly string skypeUsername;
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Generates a Skype call payload
@@ -1879,16 +1880,16 @@ namespace BiliAccount
                 this.skypeUsername = skypeUsername;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
                 return $"skype:{this.skypeUsername}?call";
             }
 
-            #endregion Public Methods
+#endregion Public Methods
         }
 
         public class SlovenianUpnQr : Payload
@@ -1896,7 +1897,7 @@ namespace BiliAccount
             //Keep in mind, that the ECC level has to be set to "M", version to 15 and ECI to EciMode.Iso8859_2 when generating a SlovenianUpnQr!
             //SlovenianUpnQr specification: https://www.upn-qr.si/uploads/files/NavodilaZaProgramerjeUPNQR.pdf
 
-            #region Private Fields
+#region Private Fields
 
             private string _amount = "";
             private string _code = "";
@@ -1912,9 +1913,9 @@ namespace BiliAccount
             private string _recipientSiModel = "";
             private string _recipientSiReference = "";
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             public SlovenianUpnQr(string payerName, string payerAddress, string payerPlace, string recipientName, string recipientAddress, string recipientPlace, string recipientIban, string description, double amount, string recipientSiModel = "SI00", string recipientSiReference = "", string code = "OTHR") :
                 this(payerName, payerAddress, payerPlace, recipientName, recipientAddress, recipientPlace, recipientIban, description, amount, null, recipientSiModel, recipientSiReference, code)
@@ -1937,17 +1938,17 @@ namespace BiliAccount
                 _recipientSiReference = LimitLength(recipientSiReference.Trim(), 22);
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Properties
+#region Public Properties
 
             public override QRCodeGenerator.ECCLevel EccLevel { get { return QRCodeGenerator.ECCLevel.M; } }
             public override QRCodeGenerator.EciMode EciMode { get { return QRCodeGenerator.EciMode.Iso8859_2; } }
             public override int Version { get { return 15; } }
 
-            #endregion Public Properties
+#endregion Public Properties
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
@@ -1970,9 +1971,9 @@ namespace BiliAccount
                 return _sb.ToString();
             }
 
-            #endregion Public Methods
+#endregion Public Methods
 
-            #region Private Methods
+#region Private Methods
 
             private int CalculateChecksum()
             {
@@ -2004,19 +2005,19 @@ namespace BiliAccount
                 return (value.Length <= maxLength) ? value : value.Substring(0, maxLength);
             }
 
-            #endregion Private Methods
+#endregion Private Methods
         }
 
         public class SMS : Payload
         {
-            #region Private Fields
+#region Private Fields
 
             private readonly SMSEncoding encoding;
             private readonly string number, subject;
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Creates a SMS payload without text
@@ -2043,9 +2044,9 @@ namespace BiliAccount
                 this.encoding = encoding;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Enums
+#region Public Enums
 
             public enum SMSEncoding
             {
@@ -2054,9 +2055,9 @@ namespace BiliAccount
                 SMS_iOS
             }
 
-            #endregion Public Enums
+#endregion Public Enums
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
@@ -2075,7 +2076,7 @@ namespace BiliAccount
                 }
             }
 
-            #endregion Public Methods
+#endregion Public Methods
         }
 
         public class SwissQrCode : Payload
@@ -2083,7 +2084,7 @@ namespace BiliAccount
             //Keep in mind, that the ECC level has to be set to "M" when generating a SwissQrCode!
             //SwissQrCode specification: https://www.paymentstandards.ch/dam/downloads/ig-qr-bill-de.pdf
 
-            #region Private Fields
+#region Private Fields
 
             private readonly string alternativeProcedure1, alternativeProcedure2;
             private readonly decimal? amount;
@@ -2094,9 +2095,9 @@ namespace BiliAccount
             private readonly Reference reference;
             private readonly DateTime? requestedDateOfPayment;
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Generates the payload for a SwissQrCode. (Don't forget to use ECC-Level M and set the
@@ -2145,9 +2146,9 @@ namespace BiliAccount
                 this.alternativeProcedure2 = alternativeProcedure2;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Enums
+#region Public Enums
 
             /// <summary>
             /// ISO 4217 currency codes
@@ -2158,9 +2159,9 @@ namespace BiliAccount
                 EUR = 978
             }
 
-            #endregion Public Enums
+#endregion Public Enums
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
@@ -2206,20 +2207,20 @@ namespace BiliAccount
                 return SwissQrCodePayload;
             }
 
-            #endregion Public Methods
+#endregion Public Methods
 
-            #region Public Classes
+#region Public Classes
 
             public class Contact
             {
-                #region Private Fields
+#region Private Fields
 
                 private string br = "\r\n";
                 private string name, street, houseNumber, zipCode, city, country;
 
-                #endregion Private Fields
+#endregion Private Fields
 
-                #region Public Constructors
+#region Public Constructors
 
                 /// <summary>
                 /// Contact type. Can be used for payee, ultimate payee, etc.
@@ -2280,9 +2281,9 @@ namespace BiliAccount
                     this.country = country;
                 }
 
-                #endregion Public Constructors
+#endregion Public Constructors
 
-                #region Public Methods
+#region Public Methods
 
                 public override string ToString()
                 {
@@ -2295,13 +2296,13 @@ namespace BiliAccount
                     return contactData;
                 }
 
-                #endregion Public Methods
+#endregion Public Methods
 
-                #region Public Classes
+#region Public Classes
 
                 public class SwissQrCodeContactException : Exception
                 {
-                    #region Public Constructors
+#region Public Constructors
 
                     public SwissQrCodeContactException()
                     {
@@ -2317,22 +2318,22 @@ namespace BiliAccount
                     {
                     }
 
-                    #endregion Public Constructors
+#endregion Public Constructors
                 }
 
-                #endregion Public Classes
+#endregion Public Classes
             }
 
             public class Iban
             {
-                #region Private Fields
+#region Private Fields
 
                 private string iban;
                 private IbanType ibanType;
 
-                #endregion Private Fields
+#endregion Private Fields
 
-                #region Public Constructors
+#region Public Constructors
 
                 /// <summary>
                 /// IBAN object with type information
@@ -2349,9 +2350,9 @@ namespace BiliAccount
                     this.ibanType = ibanType;
                 }
 
-                #endregion Public Constructors
+#endregion Public Constructors
 
-                #region Public Enums
+#region Public Enums
 
                 public enum IbanType
                 {
@@ -2359,31 +2360,31 @@ namespace BiliAccount
                     QrIban
                 }
 
-                #endregion Public Enums
+#endregion Public Enums
 
-                #region Public Properties
+#region Public Properties
 
                 public bool IsQrIban
                 {
                     get { return ibanType.Equals(IbanType.QrIban); }
                 }
 
-                #endregion Public Properties
+#endregion Public Properties
 
-                #region Public Methods
+#region Public Methods
 
                 public override string ToString()
                 {
                     return iban.Replace("\n", "").Replace(" ", "");
                 }
 
-                #endregion Public Methods
+#endregion Public Methods
 
-                #region Public Classes
+#region Public Classes
 
                 public class SwissQrCodeIbanException : Exception
                 {
-                    #region Public Constructors
+#region Public Constructors
 
                     public SwissQrCodeIbanException()
                     {
@@ -2399,23 +2400,23 @@ namespace BiliAccount
                     {
                     }
 
-                    #endregion Public Constructors
+#endregion Public Constructors
                 }
 
-                #endregion Public Classes
+#endregion Public Classes
             }
 
             public class Reference
             {
-                #region Private Fields
+#region Private Fields
 
                 private readonly string reference, unstructuredMessage;
                 private readonly ReferenceTextType? referenceTextType;
                 private readonly ReferenceType referenceType;
 
-                #endregion Private Fields
+#endregion Private Fields
 
-                #region Public Constructors
+#region Public Constructors
 
                 /// <summary>
                 /// Creates a reference object which must be passed to the SwissQrCode instance
@@ -2451,9 +2452,9 @@ namespace BiliAccount
                     this.unstructuredMessage = unstructuredMessage;
                 }
 
-                #endregion Public Constructors
+#endregion Public Constructors
 
-                #region Public Enums
+#region Public Enums
 
                 public enum ReferenceTextType
                 {
@@ -2471,9 +2472,9 @@ namespace BiliAccount
                     NON
                 }
 
-                #endregion Public Enums
+#endregion Public Enums
 
-                #region Public Properties
+#region Public Properties
 
                 public string ReferenceText
                 {
@@ -2490,13 +2491,13 @@ namespace BiliAccount
                     get { return !string.IsNullOrEmpty(unstructuredMessage) ? unstructuredMessage.Replace("\n", "") : null; }
                 }
 
-                #endregion Public Properties
+#endregion Public Properties
 
-                #region Public Classes
+#region Public Classes
 
                 public class SwissQrCodeReferenceException : Exception
                 {
-                    #region Public Constructors
+#region Public Constructors
 
                     public SwissQrCodeReferenceException()
                     {
@@ -2512,15 +2513,15 @@ namespace BiliAccount
                     {
                     }
 
-                    #endregion Public Constructors
+#endregion Public Constructors
                 }
 
-                #endregion Public Classes
+#endregion Public Classes
             }
 
             public class SwissQrCodeException : Exception
             {
-                #region Public Constructors
+#region Public Constructors
 
                 public SwissQrCodeException()
                 {
@@ -2536,21 +2537,21 @@ namespace BiliAccount
                 {
                 }
 
-                #endregion Public Constructors
+#endregion Public Constructors
             }
 
-            #endregion Public Classes
+#endregion Public Classes
         }
 
         public class Url : Payload
         {
-            #region Private Fields
+#region Private Fields
 
             private readonly string url;
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Generates a link. If not given, http/https protocol will be added.
@@ -2561,27 +2562,27 @@ namespace BiliAccount
                 this.url = url;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
                 return (!this.url.StartsWith("http") ? "http://" + this.url : this.url);
             }
 
-            #endregion Public Methods
+#endregion Public Methods
         }
 
         public class WhatsAppMessage : Payload
         {
-            #region Private Fields
+#region Private Fields
 
             private readonly string number, message;
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Let's you compose a WhatApp message and send it the receiver number.
@@ -2605,28 +2606,28 @@ namespace BiliAccount
                 this.message = message;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
                 return ($"whatsapp://send?phone={this.number}&text={Uri.EscapeDataString(message)}");
             }
 
-            #endregion Public Methods
+#endregion Public Methods
         }
 
         public class WiFi : Payload
         {
-            #region Private Fields
+#region Private Fields
 
             private readonly bool isHiddenSsid;
             private readonly string ssid, password, authenticationMode;
 
-            #endregion Private Fields
+#endregion Private Fields
 
-            #region Public Constructors
+#region Public Constructors
 
             /// <summary>
             /// Generates a WiFi payload. Scanned by a QR Code scanner app, the device will connect
@@ -2646,9 +2647,9 @@ namespace BiliAccount
                 this.isHiddenSsid = isHiddenSSID;
             }
 
-            #endregion Public Constructors
+#endregion Public Constructors
 
-            #region Public Enums
+#region Public Enums
 
             public enum Authentication
             {
@@ -2657,9 +2658,9 @@ namespace BiliAccount
                 nopass
             }
 
-            #endregion Public Enums
+#endregion Public Enums
 
-            #region Public Methods
+#region Public Methods
 
             public override string ToString()
             {
@@ -2667,9 +2668,10 @@ namespace BiliAccount
                     $"WIFI:T:{this.authenticationMode};S:{this.ssid};P:{this.password};{(this.isHiddenSsid ? "H:true" : string.Empty)};";
             }
 
-            #endregion Public Methods
+#endregion Public Methods
         }
 
-        #endregion Public Classes
+#endregion Public Classes
     }
 }
+#endif
