@@ -3,8 +3,8 @@ B站账号操作封装
 
 ## How to get
 
-![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/BiliAccount?color=%23004080&logo=nuget)
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/LeoChen98/BiliAccount?include_prereleases&logo=github)
+[![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/BiliAccount?color=%23004080&logo=nuget)](https://www.nuget.org/packages/BiliAccount/)
+[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/LeoChen98/BiliAccount?include_prereleases&logo=github)](https://github.com/LeoChen98/BiliAccount/releases/latest)
 
 ### Package Manager
 `Install-Package BiliAccount -Version 2.0.0.7`
