@@ -13,7 +13,7 @@ B站账号操作封装
 框架|版本|依赖
 ---|---|---
 .net framework|≥3.5|（无）
-.net standard|2.0|Newtonsoft.Json (>= 12.0.3)<br/>QRCoder (>= 1.3.6)<br/>System.Drawing.Common (>= 4.7.0)
+.net standard|2.0|Newtonsoft.Json (≥ 12.0.3)<br/>QRCoder (≥ 1.3.6)<br/>System.Drawing.Common (≥ 4.7.0)
 
 ## 项目结构
 项目名|备注
