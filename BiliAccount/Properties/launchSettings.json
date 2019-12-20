@@ -1,8 +1,7 @@
 {
   "profiles": {
-    "BiliAccount-StandardRebuild": {
-      "commandName": "Executable",
-      "executablePath": "D:\\工作区\\编程\\BiliLogin_Experiment\\BiliAccount_TestProject\\bin\\Release\\BiliAccount_TestProject.exe"
+    "TestProject": {
+      "commandName": "Executable"
     }
   }
 }
