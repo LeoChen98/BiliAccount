@@ -6,21 +6,22 @@
     <RootNamespace>BiliAccount</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>BiliAccount</PackageId>
-    <Version>2.0.2.9</Version>
+    <Version>2.0.3.10</Version>
     <Authors>LeoChen</Authors>
     <Company>zhangbudademao.com</Company>
     <Product>BiliAccount</Product>
     <Description>用于处理B站账号类的操作</Description>
-    <Copyright>Copyright ©  2019 zhangbudademao.com, all rights reserved.</Copyright>
+    <Copyright>Copyright © 2019 zhangbudademao.com, all rights reserved.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/LeoChen98/BiliAccount</PackageProjectUrl>
     <RepositoryUrl>https://github.com/LeoChen98/BiliAccount</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>bilibili bililive bililogin biliaccount</PackageTags>
     <PackageIcon>favicon_4.png</PackageIcon>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageReleaseNotes>增加对.net core 3.0以上的兼容</PackageReleaseNotes>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='net45'">
@@ -86,9 +87,6 @@
   <PropertyGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
     <AssemblyTitle>BiliAccount .NET Core 3.1</AssemblyTitle>
     <DefineConstants>NETCORE3_0;$(AdditionalConstants)</DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>D:\工作区\编程\BiliAccount\BiliAccount\BiliAccount.xml</DocumentationFile>
   </PropertyGroup>
   
   <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|AnyCPU'">
