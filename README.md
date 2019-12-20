@@ -13,7 +13,7 @@ B站账号操作封装
 框架|版本|依赖
 ---|---|---
 .net framework|≥3.5|（无）
-.net standard|2.0|Newtonsoft.Json (≥ 12.0.3)<br/>QRCoder (≥ 1.3.6)<br/>System.Drawing.Common (≥ 4.7.0)
+.net standard|≥2.0|Newtonsoft.Json (≥ 12.0.3)<br/>QRCoder (≥ 1.3.6)<br/>System.Drawing.Common (≥ 4.7.0)
 .net core|≥3.0|Newtonsoft.Json (≥ 12.0.3)<br/>QRCoder (≥ 1.3.6)<br/>System.Drawing.Common (≥ 4.7.0)
 
 ## 项目结构
@@ -31,10 +31,10 @@ B站账号操作封装
 
 工具|命令/代码
 --|--
-Package Manager|`Install-Package BiliAccount -Version 2.0.2.9`
-.NET CLI|`dotnet add package BiliAccount --version 2.0.2.9`
-PackageReference|`<PackageReference Include="BiliAccount" Version="2.0.2.9" />`
-Packet CLI|`paket add BiliAccount --version 2.0.2.9`
+Package Manager|`Install-Package BiliAccount -Version 2.0.3.10`
+.NET CLI|`dotnet add package BiliAccount --version 2.0.3.10`
+PackageReference|`<PackageReference Include="BiliAccount" Version="2.0.3.10" />`
+Packet CLI|`paket add BiliAccount --version 2.0.3.10`
 
 具体使用方法请见[Wiki](https://github.com/LeoChen98/BiliAccount/wiki)
 
