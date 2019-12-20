@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Drawing;
 
-#if !NET20
+#if NETFRAMEWORK
 using System.Windows;
 #endif
 
-#if !NETSTANDARD2_0
+#if !NETSTANDARD2_0 && !NETCORE3_0
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 #endif
@@ -155,7 +155,7 @@ namespace BiliAccount.Linq
             Core.ByQrCode.CancelLogin();
         }
 
-#if !NETSTANDARD2_0
+#if !NETSTANDARD2_0 && !NETCORE3_0
         /// <summary>
         /// 删除对象
         /// </summary>

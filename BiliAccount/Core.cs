@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0 || NETCORE3_0
 using QRCoder;
 using Newtonsoft.Json;
 #else
@@ -78,7 +78,7 @@ namespace BiliAccount.Core
             string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v2/oauth2/login", out account.Cookies, parm);
             if (!string.IsNullOrEmpty(str))
             {
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0 || NETCORE3_0
                     DoLogin_DataTemplete obj = JsonConvert.DeserializeObject<DoLogin_DataTemplete>(str);
 #else
                 DoLogin_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<DoLogin_DataTemplete>(str);
@@ -143,7 +143,7 @@ namespace BiliAccount.Core
             string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v2/oauth2/login", out account.Cookies, parm, account.Cookies);
             if (!string.IsNullOrEmpty(str))
             {
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0 || NETCORE3_0
                     DoLogin_DataTemplete obj = JsonConvert.DeserializeObject<DoLogin_DataTemplete>(str);
 #else
                 DoLogin_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<DoLogin_DataTemplete>(str);
@@ -235,7 +235,7 @@ namespace BiliAccount.Core
             string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/oauth2/getKey", out cookies, parm);
             if (!string.IsNullOrEmpty(str))
             {
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0 || NETCORE3_0
                 GetKey_DataTemplete obj = JsonConvert.DeserializeObject<GetKey_DataTemplete>(str);
 #else
                 GetKey_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<GetKey_DataTemplete>(str);
@@ -262,7 +262,7 @@ namespace BiliAccount.Core
 
             if (!string.IsNullOrEmpty(str))
             {
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0 || NETCORE3_0
                 Init_DataTemplete obj = JsonConvert.DeserializeObject<Init_DataTemplete>(str);
 #else
                 Init_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<Init_DataTemplete>(str);
@@ -291,7 +291,7 @@ namespace BiliAccount.Core
 
             if (!string.IsNullOrEmpty(str))
             {
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0 || NETCORE3_0
                 IsTokenAvailable_DataTemplete obj = JsonConvert.DeserializeObject<IsTokenAvailable_DataTemplete>(str);
 #else
                 IsTokenAvailable_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<IsTokenAvailable_DataTemplete>(str);
@@ -319,7 +319,7 @@ namespace BiliAccount.Core
 
             if (!string.IsNullOrEmpty(str))
             {
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0 || NETCORE3_0
                 RefreshToken_DataTemplete obj = JsonConvert.DeserializeObject<RefreshToken_DataTemplete>(str);
 #else
                 RefreshToken_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<RefreshToken_DataTemplete>(str);
@@ -652,7 +652,7 @@ namespace BiliAccount.Core
             string str = Http.GetBody("https://passport.bilibili.com/qrcode/getLoginUrl", null, "https://passport.bilibili.com/login");
             if (!string.IsNullOrEmpty(str))
             {
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0 || NETCORE3_0
                 GetQrcode_DataTemplete obj = JsonConvert.DeserializeObject<GetQrcode_DataTemplete>(str);
 #else
                 GetQrcode_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<GetQrcode_DataTemplete>(str);
@@ -662,7 +662,7 @@ namespace BiliAccount.Core
                 {
                     // 生成二维码的内容
                     string strCode = obj.data.url;
-#if !NETSTANDARD2_0
+#if !NETSTANDARD2_0 && !NETCORE3_0
                     QRCodeGenerator qrGenerator = new QRCodeGenerator();
                     QRCodeData qrCodeData = qrGenerator.CreateQrCode(strCode, QRCodeGenerator.ECCLevel.Q);
                     QRCode qrcode = new QRCode(qrCodeData);
@@ -701,7 +701,7 @@ namespace BiliAccount.Core
             string str = Http.PostBody("https://passport.bilibili.com/qrcode/getLoginInfo", "oauthKey=" + oauthKey + "&gourl=https%3A%2F%2Fwww.bilibili.com%2F", null, "application/x-www-form-urlencoded; charset=UTF-8", "https://passport.bilibili.com/login");
             if (!string.IsNullOrEmpty(str))
             {
-#if NETSTANDARD2_0
+#if NETSTANDARD2_0 || NETCORE3_0
                     MonitorCallBack_Templete obj = JsonConvert.DeserializeObject<MonitorCallBack_Templete>(str);
 #else
                 MonitorCallBack_Templete obj = (new JavaScriptSerializer()).Deserialize<MonitorCallBack_Templete>(str);

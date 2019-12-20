@@ -1,4 +1,4 @@
-﻿#if !NETSTANDARD2_0
+﻿#if !NETSTANDARD2_0 && !NETCORE3_0
 namespace BiliAccount
 {
 #pragma warning disable CS1591
