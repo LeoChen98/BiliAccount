@@ -30,10 +30,10 @@ B站账号操作封装
 
 工具|命令/代码
 --|--
-Package Manager|`Install-Package BiliAccount -Version 2.0.0.7`
-.NET CLI|`dotnet add package BiliAccount --version 2.0.0.7`
-PackageReference|`<PackageReference Include="BiliAccount" Version="2.0.0.7" />`
-Packet CLI|`paket add BiliAccount --version 2.0.0.7`
+Package Manager|`Install-Package BiliAccount -Version 2.0.1.8`
+.NET CLI|`dotnet add package BiliAccount --version 2.0.1.8`
+PackageReference|`<PackageReference Include="BiliAccount" Version="2.0.1.8" />`
+Packet CLI|`paket add BiliAccount --version 2.0.1.8`
 
 ## 开放源代码许可
 ### Newtonsoft.Json 12.0.3
