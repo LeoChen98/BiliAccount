@@ -3,7 +3,7 @@ namespace BiliAccount
 {
 #pragma warning disable CS1591
 
-    public abstract class AbstractQRCode
+    internal abstract class AbstractQRCode
     {
 #region Protected Constructors
 

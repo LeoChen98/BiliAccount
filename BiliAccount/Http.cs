@@ -306,53 +306,6 @@ namespace BiliAccount
             }
             return result;
         }
-
-        /// <summary>
-        /// OPTIONS方法
-        /// </summary>
-        /// <param name="url">URL</param>
-        /// <param name="cookie">cookies集合实例</param>
-        /// <param name="referer">Referer</param>
-        /// <param name="user_agent">User-agent</param>
-        /// <param name="specialheaders">除前面之外的Headers</param>
-        /// <returns>请求返回体</returns>
-        public static bool Options(string url, CookieCollection cookie = null,
-            string referer = "", string user_agent = "", WebHeaderCollection specialheaders = null)
-        {
-            bool result = false;
-            HttpWebRequest req = null;
-            HttpWebResponse rep = null;
-            try
-            {
-                req = (HttpWebRequest)WebRequest.Create(url);
-
-                if (specialheaders != null) req.Headers = specialheaders;
-
-                req.Method = "OPTIONS";
-
-                if (cookie != null)
-                {
-                    req.CookieContainer = new CookieContainer(cookie.Count)
-                    {
-                        PerDomainCapacity = cookie.Count
-                    };
-                    req.CookieContainer.Add(cookie);
-                }
-
-                if (!string.IsNullOrEmpty(referer)) req.Referer = referer;
-                if (!string.IsNullOrEmpty(user_agent)) req.UserAgent = user_agent;
-
-                rep = (HttpWebResponse)req.GetResponse();
-
-                if (rep.StatusCode == HttpStatusCode.OK) result = true;
-            }
-            finally
-            {
-                if (rep != null) rep.Close();
-                if (req != null) req.Abort();
-            }
-            return result;
-        }
 #endregion Public Methods  
     }
 

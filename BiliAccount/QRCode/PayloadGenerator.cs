@@ -11,7 +11,7 @@ using System.Text.RegularExpressions;
 namespace BiliAccount
 {
 #pragma warning disable CS1591
-    public static class PayloadGenerator
+    internal static class PayloadGenerator
     {
 #region Public Methods
 

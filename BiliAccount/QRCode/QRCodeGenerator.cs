@@ -8,7 +8,7 @@ using System.Text;
 namespace BiliAccount
 {
 #pragma warning disable CS1591
-    public class QRCodeGenerator : IDisposable
+    internal class QRCodeGenerator : IDisposable
     {
 #region Private Fields
 

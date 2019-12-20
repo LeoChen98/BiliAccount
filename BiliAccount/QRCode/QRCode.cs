@@ -8,7 +8,7 @@ namespace BiliAccount
 #pragma warning disable CS1591
     using System;
 
-    public class QRCode : AbstractQRCode, IDisposable
+    internal class QRCode : AbstractQRCode, IDisposable
     {
 #region Public Constructors
 

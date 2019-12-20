@@ -9,7 +9,7 @@ namespace BiliAccount
     using System.IO;
     using System.IO.Compression;
 
-    public class QRCodeData : IDisposable
+    internal class QRCodeData : IDisposable
     {
 #region Public Constructors
 
