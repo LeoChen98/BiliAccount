@@ -35,6 +35,8 @@ Package Manager|`Install-Package BiliAccount -Version 2.0.1.8`
 PackageReference|`<PackageReference Include="BiliAccount" Version="2.0.1.8" />`
 Packet CLI|`paket add BiliAccount --version 2.0.1.8`
 
+具体使用方法请见[Wiki](https://github.com/LeoChen98/BiliAccount/wiki)
+
 ## 开放源代码许可
 ### Newtonsoft.Json 12.0.3
 <https://www.newtonsoft.com/json>
