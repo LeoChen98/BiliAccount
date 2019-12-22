@@ -10,11 +10,11 @@ B站账号操作封装
 [![GitHub license](https://img.shields.io/github/license/LeoChen98/BiliUPDesktopTool.svg)](https://github.com/LeoChen98/BiliUPDesktopTool/blob/master/LICENSE)
 
 ## 支持与依赖
-框架|版本|依赖
----|---|---
-.net framework|≥3.5|（无）
-.net standard|≥2.0|Newtonsoft.Json (≥ 12.0.3)<br/>QRCoder (≥ 1.3.6)<br/>System.Drawing.Common (≥ 4.7.0)
-.net core|≥3.0|Newtonsoft.Json (≥ 12.0.3)<br/>QRCoder (≥ 1.3.6)<br/>System.Drawing.Common (≥ 4.7.0)
+框架|版本|依赖|备注
+---|---|---|---
+.net framework|≥3.5|（无）|`2.0.0.7`前只支持`.net framework 4.5`
+.net standard|≥2.0|[Newtonsoft.Json](//github.com/JamesNK/Newtonsoft.Json) (≥ 12.0.3)<br/>[QRCoder](//github.com/codebude/QRCoder/) (≥ 1.3.6)<br/>[System.Drawing.Common](//github.com/dotnet/corefx) (≥ 4.7.0)|`2.0.0.7`起支持
+.net core|≥3.0|[Newtonsoft.Json](//github.com/JamesNK/Newtonsoft.Json) (≥ 12.0.3)<br/>[QRCoder](//github.com/codebude/QRCoder/) (≥ 1.3.6)<br/>[System.Drawing.Common](//github.com/dotnet/corefx) (≥ 4.7.0)|`2.0.2.9`起支持
 
 ## 项目结构
 项目名|备注
