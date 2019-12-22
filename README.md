@@ -53,7 +53,7 @@ Copyright © 2011 - 2018 Raffael Herrmann
 
 Licensed under MIT
 
-### System.Drawing.Common
+### System.Drawing.Common 4.7.0
 <https://github.com/dotnet/corefx>
 
 © Microsoft Corporation. All rights reserved.
