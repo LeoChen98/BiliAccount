@@ -6,7 +6,7 @@
     <RootNamespace>BiliAccount</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>BiliAccount</PackageId>
-    <Version>2.0.3.10</Version>
+    <Version>2.0.4.11</Version>
     <Authors>LeoChen</Authors>
     <Company>zhangbudademao.com</Company>
     <Product>BiliAccount</Product>
@@ -18,7 +18,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>bilibili bililive bililogin biliaccount</PackageTags>
     <PackageIcon>favicon_4.png</PackageIcon>
-    <PackageReleaseNotes>增加对.net core 3.0以上的兼容</PackageReleaseNotes>
+    <PackageReleaseNotes>修复了一个可能导致模块未初始化错误的问题。</PackageReleaseNotes>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

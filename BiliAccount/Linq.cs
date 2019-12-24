@@ -37,7 +37,6 @@ namespace BiliAccount.Linq
         /// <returns>账号信息实例</returns>
         public static Account LoginByPassword(string username, string password)
         {
-            Core.ByPassword.Init();
             Account account = new Account()
             {
                 UserName = username,

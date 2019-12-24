@@ -31,22 +31,27 @@ namespace BiliAccount.Core
         /// <summary>
         /// Appkey
         /// </summary>
-        public static string Appkey { get; private set; }
+        public static string Appkey { get; private set; } = "1d8b6e7d45233436";
 
         /// <summary>
         /// AppSecret
         /// </summary>
-        public static string Appsecret { get; private set; }
+        public static string Appsecret { get; private set; } = "560c52ccd288fed045859ed18bffd973";
 
         /// <summary>
         /// Build
         /// </summary>
-        public static string Build { get; private set; }
+        public static string Build { get; private set; } = "5520400";
 
         /// <summary>
         /// UA
         /// </summary>
-        public static string User_Agent { get; private set; }
+        public static string User_Agent { get; private set; } = "Mozilla/5.0 BiliDroid/5.52.0 (bbcallen@gmail.com) os/android model/MI 9 mobi_app/android build/520400 channel/master innerVer/5520400 osVer/10 network/2";
+
+        /// <summary>
+        /// 指示是否已经初始化
+        /// </summary>
+        public static bool IsInited { get; private set; } = false;
 
         #endregion Public Properties
 
@@ -73,6 +78,7 @@ namespace BiliAccount.Core
         /// <param name="account">账号实例</param>
         public static void DoLogin(ref Account account)
         {
+            if (!IsInited) Init();
             string parm = "appkey=" + Appkey + "&build=" + Build + "&mobi_app=android&password=" + account.EncryptedPassword + "&platform=android&ts=" + TimeStamp + "&username=" + account.UserName;
             parm += "&sign=" + GetSign(parm);
             string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v2/oauth2/login", out account.Cookies, parm);
@@ -138,6 +144,7 @@ namespace BiliAccount.Core
         /// <param name="account">账号实例</param>
         public static void DoLoginWithCatpcha(string captcha, ref Account account)
         {
+            if (!IsInited) Init();
             string parm = "actionKey=" + Appkey + "&appkey=" + Appkey + "&build=" + Build + "&captcha=" + captcha + "&mobi_app=android&password=" + account.EncryptedPassword + "&device=android&platform=android&ts=" + TimeStamp + "&username=" + account.UserName;
             parm += "&sign=" + GetSign(parm);
             string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v2/oauth2/login", out account.Cookies, parm, account.Cookies);
@@ -230,6 +237,7 @@ namespace BiliAccount.Core
         /// <param name="cookies">输出cookies</param>
         public static void GetKey(out string hash, out string key, out CookieCollection cookies)
         {
+            if (!IsInited) Init();
             string parm = "appkey=" + Appkey;
             parm += "&sign=" + GetSign(parm);
             string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/oauth2/getKey", out cookies, parm);
@@ -271,6 +279,7 @@ namespace BiliAccount.Core
                 Appsecret = obj.appsecret;
                 Build = obj.build;
                 User_Agent = obj.user_agent;
+                IsInited = true;
             }
             else
             {
@@ -285,6 +294,7 @@ namespace BiliAccount.Core
         /// <returns>是否可用</returns>
         public static bool IsTokenAvailable(string access_token)
         {
+            if (!IsInited) Init();
             string parm = "access_token=" + access_token + "&appkey=" + Appkey + "&ts=" + TimeStamp;
             parm += "&sign=" + GetSign(parm);
             string str = Http.GetBody("https://passport.bilibili.com/api/oauth2/info?" + parm);
@@ -313,6 +323,7 @@ namespace BiliAccount.Core
         /// <returns>到期时间</returns>
         public static DateTime? RefreshToken(string access_token, string refresh_token)
         {
+            if (!IsInited) Init();
             string parm = "access_token=" + access_token + "&appkey=" + Appkey + "&refresh_token=" + refresh_token + "&ts=" + TimeStamp;
             parm += "&sign=" + GetSign(parm);
             string str = Http.PostBody("https://passport.bilibili.com/api/oauth2/refreshToken", parm);
@@ -339,6 +350,7 @@ namespace BiliAccount.Core
         /// <returns>[0]=>(string)strCookies,[1]=>(string)csrf_token,[2]=>(DateTime)Expiress,[3]=>(CookieCollection)Cookies</returns>
         public static object[] SSO(string access_token)
         {
+            if (!IsInited) Init();
             string parm = "access_key=" + access_token + "&appkey=" + Appkey + "&build=5470400&gourl=" + UrlEncode("https://www.bilibili.com/") + "&mobi_app=android&platform=android&ts=" + TimeStamp;
             parm += "&sign=" + GetSign(parm);
 
