@@ -86,15 +86,20 @@ namespace BiliAccount
         /// </summary>
         public string UserName;
 
-#endregion Public Fields
+        #endregion Public Fields
 
-#region Public Enums
+        #region Public Enums
 
         /// <summary>
         /// 登录状态枚举
         /// </summary>
         public enum LoginStatusEnum
         {
+            /// <summary>
+            /// 设备安全验证
+            /// </summary>
+            NeedSafeVerify = -4,
+
             /// <summary>
             /// 手机验证(验证成功后重新登录）
             /// </summary>
@@ -126,6 +131,6 @@ namespace BiliAccount
             ByPassword
         }
 
-#endregion Public Enums
+        #endregion Public Enums
     }
 }

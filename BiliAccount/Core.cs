@@ -41,17 +41,17 @@ namespace BiliAccount.Core
         /// <summary>
         /// Build
         /// </summary>
-        public static string Build { get; private set; } = "5520400";
-
-        /// <summary>
-        /// UA
-        /// </summary>
-        public static string User_Agent { get; private set; } = "Mozilla/5.0 BiliDroid/5.52.0 (bbcallen@gmail.com) os/android model/MI 9 mobi_app/android build/520400 channel/master innerVer/5520400 osVer/10 network/2";
+        public static string Build { get; private set; } = "5531000";
 
         /// <summary>
         /// 指示是否已经初始化
         /// </summary>
         public static bool IsInited { get; private set; } = false;
+
+        /// <summary>
+        /// UA
+        /// </summary>
+        public static string User_Agent { get; private set; } = "Mozilla/5.0 BiliDroid/5.53.1 (bbcallen@gmail.com) os/android model/MI 9 mobi_app/android build/5531000 channel/master innerVer/5531000 osVer/10 network/2";
 
         #endregion Public Properties
 
@@ -81,45 +81,19 @@ namespace BiliAccount.Core
             if (!IsInited) Init();
             string parm = "appkey=" + Appkey + "&build=" + Build + "&mobi_app=android&password=" + account.EncryptedPassword + "&platform=android&ts=" + TimeStamp + "&username=" + account.UserName;
             parm += "&sign=" + GetSign(parm);
-            string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v2/oauth2/login", out account.Cookies, parm);
+            string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v3/oauth2/login", out account.Cookies, parm, null, "application/x-www-form-urlencoded;charset=utf-8", "", User_Agent);
             if (!string.IsNullOrEmpty(str))
             {
 #if NETSTANDARD2_0 || NETCORE3_0
-                    DoLogin_DataTemplete obj = JsonConvert.DeserializeObject<DoLogin_DataTemplete>(str);
+                DoLogin_DataTemplete obj = JsonConvert.DeserializeObject<DoLogin_DataTemplete>(str);
 #else
                 DoLogin_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<DoLogin_DataTemplete>(str);
 #endif
 
                 switch (obj.code)
                 {
-                    case 0:
-                        if (obj.data.status == 0)//登录成功
-                        {
-                            account.Uid = obj.data.token_info.mid;
-                            account.AccessToken = obj.data.token_info.access_token;
-                            account.RefreshToken = obj.data.token_info.refresh_token;
-                            account.Expires_AccessToken = DateTime.Parse("1970-01-01 08:00:00").AddSeconds(obj.ts + obj.data.token_info.expires_in);
-
-                            account.Cookies = new CookieCollection();
-                            foreach (DoLogin_DataTemplete.Data_Templete.Cookie_Info_Templete.Cookie_Templete i in obj.data.cookie_info.cookies)
-                            {
-                                account.strCookies += i.name + "=" + i.value + "; ";
-                                account.Cookies.Add(new Cookie(i.name, i.value));
-                                account.Expires_Cookies = DateTime.Parse("1970-01-01 08:00:00").AddSeconds(i.expires);
-
-                                if (i.name == "bili_jct")
-                                    account.CsrfToken = i.value;
-                            }
-                            account.strCookies = account.strCookies.Substring(0, account.strCookies.Length - 2);
-                            account.LoginStatus = Account.LoginStatusEnum.ByPassword;
-                        }
-                        else//需要手机验证
-                        {
-                            Regex reg = new Regex("&tel=.*?&");
-                            Match match = reg.Match(obj.data.url);
-                            account.Tel = match.Value.Substring(5, match.Value.Length - 6);
-                            account.LoginStatus = Account.LoginStatusEnum.NeedTelVerify;
-                        }
+                    case 0://初步登录成功
+                        LoginSuccess(obj, ref account);
                         break;
 
                     case -105://需要验证码
@@ -147,45 +121,18 @@ namespace BiliAccount.Core
             if (!IsInited) Init();
             string parm = "actionKey=" + Appkey + "&appkey=" + Appkey + "&build=" + Build + "&captcha=" + captcha + "&mobi_app=android&password=" + account.EncryptedPassword + "&device=android&platform=android&ts=" + TimeStamp + "&username=" + account.UserName;
             parm += "&sign=" + GetSign(parm);
-            string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v2/oauth2/login", out account.Cookies, parm, account.Cookies);
+            string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v3/oauth2/login", out account.Cookies, parm, account.Cookies, "application/x-www-form-urlencoded;charset=utf-8", "", User_Agent);
             if (!string.IsNullOrEmpty(str))
             {
 #if NETSTANDARD2_0 || NETCORE3_0
-                    DoLogin_DataTemplete obj = JsonConvert.DeserializeObject<DoLogin_DataTemplete>(str);
+                DoLogin_DataTemplete obj = JsonConvert.DeserializeObject<DoLogin_DataTemplete>(str);
 #else
                 DoLogin_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<DoLogin_DataTemplete>(str);
 #endif
                 switch (obj.code)
                 {
                     case 0://登录成功
-                        if (obj.data.status == 0)//登录成功
-                        {
-                            account.Uid = obj.data.token_info.mid;
-                            account.AccessToken = obj.data.token_info.access_token;
-                            account.RefreshToken = obj.data.token_info.refresh_token;
-                            account.Expires_AccessToken = DateTime.Parse("1970-01-01 08:00:00").AddSeconds(obj.ts + obj.data.token_info.expires_in);
-
-                            account.Cookies = new CookieCollection();
-                            foreach (DoLogin_DataTemplete.Data_Templete.Cookie_Info_Templete.Cookie_Templete i in obj.data.cookie_info.cookies)
-                            {
-                                account.strCookies += i.name + "=" + i.value + "; ";
-                                account.Cookies.Add(new Cookie(i.name, i.value));
-                                account.Expires_Cookies = DateTime.Parse("1970-01-01 08:00:00").AddSeconds(i.expires);
-
-                                if (i.name == "bili_jct")
-                                    account.CsrfToken = i.value;
-                            }
-                            account.strCookies = account.strCookies.Substring(0, account.strCookies.Length - 2);
-                            account.LoginStatus = Account.LoginStatusEnum.ByPassword;
-                        }
-                        else//需要手机验证
-                        {
-                            Regex reg = new Regex("&tel=.*?&");
-                            Match match = reg.Match(obj.data.url);
-                            account.Url = obj.data.url;
-                            account.Tel = match.Value.Substring(5, match.Value.Length - 6);
-                            account.LoginStatus = Account.LoginStatusEnum.NeedTelVerify;
-                        }
+                        LoginSuccess(obj, ref account);
                         break;
 
                     case -105://验证码错误
@@ -372,7 +319,7 @@ namespace BiliAccount.Core
                     string[] tmp2 = tmp[0].Split('=');
 
                     cookies += tmp[0] + "; ";
-                    cookiesC.Add(new Cookie(tmp2[0], tmp2[1]));
+                    cookiesC.Add(new Cookie(tmp2[0], tmp2[1]) { Domain = ".bilibili.com" });
                     expires = DateTime.Parse(tmp[2].Split('=')[1]);
 
                     if (tmp2[0] == "bili_jct")
@@ -425,6 +372,53 @@ namespace BiliAccount.Core
         private static string GetSign(string strReq)
         {
             return GetMD5(strReq + Appsecret);
+        }
+
+        /// <summary>
+        /// 初步登录成功判断
+        /// </summary>
+        /// <param name="obj">登录返回数据体</param>
+        /// <param name="account">Account实例</param>
+        private static void LoginSuccess(DoLogin_DataTemplete obj, ref Account account)
+        {
+            switch (obj.data.status)
+            {
+                case 0://登陆成功
+                    account.Uid = obj.data.token_info.mid;
+                    account.AccessToken = obj.data.token_info.access_token;
+                    account.RefreshToken = obj.data.token_info.refresh_token;
+                    account.Expires_AccessToken = DateTime.Parse("1970-01-01 08:00:00").AddSeconds(obj.ts + obj.data.token_info.expires_in);
+
+                    account.Cookies = new CookieCollection();
+                    foreach (DoLogin_DataTemplete.Data_Templete.Cookie_Info_Templete.Cookie_Templete i in obj.data.cookie_info.cookies)
+                    {
+                        account.strCookies += i.name + "=" + i.value + "; ";
+                        account.Cookies.Add(new Cookie(i.name, i.value) { Domain = ".bilibili.com" });
+                        account.Expires_Cookies = DateTime.Parse("1970-01-01 08:00:00").AddSeconds(i.expires);
+
+                        if (i.name == "bili_jct")
+                            account.CsrfToken = i.value;
+                    }
+                    account.strCookies = account.strCookies.Substring(0, account.strCookies.Length - 2);
+                    account.LoginStatus = Account.LoginStatusEnum.ByPassword;
+                    break;
+
+                case 1://手机验证
+                    Regex reg = new Regex("&tel=.*?&");
+                    Match match = reg.Match(obj.data.url);
+                    account.Tel = match.Value.Substring(5, match.Value.Length - 6);
+                    account.Url = obj.data.url;
+                    account.LoginStatus = Account.LoginStatusEnum.NeedTelVerify;
+                    break;
+
+                case 3://设备登录验证
+                    account.Url = obj.data.url;
+                    account.LoginStatus = Account.LoginStatusEnum.NeedSafeVerify;
+                    break;
+
+                default:
+                    break;
+            }
         }
 
         /// <summary>
@@ -738,13 +732,13 @@ namespace BiliAccount.Core
                             case "bili_jct":
                                 account.CsrfToken = tmp[1];
                                 account.strCookies += KeyValuePair[i] + "; ";
-                                account.Cookies.Add(new Cookie(tmp[0], tmp[1]));
+                                account.Cookies.Add(new Cookie(tmp[0], tmp[1]) { Domain = ".bilibili.com" });
                                 break;
 
                             case "DedeUserID":
                                 account.Uid = tmp[1];
                                 account.strCookies += KeyValuePair[i] + "; ";
-                                account.Cookies.Add(new Cookie(tmp[0], tmp[1]));
+                                account.Cookies.Add(new Cookie(tmp[0], tmp[1]) { Domain = ".bilibili.com" });
                                 break;
 
                             case "Expires":
@@ -757,7 +751,7 @@ namespace BiliAccount.Core
 
                             default:
                                 account.strCookies += KeyValuePair[i] + "; ";
-                                account.Cookies.Add(new Cookie(tmp[0], tmp[1]));
+                                account.Cookies.Add(new Cookie(tmp[0], tmp[1]) { Domain = ".bilibili.com" });
                                 break;
                         }
                     }

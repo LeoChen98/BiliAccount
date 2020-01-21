@@ -6,7 +6,7 @@
     <RootNamespace>BiliAccount</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>BiliAccount</PackageId>
-    <Version>2.0.4.11</Version>
+    <Version>2.2.0.12</Version>
     <Authors>LeoChen</Authors>
     <Company>zhangbudademao.com</Company>
     <Product>BiliAccount</Product>
@@ -18,7 +18,10 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>bilibili bililive bililogin biliaccount</PackageTags>
     <PackageIcon>favicon_4.png</PackageIcon>
-    <PackageReleaseNotes>修复了一个可能导致模块未初始化错误的问题。</PackageReleaseNotes>
+    <PackageReleaseNotes>1. 接口更新到v3。
+2. 加入设备验证判断（未实现设备验证下的登录，建议遇到该情况引导用户使用二维码登录）。
+3. 更新了默认登录信息。
+4. 修正了部分可能引起问题的不严谨写法。</PackageReleaseNotes>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>

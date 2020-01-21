@@ -6,8 +6,10 @@ using System.Windows;
 #endif
 
 #if !NETSTANDARD2_0 && !NETCORE3_0
+
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+
 #endif
 
 namespace BiliAccount.Linq
@@ -126,14 +128,17 @@ namespace BiliAccount.Linq
         public enum QrCodeStatus
         {
             #region Public Fields
+
             /// <summary>
             /// 等待扫描
             /// </summary>
             Wating,
+
             /// <summary>
             /// 等待确认
             /// </summary>
             Scaned,
+
             /// <summary>
             /// 登录成功
             /// </summary>
@@ -155,6 +160,7 @@ namespace BiliAccount.Linq
         }
 
 #if !NETSTANDARD2_0 && !NETCORE3_0
+
         /// <summary>
         /// 删除对象
         /// </summary>
@@ -178,9 +184,8 @@ namespace BiliAccount.Linq
 
             return imgsource;
         }
+
 #endif
-
-
 
         /// <summary>
         /// 用二维码登录

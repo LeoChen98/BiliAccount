@@ -1,18 +1,28 @@
 ﻿using BiliAccount.Linq;
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BiliAccount.TestProject
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        #region Private Methods
+
+        private static void ByQRCode_QrCodeRefresh(Bitmap newQrCode)
+        {
+            newQrCode.Save("tmp.jpg");
+        }
+
+        private static void ByQRCode_QrCodeStatus_Changed(ByQRCode.QrCodeStatus status, Account account = null)
+        {
+            Console.WriteLine(status);
+            if (account != null) Console.WriteLine(var_dump(account));
+        }
+
+        private static void Main(string[] args)
         {
             Console.WriteLine($"测试版本：{AssemblyName.GetAssemblyName("BiliAccount.dll").Version.ToString()}");
             Console.WriteLine("账号");
@@ -26,19 +36,7 @@ namespace BiliAccount.TestProject
             ByQRCode.QrCodeRefresh += ByQRCode_QrCodeRefresh;
             ByQRCode.LoginByQrCode().Save("tmp.jpg");
 
-
             Application.Run();
-        }
-
-        private static void ByQRCode_QrCodeRefresh(Bitmap newQrCode)
-        {
-            newQrCode.Save("tmp.jpg");
-        }
-
-        private static void ByQRCode_QrCodeStatus_Changed(ByQRCode.QrCodeStatus status, Account account = null)
-        {
-            Console.WriteLine(status);
-            if (account != null) Console.WriteLine(var_dump(account));
         }
 
         ///<summary>
@@ -67,8 +65,9 @@ namespace BiliAccount.TestProject
                 catch { }
             }
 
-
             return sb.ToString();
         }
+
+        #endregion Private Methods
     }
 }

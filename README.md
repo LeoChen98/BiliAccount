@@ -31,10 +31,10 @@ B站账号操作封装
 
 工具|命令/代码
 --|--
-Package Manager|`Install-Package BiliAccount -Version 2.0.3.10`
-.NET CLI|`dotnet add package BiliAccount --version 2.0.3.10`
-PackageReference|`<PackageReference Include="BiliAccount" Version="2.0.3.10" />`
-Packet CLI|`paket add BiliAccount --version 2.0.3.10`
+Package Manager|`Install-Package BiliAccount -Version 2.2.0.12`
+.NET CLI|`dotnet add package BiliAccount --version 2.2.0.12`
+PackageReference|`<PackageReference Include="BiliAccount" Version="2.2.0.12" />`
+Packet CLI|`paket add BiliAccount --version 2.2.0.12`
 
 具体使用方法请见[Wiki](https://github.com/LeoChen98/BiliAccount/wiki)
 
@@ -46,7 +46,7 @@ Copyright (c) 2019 Newtonsoft
 
 Licensed under MIT
 
-### QRCoder 1.3.6
+### QRCoder 1.3.5/1.3.6
 <https://github.com/codebude/QRCoder/>
 
 Copyright © 2011 - 2018 Raffael Herrmann

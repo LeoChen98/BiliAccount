@@ -1,9 +1,9 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Drawing;
-
+using System.Text.RegularExpressions;
 
 namespace BiliAccount
 {
@@ -12,7 +12,7 @@ namespace BiliAccount
     /// </summary>
     internal class Http
     {
-#region Public Methods
+        #region Public Methods
 
         /// <summary>
         /// Get方法
@@ -161,10 +161,7 @@ namespace BiliAccount
                 {
                     foreach (string i in rep.Headers.GetValues("Set-Cookie"))
                     {
-                        string[] tmp = i.Split(';');
-                        string[] tmp2 = tmp[0].Split('=');
-
-                        out_cookies.Add(new Cookie(tmp2[0], tmp2[1]) { Expires = DateTime.Parse(tmp[2].Split('=')[1]) });
+                        out_cookies.Add(new Cookie(new Regex("^(?<=).*?(?==)").Match(i).Value, new Regex("(?<==).*?(?=; )").Match(i).Value) { Expires = DateTime.Parse(new Regex("(?<=Expires=).*?(?=;)").Match(i).Value), Domain = new Regex("(?<=Domain=).*?(?=;)").Match(i).Value, Path = new Regex("(?<=Path=).*?(?=;)").Match(i).Value });
                     }
                 }
             }
@@ -292,10 +289,7 @@ namespace BiliAccount
                 {
                     foreach (string i in rep.Headers.GetValues("Set-Cookie"))
                     {
-                        string[] tmp = i.Split(';');
-                        string[] tmp2 = tmp[0].Split('=');
-
-                        out_cookies.Add(new Cookie(tmp2[0], tmp2[1]) { Expires = DateTime.Parse(tmp[2].Split('=')[1]) });
+                        out_cookies.Add(new Cookie(new Regex("^(?<=).*?(?==)").Match(i).Value, new Regex("(?<==).*?(?=; )").Match(i).Value) { Expires = DateTime.Parse(new Regex("(?<=Expires=).*?(?=;)").Match(i).Value), Domain = new Regex("(?<=Domain=).*?(?=;)").Match(i).Value, Path = new Regex("(?<=Path=).*?(?=;)").Match(i).Value });
                     }
                 }
             }
@@ -306,8 +300,7 @@ namespace BiliAccount
             }
             return result;
         }
-#endregion Public Methods  
+
+        #endregion Public Methods
     }
-
-
 }
