@@ -8,6 +8,7 @@ B站账号操作封装
 [![DevLanguage](https://img.shields.io/badge/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80-C%23-brightgreen.svg)](#)
 [![Pull Request Welcome](https://img.shields.io/badge/Pull%20request-welcome-brightgreen.svg)](#)
 [![GitHub license](https://img.shields.io/github/license/LeoChen98/BiliUPDesktopTool.svg)](https://github.com/LeoChen98/BiliUPDesktopTool/blob/master/LICENSE)
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FLeoChen98%2FBiliAccount.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FLeoChen98%2FBiliAccount?ref=badge_shield)
 
 ## 支持与依赖
 框架|版本|依赖|备注
@@ -59,3 +60,7 @@ Licensed under MIT
 © Microsoft Corporation. All rights reserved.
 
 Licensed under MIT
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FLeoChen98%2FBiliAccount.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FLeoChen98%2FBiliAccount?ref=badge_large)
