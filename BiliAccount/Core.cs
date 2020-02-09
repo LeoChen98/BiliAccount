@@ -97,6 +97,7 @@ namespace BiliAccount.Core
                         break;
 
                     case -105://需要验证码
+                        account.Url = obj.data.url;
                         account.LoginStatus = Account.LoginStatusEnum.NeedCaptcha;
                         break;
 
@@ -136,6 +137,7 @@ namespace BiliAccount.Core
                         break;
 
                     case -105://验证码错误
+                        account.Url = obj.data.url;
                         account.LoginStatus = Account.LoginStatusEnum.NeedCaptcha;
                         break;
 
