@@ -1,15 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Web;
 
 #if NETSTANDARD2_0 || NETCORE3_0
-using QRCoder;
 using Newtonsoft.Json;
 #else
 
@@ -26,35 +23,6 @@ namespace BiliAccount.Core
     /// </summary>
     internal class ByPassword
     {
-        #region Public Properties
-
-        /// <summary>
-        /// Appkey
-        /// </summary>
-        public static string Appkey { get; private set; } = "1d8b6e7d45233436";
-
-        /// <summary>
-        /// AppSecret
-        /// </summary>
-        public static string Appsecret { get; private set; } = "560c52ccd288fed045859ed18bffd973";
-
-        /// <summary>
-        /// Build
-        /// </summary>
-        public static string Build { get; private set; } = "5531000";
-
-        /// <summary>
-        /// 指示是否已经初始化
-        /// </summary>
-        public static bool IsInited { get; private set; } = false;
-
-        /// <summary>
-        /// UA
-        /// </summary>
-        public static string User_Agent { get; private set; } = "Mozilla/5.0 BiliDroid/5.53.1 (bbcallen@gmail.com) os/android model/MI 9 mobi_app/android build/5531000 channel/master innerVer/5531000 osVer/10 network/2";
-
-        #endregion Public Properties
-
         #region Private Properties
 
         /// <summary>
@@ -78,10 +46,9 @@ namespace BiliAccount.Core
         /// <param name="account">账号实例</param>
         public static void DoLogin(ref Account account)
         {
-            if (!IsInited) Init();
-            string parm = "appkey=" + Appkey + "&build=" + Build + "&mobi_app=android&password=" + account.EncryptedPassword + "&platform=android&ts=" + TimeStamp + "&username=" + account.UserName;
+            string parm = "appkey=" + Config.Instance.Appkey + "&build=" + Config.Instance.Build + "&mobi_app=android&password=" + account.EncryptedPassword + "&platform=android&ts=" + TimeStamp + "&username=" + account.UserName;
             parm += "&sign=" + GetSign(parm);
-            string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v3/oauth2/login", out account.Cookies, parm, null, "application/x-www-form-urlencoded;charset=utf-8", "", User_Agent);
+            string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v3/oauth2/login", out account.Cookies, parm, null, "application/x-www-form-urlencoded;charset=utf-8", "", Config.Instance.User_Agent);
             if (!string.IsNullOrEmpty(str))
             {
 #if NETSTANDARD2_0 || NETCORE3_0
@@ -119,10 +86,9 @@ namespace BiliAccount.Core
         /// <param name="account">账号实例</param>
         public static void DoLoginWithCatpcha(string captcha, ref Account account)
         {
-            if (!IsInited) Init();
-            string parm = "actionKey=" + Appkey + "&appkey=" + Appkey + "&build=" + Build + "&captcha=" + captcha + "&mobi_app=android&password=" + account.EncryptedPassword + "&device=android&platform=android&ts=" + TimeStamp + "&username=" + account.UserName;
+            string parm = "actionKey=" + Config.Instance.Appkey + "&appkey=" + Config.Instance.Appkey + "&build=" + Config.Instance.Build + "&captcha=" + captcha + "&mobi_app=android&password=" + account.EncryptedPassword + "&device=android&platform=android&ts=" + TimeStamp + "&username=" + account.UserName;
             parm += "&sign=" + GetSign(parm);
-            string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v3/oauth2/login", out account.Cookies, parm, account.Cookies, "application/x-www-form-urlencoded;charset=utf-8", "", User_Agent);
+            string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v3/oauth2/login", out account.Cookies, parm, account.Cookies, "application/x-www-form-urlencoded;charset=utf-8", "", Config.Instance.User_Agent);
             if (!string.IsNullOrEmpty(str))
             {
 #if NETSTANDARD2_0 || NETCORE3_0
@@ -186,8 +152,7 @@ namespace BiliAccount.Core
         /// <param name="cookies">输出cookies</param>
         public static void GetKey(out string hash, out string key, out CookieCollection cookies)
         {
-            if (!IsInited) Init();
-            string parm = "appkey=" + Appkey;
+            string parm = "appkey=" + Config.Instance.Appkey;
             parm += "&sign=" + GetSign(parm);
             string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/oauth2/getKey", out cookies, parm);
             if (!string.IsNullOrEmpty(str))
@@ -211,40 +176,13 @@ namespace BiliAccount.Core
         }
 
         /// <summary>
-        /// 初始化登录模块
-        /// </summary>
-        public static void Init()
-        {
-            string str = Http.GetBody("http://ctrl.zhangbudademao.com/118/Init.json");
-
-            if (!string.IsNullOrEmpty(str))
-            {
-#if NETSTANDARD2_0 || NETCORE3_0
-                Init_DataTemplete obj = JsonConvert.DeserializeObject<Init_DataTemplete>(str);
-#else
-                Init_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<Init_DataTemplete>(str);
-#endif
-                Appkey = obj.appkey;
-                Appsecret = obj.appsecret;
-                Build = obj.build;
-                User_Agent = obj.user_agent;
-                IsInited = true;
-            }
-            else
-            {
-                throw new Exception("Login module initialization failure.");
-            }
-        }
-
-        /// <summary>
         /// 检查token可用性
         /// </summary>
         /// <param name="access_token">token</param>
         /// <returns>是否可用</returns>
         public static bool IsTokenAvailable(string access_token)
         {
-            if (!IsInited) Init();
-            string parm = "access_token=" + access_token + "&appkey=" + Appkey + "&ts=" + TimeStamp;
+            string parm = "access_token=" + access_token + "&appkey=" + Config.Instance.Appkey + "&ts=" + TimeStamp;
             parm += "&sign=" + GetSign(parm);
             string str = Http.GetBody("https://passport.bilibili.com/api/oauth2/info?" + parm);
 
@@ -256,7 +194,7 @@ namespace BiliAccount.Core
                 IsTokenAvailable_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<IsTokenAvailable_DataTemplete>(str);
 #endif
 
-                if (obj.code == 0 && obj.data.expiress_in > 0)
+                if (obj.code == 0 && obj.data.expires_in > 0)
                 {
                     return true;
                 }
@@ -272,8 +210,7 @@ namespace BiliAccount.Core
         /// <returns>到期时间</returns>
         public static DateTime? RefreshToken(string access_token, string refresh_token)
         {
-            if (!IsInited) Init();
-            string parm = "access_token=" + access_token + "&appkey=" + Appkey + "&refresh_token=" + refresh_token + "&ts=" + TimeStamp;
+            string parm = "access_token=" + access_token + "&appkey=" + Config.Instance.Appkey + "&refresh_token=" + refresh_token + "&ts=" + TimeStamp;
             parm += "&sign=" + GetSign(parm);
             string str = Http.PostBody("https://passport.bilibili.com/api/oauth2/refreshToken", parm);
 
@@ -299,9 +236,8 @@ namespace BiliAccount.Core
         /// <returns>[0]=>(string)strCookies,[1]=>(string)csrf_token,[2]=>(DateTime)Expiress,[3]=>(CookieCollection)Cookies</returns>
         public static object[] SSO(string access_token)
         {
-            if (!IsInited) Init();
-            string parm = "access_key=" + access_token + "&appkey=" + Appkey + "&build=5470400&gourl=" + UrlEncode("https://www.bilibili.com/") + "&mobi_app=android&platform=android&ts=" + TimeStamp;
-            parm += "&sign=" + GetSign(parm);
+            string parm = $"access_key={access_token}&appkey={Config.Instance.Appkey}&build={Config.Instance.Build}&gourl={UrlEncode("https://www.bilibili.com/")}&mobi_app=android&platform=android&ts={TimeStamp}";
+            parm += $"&sign={GetSign(parm)}";
 
             HttpWebRequest req = null;
             HttpWebResponse rep = null;
@@ -312,7 +248,7 @@ namespace BiliAccount.Core
             {
                 req = (HttpWebRequest)WebRequest.Create("https://passport.bilibili.com/api/login/sso?" + parm);
                 req.AllowAutoRedirect = false;
-                req.UserAgent = "Mozilla/5.0 BiliDroid/5.46.0 (bbcallen@gmail.com) os/android model/MI 9 mobi_app/android build/5460400 channel/master innerVer/5460400 osVer/10 network/2";
+                req.UserAgent = Config.Instance.User_Agent;
                 rep = (HttpWebResponse)req.GetResponse();
 
                 foreach (string i in rep.Headers.GetValues("Set-Cookie"))
@@ -373,7 +309,7 @@ namespace BiliAccount.Core
         /// <returns>签名</returns>
         private static string GetSign(string strReq)
         {
-            return GetMD5(strReq + Appsecret);
+            return GetMD5(strReq + Config.Instance.Appsecret);
         }
 
         /// <summary>
@@ -548,21 +484,6 @@ namespace BiliAccount.Core
         }
 
         /// <summary>
-        /// 初始化数据模板
-        /// </summary>
-        private class Init_DataTemplete
-        {
-            #region Public Fields
-
-            public string appkey;
-            public string appsecret;
-            public string build;
-            public string user_agent;
-
-            #endregion Public Fields
-        }
-
-        /// <summary>
         /// 检查token可用性数据模板
         /// </summary>
         private class IsTokenAvailable_DataTemplete
@@ -581,7 +502,7 @@ namespace BiliAccount.Core
             {
                 #region Public Fields
 
-                public long expiress_in;
+                public long expires_in;
 
                 #endregion Public Fields
             }
@@ -614,223 +535,6 @@ namespace BiliAccount.Core
             }
 
             #endregion Public Classes
-        }
-
-        #endregion Private Classes
-    }
-
-    /// <summary>
-    /// 通过二维码登录
-    /// </summary>
-    internal class ByQrCode
-    {
-        #region Private Fields
-
-        /// <summary>
-        /// 状态监视器
-        /// </summary>
-        private static Timer Monitor;
-
-        /// <summary>
-        /// 刷新监视器
-        /// </summary>
-        private static Timer Refresher;
-
-        #endregion Private Fields
-
-        #region Public Methods
-
-        /// <summary>
-        /// 取消登录
-        /// </summary>
-        public static void CancelLogin()
-        {
-            Monitor.Dispose();
-            Refresher.Dispose();
-        }
-
-        /// <summary>
-        /// 获取登陆二维码
-        /// </summary>
-        public static Bitmap GetQrcode()
-        {
-            Bitmap qrCodeImage = null;
-        re:
-            //获取二维码要包含的url
-            string str = Http.GetBody("https://passport.bilibili.com/qrcode/getLoginUrl", null, "https://passport.bilibili.com/login");
-            if (!string.IsNullOrEmpty(str))
-            {
-#if NETSTANDARD2_0 || NETCORE3_0
-                GetQrcode_DataTemplete obj = JsonConvert.DeserializeObject<GetQrcode_DataTemplete>(str);
-#else
-                GetQrcode_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<GetQrcode_DataTemplete>(str);
-#endif
-
-                if (obj.code == 0)
-                {
-                    // 生成二维码的内容
-                    string strCode = obj.data.url;
-#if !NETSTANDARD2_0 && !NETCORE3_0
-                    QRCodeGenerator qrGenerator = new QRCodeGenerator();
-                    QRCodeData qrCodeData = qrGenerator.CreateQrCode(strCode, QRCodeGenerator.ECCLevel.Q);
-                    QRCode qrcode = new QRCode(qrCodeData);
-                    //生成二维码位图
-                    qrCodeImage = qrcode.GetGraphic(5, Color.Black, Color.White, null, 0, 6, false);
-#else
-
-                        QRCodeGenerator qrGenerator = new QRCodeGenerator();
-                        QRCodeData qrCodeData = qrGenerator.CreateQrCode(strCode, QRCodeGenerator.ECCLevel.Q);
-                        QRCode qrcode = new QRCode(qrCodeData);
-                        //生成二维码位图
-                        qrCodeImage = qrcode.GetGraphic(5, Color.Black, Color.White, null, 0, 6, false);
-#endif
-
-                    Monitor = new Timer(MonitorCallback, obj.data.oauthKey, 1000, 1000);
-                    Refresher = new Timer(RefresherCallback, null, 180000, Timeout.Infinite);
-                }
-            }
-            else goto re;
-
-            return qrCodeImage;
-        }
-
-        #endregion Public Methods
-
-        #region Private Methods
-
-        /// <summary>
-        /// 状态监视器回调
-        /// </summary>
-        /// <param name="o">oauthKey</param>
-        private static void MonitorCallback(object o)
-        {
-            string oauthKey = o.ToString();
-
-            string str = Http.PostBody("https://passport.bilibili.com/qrcode/getLoginInfo", "oauthKey=" + oauthKey + "&gourl=https%3A%2F%2Fwww.bilibili.com%2F", null, "application/x-www-form-urlencoded; charset=UTF-8", "https://passport.bilibili.com/login");
-            if (!string.IsNullOrEmpty(str))
-            {
-#if NETSTANDARD2_0 || NETCORE3_0
-                    MonitorCallBack_Templete obj = JsonConvert.DeserializeObject<MonitorCallBack_Templete>(str);
-#else
-                MonitorCallBack_Templete obj = (new JavaScriptSerializer()).Deserialize<MonitorCallBack_Templete>(str);
-#endif
-
-                if (obj.status)
-                {
-                    //关闭监视器
-                    Monitor.Dispose();
-                    Refresher.Dispose();
-
-                    Account account = new Account();
-
-                    string Querystring = Regex.Split((obj.data as Dictionary<string, object>)["url"].ToString(), "\\?")[1];
-                    string[] KeyValuePair = Regex.Split(Querystring, "&");
-                    account.Cookies = new CookieCollection();
-                    for (int i = 0; i < KeyValuePair.Length - 1; i++)
-                    {
-                        string[] tmp = Regex.Split(KeyValuePair[i], "=");
-                        switch (tmp[0])
-                        {
-                            case "bili_jct":
-                                account.CsrfToken = tmp[1];
-                                account.strCookies += KeyValuePair[i] + "; ";
-                                account.Cookies.Add(new Cookie(tmp[0], tmp[1]) { Domain = ".bilibili.com" });
-                                break;
-
-                            case "DedeUserID":
-                                account.Uid = tmp[1];
-                                account.strCookies += KeyValuePair[i] + "; ";
-                                account.Cookies.Add(new Cookie(tmp[0], tmp[1]) { Domain = ".bilibili.com" });
-                                break;
-
-                            case "Expires":
-                                account.Expires_Cookies = DateTime.Now.AddSeconds(double.Parse(tmp[1]));
-                                break;
-
-                            case "gourl":
-
-                                break;
-
-                            default:
-                                account.strCookies += KeyValuePair[i] + "; ";
-                                account.Cookies.Add(new Cookie(tmp[0], tmp[1]) { Domain = ".bilibili.com" });
-                                break;
-                        }
-                    }
-                    account.strCookies = account.strCookies.Substring(0, account.strCookies.Length - 2);
-                    account.LoginStatus = Account.LoginStatusEnum.ByQrCode;
-                    Linq.ByQRCode.RaiseQrCodeStatus_Changed(Linq.ByQRCode.QrCodeStatus.Success, account);
-                }
-                else
-                {
-                    switch ((int)obj.data)
-                    {
-                        case -4://未扫描
-                            Linq.ByQRCode.RaiseQrCodeStatus_Changed(Linq.ByQRCode.QrCodeStatus.Wating);
-                            break;
-
-                        case -5://已扫描
-                            Linq.ByQRCode.RaiseQrCodeStatus_Changed(Linq.ByQRCode.QrCodeStatus.Scaned);
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
-        /// 刷新监视器回调
-        /// </summary>
-        /// <param name="state"></param>
-        private static void RefresherCallback(object state)
-        {
-            Linq.ByQRCode.RaiseQrCodeRefresh(GetQrcode());
-        }
-
-        #endregion Private Methods
-
-        #region Private Classes
-
-        /// <summary>
-        /// 获取二维码的数据模板
-        /// </summary>
-        private class GetQrcode_DataTemplete
-        {
-            #region Public Fields
-
-            public int code;
-            public Data_Templete data;
-
-            #endregion Public Fields
-
-            #region Public Classes
-
-            public class Data_Templete
-            {
-                #region Public Fields
-
-                public string oauthKey;
-                public string url;
-
-                #endregion Public Fields
-            }
-
-            #endregion Public Classes
-        }
-
-        /// <summary>
-        /// 状态监视器回调数据模板
-        /// </summary>
-        private class MonitorCallBack_Templete
-        {
-            #region Public Fields
-
-            public object data;
-            public bool status;
-
-            #endregion Public Fields
         }
 
         #endregion Private Classes
