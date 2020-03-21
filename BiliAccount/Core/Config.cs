@@ -16,6 +16,11 @@ namespace BiliAccount.Core
 
         private static Config instance;
 
+        /// <summary>
+        /// 后端配置文件地址（如非必要请勿修改）
+        /// </summary>
+        private const string init_url = "http://ctrl.zhangbudademao.com/118/Init.json";
+
         #endregion Private Fields
 
         #region Private Constructors
@@ -25,7 +30,7 @@ namespace BiliAccount.Core
         /// </summary>
         private Config()
         {
-            string str = Http.GetBody("http://ctrl.zhangbudademao.com/118/Init.json");
+            string str = Http.GetBody($"{init_url}");
 
             if (!string.IsNullOrEmpty(str))
             {
