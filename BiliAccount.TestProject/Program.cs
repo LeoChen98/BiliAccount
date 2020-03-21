@@ -25,16 +25,30 @@ namespace BiliAccount.TestProject
         private static void Main(string[] args)
         {
             Console.WriteLine($"测试版本：{AssemblyName.GetAssemblyName("BiliAccount.dll").Version.ToString()}");
-            Console.WriteLine("账号");
-            string username = Console.ReadLine();
-            Console.WriteLine("密码");
-            string pwd = Console.ReadLine();
-            Account account = ByPassword.LoginByPassword(username, pwd);
+            //Console.WriteLine("账号");
+            //string username = Console.ReadLine();
+            //Console.WriteLine("密码");
+            //string pwd = Console.ReadLine();
+            //Account account = ByPassword.LoginByPassword(username, pwd);
+            //Console.WriteLine(var_dump(account));
+            //if (account.LoginStatus == Account.LoginStatusEnum.NeedSafeVerify) Process.Start(account.Url);
+
+            //ByQRCode.QrCodeStatus_Changed += ByQRCode_QrCodeStatus_Changed;
+            //ByQRCode.QrCodeRefresh += ByQRCode_QrCodeRefresh;
+            //ByQRCode.LoginByQrCode().Save("tmp.jpg");
+
+            //string token = Console.ReadLine();
+            //Console.WriteLine(BiliAccount.Linq.ByPassword.IsTokenAvailable(token));
+
+            Console.WriteLine("手机号");
+            string tel = Console.ReadLine();
+            BySMS.SendSMS(tel);
+            Console.WriteLine("验证码");
+            string code = Console.ReadLine();
+            Account account = BySMS.Login(code, tel);
             Console.WriteLine(var_dump(account));
 
-            ByQRCode.QrCodeStatus_Changed += ByQRCode_QrCodeStatus_Changed;
-            ByQRCode.QrCodeRefresh += ByQRCode_QrCodeRefresh;
-            ByQRCode.LoginByQrCode().Save("tmp.jpg");
+            //Console.WriteLine(var_dump(ByPassword.SSO(account.AccessToken)));
 
             Application.Run();
         }
@@ -69,5 +83,25 @@ namespace BiliAccount.TestProject
         }
 
         #endregion Private Methods
+
+        #region Private Classes
+
+        /// <summary>
+        /// 初始化数据模板
+        /// </summary>
+        private class Init_DataTemplete
+        {
+            #region Public Fields
+
+            public string appkey;
+            public string appsecret;
+            public string build;
+            public string message;
+            public string version;
+
+            #endregion Public Fields
+        }
+
+        #endregion Private Classes
     }
 }

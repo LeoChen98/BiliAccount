@@ -101,7 +101,7 @@ namespace BiliAccount
             NeedSafeVerify = -4,
 
             /// <summary>
-            /// 手机验证(验证成功后重新登录）
+            /// 手机验证
             /// </summary>
             NeedTelVerify = -3,
 
@@ -128,7 +128,12 @@ namespace BiliAccount
             /// <summary>
             /// 密码登录
             /// </summary>
-            ByPassword
+            ByPassword,
+
+            /// <summary>
+            /// 短信登录
+            /// </summary>
+            BySMS
         }
 
         #endregion Public Enums
