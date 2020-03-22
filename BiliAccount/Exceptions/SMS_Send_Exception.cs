@@ -11,7 +11,7 @@ namespace BiliAccount.Exceptions
     {
         #region Public Fields
 
-        public int code;
+        public int code { get; private set; }
 
         #endregion Public Fields
 

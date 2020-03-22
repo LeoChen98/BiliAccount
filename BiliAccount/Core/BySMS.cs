@@ -88,6 +88,7 @@ namespace BiliAccount.Core
         /// </summary>
         /// <returns>captcha_key</returns>
         /// <exception cref="Exceptions.SMS_Send_Exception"/>
+        /// <exception cref="Exceptions.SMS_NeedGeetest_Exception"/>
         public static string SMS_Send(string tel)
         {
             string param = $"appkey={Config.Instance.Appkey}&build={Config.Instance.Build}&channel=bili&cid=86&mobi_app=android&platform=android&statistics=%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%22{Config.Instance.Version}%22%2C%22abtest%22%3A%22%22%7D&tel={tel}&ts={TimeStamp}";
@@ -99,7 +100,12 @@ namespace BiliAccount.Core
             SMS_Send_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<SMS_Send_DataTemplete>(str);
 #endif
             if (obj.code == 0)
-                return obj.data.captcha_key;
+            {
+                if (string.IsNullOrEmpty(obj.data.recaptcha_url))
+                    return obj.data.captcha_key;
+                else
+                    throw new Exceptions.SMS_NeedGeetest_Exception(obj.data.recaptcha_url);
+            }
             else
                 throw new Exceptions.SMS_Send_Exception(obj.code, obj.message);
         }
@@ -261,6 +267,7 @@ namespace BiliAccount.Core
                 #region Public Fields
 
                 public string captcha_key;
+                public string recaptcha_url;
 
                 #endregion Public Fields
             }
