@@ -97,7 +97,7 @@ namespace BiliAccount.Core
         /// </summary>
         /// <param name="code">短信验证码</param>
         /// <param name="tmp_token"></param>
-        /// <returns></returns>
+        /// <returns>code</returns>
         /// <exception cref="Verify_Exception"/>
         public static string Verify(string code, string tmp_token)
         {

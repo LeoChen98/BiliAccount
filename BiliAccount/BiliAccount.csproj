@@ -6,7 +6,7 @@
     <RootNamespace>BiliAccount</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>BiliAccount</PackageId>
-    <Version>2.3.0.14</Version>
+    <Version>2.3.1.15</Version>
     <Authors>LeoChen</Authors>
     <Company>zhangbudademao.com</Company>
     <Product>BiliAccount</Product>
@@ -18,7 +18,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>bilibili bililive bililogin biliaccount</PackageTags>
     <PackageIcon>favicon_4.png</PackageIcon>
-    <PackageReleaseNotes>1. 加入短信登录
+    <PackageReleaseNotes>1. 增加短信登录频繁导致需要验证码的抛出。
 
       已知问题：无法登录需要二次验证的账号。（解决中，可使用BySMS模式绕过）
     </PackageReleaseNotes>
@@ -109,6 +109,11 @@
     <PackageReference Include="QRCoder" Version="1.3.6" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="nuget.exe" />
+    <None Remove="nuget_release.bat" />
   </ItemGroup>
   
   <ItemGroup>
