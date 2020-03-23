@@ -141,9 +141,10 @@ namespace BiliAccount.Core
         }
 
         /// <summary>
-        /// 获取验证码图片
+        /// 获取验证码图片（在当前版本api中已鲜见图片验证码，该方法已弃用。）
         /// </summary>
         /// <param name="account">账号实例</param>
+        [Obsolete("在当前版本api中已鲜见图片验证码，该方法已弃用。")]
         public static Bitmap GetCaptcha(ref Account account)
         {
             return Http.GetPicOutCookies("https://passport.bilibili.com/captcha", out account.Cookies, account.Cookies);
