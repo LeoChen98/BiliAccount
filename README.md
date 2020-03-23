@@ -27,7 +27,7 @@ B站账号操作封装
 [![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/BiliAccount?color=%23004080&logo=nuget)](https://www.nuget.org/packages/BiliAccount/)
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/LeoChen98/BiliAccount?include_prereleases&logo=github)](https://github.com/LeoChen98/BiliAccount/releases/latest)
 
-*在使用以下命令时请将`Version`节点改为上述最新版本，否则可能会有错误。
+**在使用以下命令时请将`Version`节点改为上述最新版本，否则可能会有错误。 **
 
 工具|命令/代码
 --|--
