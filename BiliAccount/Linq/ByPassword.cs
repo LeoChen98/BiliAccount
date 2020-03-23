@@ -1,5 +1,7 @@
 ﻿using System;
 
+# pragma warning disable CS0618
+
 namespace BiliAccount.Linq
 {
     /// <summary>
@@ -39,10 +41,11 @@ namespace BiliAccount.Linq
         }
 
         /// <summary>
-        /// 带验证码的账号密码登录
+        /// 登录（带验证码。在当前版本api中已鲜见图片验证码，该方法已弃用。）
         /// </summary>
-        /// <param name="Captcha">验证码</param>
-        /// <param name="account">账号信息实例</param>
+        /// <param name="Captcha">验证码字符</param>
+        /// <param name="account">账号实例</param>
+        [Obsolete("在当前版本api中已鲜见图片验证码，该方法已弃用。")]
         public static void LoginByPasswordWithCaptcha(string Captcha, ref Account account)
         {
             Core.ByPassword.DoLoginWithCatpcha(Captcha, ref account);
@@ -57,6 +60,16 @@ namespace BiliAccount.Linq
         public static DateTime? RefreshToken(string access_token, string refresh_token)
         {
             return Core.ByPassword.RefreshToken(access_token, refresh_token);
+        }
+
+        /// <summary>
+        /// 注销登录
+        /// </summary>
+        /// <param name="account">账号实例</param>
+        /// <exception cref="Exceptions.Revoke_Exception"/>
+        public static void Revoke(ref Account account)
+        {
+            Core.ByPassword.Revoke(ref account);
         }
 
         /// <summary>

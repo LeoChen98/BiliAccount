@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Net;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -46,7 +47,10 @@ namespace BiliAccount.Core
         /// <param name="account">账号实例</param>
         public static void DoLogin(ref Account account)
         {
-            string parm = "appkey=" + Config.Instance.Appkey + "&build=" + Config.Instance.Build + "&mobi_app=android&password=" + account.EncryptedPassword + "&platform=android&ts=" + TimeStamp + "&username=" + account.UserName;
+            /* 旧版参数
+             * string parm = "appkey=" + Config.Instance.Appkey + "&build=" + Config.Instance.Build + "&mobi_app=android&password=" + account.EncryptedPassword + "&platform=android&ts=" + TimeStamp + "&username=" + account.UserName;
+             */
+            string parm = $"appkey={Config.Instance.Appkey}&bili_local_id={account.DeviceId}&build={Config.Instance.Build}&buvid={account.Buvid}&channel=bili&device=phone&device_id={account.DeviceId}&device_name=BiliAccount{account.DeviceGuid}&device_platform=BiliAccount{Assembly.GetExecutingAssembly().GetName().Version}&local_id={account.Buvid}&mobi_app=android&password={account.EncryptedPassword}&platform=android&statistics=%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%22{Config.Instance.Version}%22%2C%22abtest%22%3A%22%22%7D&ts={TimeStamp}&username={account.UserName}";
             parm += "&sign=" + GetSign(parm);
             string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v3/oauth2/login", out account.Cookies, parm, null, "application/x-www-form-urlencoded;charset=utf-8", "", Config.Instance.User_Agent);
             if (!string.IsNullOrEmpty(str))
@@ -80,10 +84,11 @@ namespace BiliAccount.Core
         }
 
         /// <summary>
-        /// 登录（带验证码）
+        /// 登录（带验证码。在当前版本api中已鲜见图片验证码，该方法已弃用。）
         /// </summary>
         /// <param name="captcha">验证码字符</param>
         /// <param name="account">账号实例</param>
+        [Obsolete("在当前版本api中已鲜见图片验证码，该方法已弃用。")]
         public static void DoLoginWithCatpcha(string captcha, ref Account account)
         {
             string parm = "actionKey=" + Config.Instance.Appkey + "&appkey=" + Config.Instance.Appkey + "&build=" + Config.Instance.Build + "&captcha=" + captcha + "&mobi_app=android&password=" + account.EncryptedPassword + "&device=android&platform=android&ts=" + TimeStamp + "&username=" + account.UserName;
@@ -223,10 +228,30 @@ namespace BiliAccount.Core
 #endif
                 if (obj.code == 0)
                 {
-                    return DateTime.Parse("1970-01-01 08:00:00").AddSeconds(obj.ts + obj.data.expiress_in);
+                    return DateTime.Parse("1970-01-01 08:00:00").AddSeconds(obj.ts + obj.data.expires_in);
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// 注销登录
+        /// </summary>
+        /// <param name="account">账号实例</param>
+        /// <exception cref="Exceptions.Revoke_Exception"/>
+        public static void Revoke(ref Account account)
+        {
+            if (account == null || account.LoginStatus <= 0) throw new Exceptions.Revoke_Exception(0, "账号未登陆");
+
+            string param = $"access_key={account.AccessToken}&appkey={Config.Instance.Appkey}&bili_local_id={account.DeviceId}&build={Config.Instance.Build}&buvid={account.Buvid}&channel=bili&device=phone&device_id={account.DeviceId}&device_name=BiliAccount{account.DeviceGuid}&device_platform=BiliAccount{Assembly.GetExecutingAssembly().GetName().Version}&local_id={account.Buvid}&mid={account.Uid}&mobi_app=android&platform=android&statistics=%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%22{Config.Instance.Version}%22%2C%22abtest%22%3A%22%22%7D&ts={TimeStamp}";
+            param += $"&sign={GetSign(param)}";
+
+            string str = Http.PostBody("https://passport.bilibili.com/x/passport-login/revoke", param);
+            int code = int.Parse(new Regex("(?<=\"code\":)(\\d+)(?=,)").Match(str).Value);
+            if (code != 0)
+                throw new Exceptions.Revoke_Exception(code, new Regex("(?<=\"message\":\")(.*?)(?=\")").Match(str).Value);
+            else
+                account = new Account();
         }
 
         /// <summary>
@@ -529,7 +554,7 @@ namespace BiliAccount.Core
             {
                 #region Public Fields
 
-                public long expiress_in;
+                public long expires_in;
 
                 #endregion Public Fields
             }

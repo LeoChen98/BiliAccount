@@ -1,9 +1,12 @@
 ﻿using BiliAccount.Linq;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+
+#pragma warning disable CS0649
 
 namespace BiliAccount.TestProject
 {
@@ -25,13 +28,13 @@ namespace BiliAccount.TestProject
         private static void Main(string[] args)
         {
             Console.WriteLine($"测试版本：{AssemblyName.GetAssemblyName("BiliAccount.dll").Version.ToString()}");
-            //Console.WriteLine("账号");
-            //string username = Console.ReadLine();
-            //Console.WriteLine("密码");
-            //string pwd = Console.ReadLine();
-            //Account account = ByPassword.LoginByPassword(username, pwd);
-            //Console.WriteLine(var_dump(account));
-            //if (account.LoginStatus == Account.LoginStatusEnum.NeedSafeVerify) Process.Start(account.Url);
+            Console.WriteLine("账号");
+            string username = Console.ReadLine();
+            Console.WriteLine("密码");
+            string pwd = Console.ReadLine();
+            Account account = ByPassword.LoginByPassword(username, pwd);
+            Console.WriteLine(var_dump(account));
+            if (account.LoginStatus == Account.LoginStatusEnum.NeedSafeVerify) Process.Start(account.Url);
 
             //ByQRCode.QrCodeStatus_Changed += ByQRCode_QrCodeStatus_Changed;
             //ByQRCode.QrCodeRefresh += ByQRCode_QrCodeRefresh;
@@ -40,15 +43,17 @@ namespace BiliAccount.TestProject
             //string token = Console.ReadLine();
             //Console.WriteLine(BiliAccount.Linq.ByPassword.IsTokenAvailable(token));
 
-            Console.WriteLine("手机号");
-            string tel = Console.ReadLine();
-            BySMS.SendSMS(tel);
-            Console.WriteLine("验证码");
-            string code = Console.ReadLine();
-            Account account = BySMS.Login(code, tel);
-            Console.WriteLine(var_dump(account));
+            //Console.WriteLine("手机号");
+            //string tel = Console.ReadLine();
+            //BySMS.SendSMS(tel);
+            //Console.WriteLine("验证码");
+            //string code = Console.ReadLine();
+            //Account account = BySMS.Login(code, tel);
+            //Console.WriteLine(var_dump(account));
 
             //Console.WriteLine(var_dump(ByPassword.SSO(account.AccessToken)));
+
+            ByPassword.Revoke(ref account);
 
             Application.Run();
         }
