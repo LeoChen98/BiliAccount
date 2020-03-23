@@ -17,6 +17,11 @@ namespace BiliAccount
         public string AccessToken;
 
         /// <summary>
+        /// Buvid/local_id
+        /// </summary>
+        public string Buvid;
+
+        /// <summary>
         /// 验证码图片（仅当需要验证码验证时有值）
         /// </summary>
         public Bitmap CaptchaPic = null;
@@ -30,6 +35,16 @@ namespace BiliAccount
         /// csrf_token
         /// </summary>
         public string CsrfToken;
+
+        /// <summary>
+        /// 设备标识
+        /// </summary>
+        public string DeviceGuid;
+
+        /// <summary>
+        /// device_id/bili_local_id
+        /// </summary>
+        public string DeviceId;
 
         /// <summary>
         /// 加密过的密码（使用二维码登录时此项为空）
@@ -87,6 +102,20 @@ namespace BiliAccount
         public string UserName;
 
         #endregion Public Fields
+
+        #region Public Constructors
+
+        /// <summary>
+        /// 构造函数
+        /// </summary>
+        public Account()
+        {
+            Buvid = $"XZ{Guid.NewGuid().ToString("N")}{Guid.NewGuid().ToString("N").Substring(0, 4)}";
+            DeviceId = $"{Guid.NewGuid().ToString("N")}{DateTime.Now.ToString("yyyyMMddHHmmssffff")}{Guid.NewGuid().ToString("N").Substring(0, 16)}";
+            DeviceGuid = Guid.NewGuid().ToString("D");
+        }
+
+        #endregion Public Constructors
 
         #region Public Enums
 

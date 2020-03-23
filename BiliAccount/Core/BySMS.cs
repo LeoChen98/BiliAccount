@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -46,9 +47,8 @@ namespace BiliAccount.Core
         /// <returns>账号实例</returns>
         public static Account Login(string captcha_key, string code, string tel)
         {
-            string buvid = $"XZ{new Guid().ToString("N")}{new Guid().ToString("N").Substring(0, 4)}";
-            string device_id = $"{new Guid().ToString("N")}{DateTime.Now.ToString("yyyyMMddHHmmssffff")}{new Guid().ToString("N").Substring(0, 16)}";
-            string param = $"appkey={Config.Instance.Appkey}&bili_local_id={device_id}&build={Config.Instance.Build}&buvid={buvid}&captcha_key={captcha_key}&channel=bili&cid=86&code={code}&device=phone&device_id={device_id}&device_name=BiliAccount{new Guid().ToString()}&device_platform=BiliAccount&local_id={buvid}&mobi_app=android&platform=android&statistics=%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%22{Config.Instance.Version}%22%2C%22abtest%22%3A%22%22%7D&tel={tel}&ts={TimeStamp}";
+            Account account = new Account();
+            string param = $"appkey={Config.Instance.Appkey}&bili_local_id={account.DeviceId}&build={Config.Instance.Build}&buvid={account.Buvid}&captcha_key={captcha_key}&channel=bili&cid=86&code={code}&device=phone&device_id={account.DeviceId}&device_name=BiliAccount{account.DeviceGuid}&device_platform=BiliAccount{Assembly.GetExecutingAssembly().GetName().Version}&local_id={account.Buvid}&mobi_app=android&platform=android&statistics=%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%22{Config.Instance.Version}%22%2C%22abtest%22%3A%22%22%7D&tel={tel}&ts={TimeStamp}";
             param += $"&sign={GetSign(param)}";
 
             string str = Http.PostBody("https://passport.bilibili.com/x/passport-login/login/sms", param);
@@ -59,7 +59,6 @@ namespace BiliAccount.Core
 #endif
             if (obj.code == 0)
             {
-                Account account = new Account();
                 account.Uid = obj.data.token_info.mid;
                 account.AccessToken = obj.data.token_info.access_token;
                 account.RefreshToken = obj.data.token_info.refresh_token;
