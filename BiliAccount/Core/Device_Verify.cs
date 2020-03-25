@@ -43,11 +43,10 @@ namespace BiliAccount.Core
         /// <exception cref="GetAccount_Exception"/>
         public static void GetAccount(string code, ref Account account)
         {
-            string buvid = $"XZ{new Guid().ToString("N")}{new Guid().ToString("N").Substring(0, 4)}";
-            string param = $"appkey={Config.Instance.Appkey}&bili_local_id={new Guid().ToString("N")}{DateTime.Now.ToString("yyyyMMddHHmmssffff")}{new Guid().ToString("N").Substring(0, 16)}&build={Config.Instance.Build}&channel=bili&code={code}&grant_type=authorization_code&local_id={buvid}&mobi_app=android&platform=android&statistics=%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%22{Config.Instance.Version}%22%2C%22abtest%22%3A%22%22%7D&ts={TimeStamp}";
+            string param = $"appkey={Config.Instance.Appkey}&bili_local_id={account.DeviceId}&build={Config.Instance.Build}&channel=bili&code={code}&grant_type=authorization_code&local_id={account.Buvid}&mobi_app=android&platform=android&statistics=%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%22{Config.Instance.Version}%22%2C%22abtest%22%3A%22%22%7D&ts={TimeStamp}";
             param += $"&sign={GetSign(param)}";
             WebHeaderCollection headers = new WebHeaderCollection();
-            headers.Add("Buvid", buvid);
+            headers.Add("Buvid",account.Buvid);
             string str = Http.GetBody($"https://passport.bilibili.com/api/v2/oauth2/access_token?{param}", null, "", Config.Instance.User_Agent, headers);
 #if NETSTANDARD2_0 || NETCORE3_0
             GetAccount_DataTemplete obj = JsonConvert.DeserializeObject<GetAccount_DataTemplete>(str);
