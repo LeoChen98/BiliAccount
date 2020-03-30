@@ -53,6 +53,9 @@ namespace BiliAccount.TestProject
 
             //Console.WriteLine(var_dump(ByPassword.SSO(account.AccessToken)));
 
+            account.Expires_AccessToken = (DateTime)ByPassword.RefreshToken("76b3e1cb9b0d35a80f8c444dcdcb1a21", "bcb656a377362db92487929a7f258d21");
+            Console.WriteLine(var_dump(account));
+
             ByPassword.Revoke(ref account);
 
             Application.Run();
