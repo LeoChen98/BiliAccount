@@ -45,10 +45,6 @@ namespace BiliAccount.Core
                 Version = obj.version;
                 IsInited = true;
             }
-            else
-            {
-                throw new Exception("Login module initialization failure.");
-            }
         }
 
         /// <summary>
@@ -68,10 +64,6 @@ namespace BiliAccount.Core
                 Build = obj.build;
                 Version = obj.version;
                 IsInited = true;
-            }
-            else
-            {
-                throw new Exception("Login module initialization failure.");
             }
         }
 
@@ -94,17 +86,17 @@ namespace BiliAccount.Core
         /// <summary>
         /// Appkey
         /// </summary>
-        public string Appkey { get; private set; } = "1d8b6e7d45233436";
+        public string Appkey { get; private set; } = "bca7e84c2d947ac6";
 
         /// <summary>
         /// AppSecret
         /// </summary>
-        public string Appsecret { get; private set; } = "560c52ccd288fed045859ed18bffd973";
+        public string Appsecret { get; private set; } = "60698ba2f68e01ce44738920a0ffe768";
 
         /// <summary>
         /// Build
         /// </summary>
-        public string Build { get; private set; } = "5531000";
+        public string Build { get; private set; } = "5572000";
 
         /// <summary>
         /// 指示是否已经初始化
@@ -125,7 +117,7 @@ namespace BiliAccount.Core
         /// <summary>
         /// 版本号
         /// </summary>
-        public string Version { get; private set; } = "5.53.1";
+        public string Version { get; private set; } = "5.57.2";
 
 #endregion Public Properties
 
