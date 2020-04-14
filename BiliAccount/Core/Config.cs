@@ -51,6 +51,30 @@ namespace BiliAccount.Core
             }
         }
 
+        /// <summary>
+        /// 初始化登录模块(DEBUG Mode)
+        /// </summary>
+        private Config(string str)
+        {
+            if (!string.IsNullOrEmpty(str))
+            {
+#if NETSTANDARD2_0 || NETCORE3_0
+                Init_DataTemplete obj = JsonConvert.DeserializeObject<Init_DataTemplete>(str);
+#else
+                Init_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<Init_DataTemplete>(str);
+#endif
+                Appkey = obj.appkey;
+                Appsecret = obj.appsecret;
+                Build = obj.build;
+                Version = obj.version;
+                IsInited = true;
+            }
+            else
+            {
+                throw new Exception("Login module initialization failure.");
+            }
+        }
+
         #endregion Private Constructors
 
         #region Public Properties
@@ -103,25 +127,25 @@ namespace BiliAccount.Core
         /// </summary>
         public string Version { get; private set; } = "5.53.1";
 
-        #endregion Public Properties
+#endregion Public Properties
 
-        #region Private Classes
+#region Private Classes
 
         /// <summary>
         /// 初始化数据模板
         /// </summary>
         private class Init_DataTemplete
         {
-            #region Public Fields
+#region Public Fields
 
             public string appkey;
             public string appsecret;
             public string build;
             public string version;
 
-            #endregion Public Fields
+#endregion Public Fields
         }
 
-        #endregion Private Classes
+#endregion Private Classes
     }
 }
