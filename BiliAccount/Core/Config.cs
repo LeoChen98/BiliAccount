@@ -45,9 +45,25 @@ namespace BiliAccount.Core
                 Version = obj.version;
                 IsInited = true;
             }
-            else
+        }
+
+        /// <summary>
+        /// 初始化登录模块(DEBUG Mode)
+        /// </summary>
+        private Config(string str)
+        {
+            if (!string.IsNullOrEmpty(str))
             {
-                throw new Exception("Login module initialization failure.");
+#if NETSTANDARD2_0 || NETCORE3_0
+                Init_DataTemplete obj = JsonConvert.DeserializeObject<Init_DataTemplete>(str);
+#else
+                Init_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<Init_DataTemplete>(str);
+#endif
+                Appkey = obj.appkey;
+                Appsecret = obj.appsecret;
+                Build = obj.build;
+                Version = obj.version;
+                IsInited = true;
             }
         }
 
@@ -70,17 +86,17 @@ namespace BiliAccount.Core
         /// <summary>
         /// Appkey
         /// </summary>
-        public string Appkey { get; private set; } = "1d8b6e7d45233436";
+        public string Appkey { get; private set; } = "bca7e84c2d947ac6";
 
         /// <summary>
         /// AppSecret
         /// </summary>
-        public string Appsecret { get; private set; } = "560c52ccd288fed045859ed18bffd973";
+        public string Appsecret { get; private set; } = "60698ba2f68e01ce44738920a0ffe768";
 
         /// <summary>
         /// Build
         /// </summary>
-        public string Build { get; private set; } = "5531000";
+        public string Build { get; private set; } = "5572000";
 
         /// <summary>
         /// 指示是否已经初始化
@@ -101,27 +117,27 @@ namespace BiliAccount.Core
         /// <summary>
         /// 版本号
         /// </summary>
-        public string Version { get; private set; } = "5.53.1";
+        public string Version { get; private set; } = "5.57.2";
 
-        #endregion Public Properties
+#endregion Public Properties
 
-        #region Private Classes
+#region Private Classes
 
         /// <summary>
         /// 初始化数据模板
         /// </summary>
         private class Init_DataTemplete
         {
-            #region Public Fields
+#region Public Fields
 
             public string appkey;
             public string appsecret;
             public string build;
             public string version;
 
-            #endregion Public Fields
+#endregion Public Fields
         }
 
-        #endregion Private Classes
+#endregion Private Classes
     }
 }
