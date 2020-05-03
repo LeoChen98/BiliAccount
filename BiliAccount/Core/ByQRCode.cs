@@ -153,7 +153,7 @@ namespace BiliAccount.Core
                 }
                 else
                 {
-                    switch ((int)obj.data)
+                    switch (obj.data)
                     {
                         case -4://未扫描
                             Linq.ByQRCode.RaiseQrCodeStatus_Changed(Linq.ByQRCode.QrCodeStatus.Wating);
