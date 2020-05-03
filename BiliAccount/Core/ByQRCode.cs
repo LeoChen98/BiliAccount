@@ -8,6 +8,7 @@ using System.Threading;
 #if NETSTANDARD2_0 || NETCORE3_0
 using QRCoder;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 #else
 
 using System.Web.Script.Serialization;
@@ -112,8 +113,12 @@ namespace BiliAccount.Core
                     Refresher.Dispose();
 
                     Account account = new Account();
-
+#if NETSTANDARD2_0 || NETCORE3_0
+                    string Querystring = Regex.Split((obj.data as JObject)["url"].ToString(), "\\?")[1];
+#else
                     string Querystring = Regex.Split((obj.data as Dictionary<string, object>)["url"].ToString(), "\\?")[1];
+#endif
+
                     string[] KeyValuePair = Regex.Split(Querystring, "&");
                     account.Cookies = new CookieCollection();
                     for (int i = 0; i < KeyValuePair.Length - 1; i++)
