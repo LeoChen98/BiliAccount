@@ -6,7 +6,7 @@
     <RootNamespace>BiliAccount</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>BiliAccount</PackageId>
-    <Version>2.3.5.19</Version>
+    <Version>2.3.6.20</Version>
     <Authors>LeoChen</Authors>
     <Company>zhangbudademao.com</Company>
     <Product>BiliAccount</Product>
@@ -20,7 +20,7 @@
     <PackageIcon>favicon_4.png</PackageIcon>
     <PackageReleaseNotes>
       fixes:
-      1. 修复.net core 3.x下二维码登录转换错误的问题。
+      1. 修复.net core 3.x下二维码登录返回值转换错误的问题。
     </PackageReleaseNotes>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
