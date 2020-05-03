@@ -6,7 +6,7 @@
     <RootNamespace>BiliAccount</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>BiliAccount</PackageId>
-    <Version>2.3.4.18</Version>
+    <Version>2.3.5.19</Version>
     <Authors>LeoChen</Authors>
     <Company>zhangbudademao.com</Company>
     <Product>BiliAccount</Product>
@@ -18,8 +18,9 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>bilibili bililive bililogin biliaccount</PackageTags>
     <PackageIcon>favicon_4.png</PackageIcon>
-    <PackageReleaseNotes>1. 针对新Appkey-AppSecert更新了本地默认初始化信息。
-    2. 删除误加入的该版本不需要的依赖项。
+    <PackageReleaseNotes>
+      fixes:
+      1. 修复.net core 3.x下二维码登录转换错误的问题。
     </PackageReleaseNotes>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>

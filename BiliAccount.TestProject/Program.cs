@@ -27,18 +27,18 @@ namespace BiliAccount.TestProject
 
         private static void Main(string[] args)
         {
-            Console.WriteLine($"测试版本：{AssemblyName.GetAssemblyName("BiliAccount.dll").Version.ToString()}");
-            Console.WriteLine("账号");
-            string username = Console.ReadLine();
-            Console.WriteLine("密码");
-            string pwd = Console.ReadLine();
-            Account account = ByPassword.LoginByPassword(username, pwd);
-            Console.WriteLine(var_dump(account));
-            if (account.LoginStatus == Account.LoginStatusEnum.NeedSafeVerify) Process.Start(account.Url);
+            //Console.WriteLine($"测试版本：{AssemblyName.GetAssemblyName("BiliAccount.dll").Version.ToString()}");
+            //Console.WriteLine("账号");
+            //string username = Console.ReadLine();
+            //Console.WriteLine("密码");
+            //string pwd = Console.ReadLine();
+            //Account account = ByPassword.LoginByPassword(username, pwd);
+            //Console.WriteLine(var_dump(account));
+            //if (account.LoginStatus == Account.LoginStatusEnum.NeedSafeVerify) Process.Start(account.Url);
 
-            //ByQRCode.QrCodeStatus_Changed += ByQRCode_QrCodeStatus_Changed;
-            //ByQRCode.QrCodeRefresh += ByQRCode_QrCodeRefresh;
-            //ByQRCode.LoginByQrCode().Save("tmp.jpg");
+            ByQRCode.QrCodeStatus_Changed += ByQRCode_QrCodeStatus_Changed;
+            ByQRCode.QrCodeRefresh += ByQRCode_QrCodeRefresh;
+            ByQRCode.LoginByQrCode().Save("tmp.jpg");
 
             //string token = Console.ReadLine();
             //Console.WriteLine(BiliAccount.Linq.ByPassword.IsTokenAvailable(token));
@@ -53,10 +53,10 @@ namespace BiliAccount.TestProject
 
             //Console.WriteLine(var_dump(ByPassword.SSO(account.AccessToken)));
 
-            account.Expires_AccessToken = (DateTime)ByPassword.RefreshToken("76b3e1cb9b0d35a80f8c444dcdcb1a21", "bcb656a377362db92487929a7f258d21");
-            Console.WriteLine(var_dump(account));
+            //account.Expires_AccessToken = (DateTime)ByPassword.RefreshToken("76b3e1cb9b0d35a80f8c444dcdcb1a21", "bcb656a377362db92487929a7f258d21");
+            //Console.WriteLine(var_dump(account));
 
-            ByPassword.Revoke(ref account);
+            //ByPassword.Revoke(ref account);
 
             Application.Run();
         }
