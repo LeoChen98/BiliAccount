@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Text.RegularExpressions;
 
 #if NETFRAMEWORK
 
@@ -120,12 +121,38 @@ namespace BiliAccount.Linq
 #endif
 
         /// <summary>
-        /// 用二维码登录
+        /// 获取二维码
         /// </summary>
-        /// <returns>二维码图片实例</returns>
-        public static Bitmap LoginByQrCode()
+        /// <param name="strForeground">前景颜色</param>
+        /// <param name="strBackground">背景颜色</param>
+        /// <param name="IsBorderVisable">是否使用边框</param>
+        /// <returns>二维码位图</returns>
+        /// <exception cref="Exceptions.InvalidColorValue">传入了错误的颜色值</exception>
+        public static Bitmap LoginByQrCode(string strForeground = "#FF000000", string strBackground = "#FFFFFFFF", bool IsBorderVisable = false)
         {
-            return Core.ByQRCode.GetQrcode();
+            Regex reg = new Regex("#[0-9A-Fa-f]{6,8}");
+            if (reg.IsMatch(strForeground) && reg.IsMatch(strBackground))
+                return LoginByQrCode(ColorTranslator.FromHtml(strForeground), ColorTranslator.FromHtml(strBackground), IsBorderVisable);
+            else if (!reg.IsMatch(strForeground))
+                throw new Exceptions.InvalidColorValue("strForeground");
+            else
+                throw new Exceptions.InvalidColorValue("strBackground");
+        }
+
+        /// <summary>
+        /// 获取二维码
+        /// </summary>
+        /// <param name="Foreground">前景颜色</param>
+        /// <param name="Background">背景颜色</param>
+        /// <param name="IsBorderVisable">是否使用边框</param>
+        /// <returns>二维码位图</returns>
+        /// <exception cref="Exceptions.InvalidColorValue">传入了错误的颜色值</exception>
+        public static Bitmap LoginByQrCode(System.Drawing.Color Foreground, System.Drawing.Color Background, bool IsBorderVisable = false)
+        {
+            if(Foreground != Background)
+                return Core.ByQRCode.GetQrcode(Foreground, Background, IsBorderVisable);
+            else
+                throw new Exceptions.InvalidColorValue("strForeground and strBackground can not be same!");
         }
 
         #endregion Public Methods

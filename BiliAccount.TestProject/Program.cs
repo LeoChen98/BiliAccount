@@ -38,7 +38,7 @@ namespace BiliAccount.TestProject
 
             ByQRCode.QrCodeStatus_Changed += ByQRCode_QrCodeStatus_Changed;
             ByQRCode.QrCodeRefresh += ByQRCode_QrCodeRefresh;
-            ByQRCode.LoginByQrCode().Save("tmp.jpg");
+            ByQRCode.LoginByQrCode("#FF66CCFF", "#00000000", true).Save("tmp.png");
 
             //string token = Console.ReadLine();
             //Console.WriteLine(BiliAccount.Linq.ByPassword.IsTokenAvailable(token));

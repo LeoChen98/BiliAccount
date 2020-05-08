@@ -50,9 +50,13 @@ namespace BiliAccount.Core
         }
 
         /// <summary>
-        /// 获取登陆二维码
+        /// 获取二维码
         /// </summary>
-        public static Bitmap GetQrcode()
+        /// <param name="Foreground">前景颜色</param>
+        /// <param name="Background">背景颜色</param>
+        /// <param name="IsBorderVisable">是否使用边框</param>
+        /// <returns>二维码位图</returns>
+        public static Bitmap GetQrcode(Color Foreground,Color Background,bool IsBorderVisable)
         {
             Bitmap qrCodeImage = null;
         re:
@@ -74,10 +78,26 @@ namespace BiliAccount.Core
                     QRCodeData qrCodeData = qrGenerator.CreateQrCode(strCode, QRCodeGenerator.ECCLevel.Q);
                     QRCode qrcode = new QRCode(qrCodeData);
                     //生成二维码位图
-                    qrCodeImage = qrcode.GetGraphic(5, Color.Black, Color.White, null, 0, 6, false);
+                    qrCodeImage = qrcode.GetGraphic(5, Foreground, Background, null, 0, 6, IsBorderVisable);
+
+                    qrCodeImage.MakeTransparent();
+
+                    if (Background.A != 0)
+                    {
+                        for (int x = 0; x < qrCodeImage.Width; x++)
+                        {
+                            for (int y = 0; y < qrCodeImage.Height; y++)
+                            {
+                                if (qrCodeImage.GetPixel(x, y).ToArgb() == 0)
+                                {
+                                    qrCodeImage.SetPixel(x, y, Background);
+                                }
+                            }
+                        }
+                    }
 
                     Monitor = new Timer(MonitorCallback, obj.data.oauthKey, 1000, 1000);
-                    Refresher = new Timer(RefresherCallback, null, 180000, Timeout.Infinite);
+                    Refresher = new Timer(RefresherCallback, new List<object>{ Foreground, Background, IsBorderVisable }, 180000, Timeout.Infinite);
                 }
             }
             else goto re;
@@ -181,7 +201,7 @@ namespace BiliAccount.Core
         /// <param name="state"></param>
         private static void RefresherCallback(object state)
         {
-            Linq.ByQRCode.RaiseQrCodeRefresh(GetQrcode());
+            Linq.ByQRCode.RaiseQrCodeRefresh(GetQrcode((Color)((List<object>)state)[0], (Color)((List<object>)state)[1], (bool)((List<object>)state)[2]));
         }
 
         #endregion Private Methods
