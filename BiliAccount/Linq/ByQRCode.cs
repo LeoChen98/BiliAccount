@@ -131,14 +131,12 @@ namespace BiliAccount.Linq
         public static Bitmap LoginByQrCode(string strForeground = "#FF000000", string strBackground = "#FFFFFFFF", bool IsBorderVisable = false)
         {
             Regex reg = new Regex("#[0-9A-Fa-f]{6,8}");
-            if (reg.IsMatch(strForeground) && reg.IsMatch(strBackground) && strForeground != strBackground)
+            if (reg.IsMatch(strForeground) && reg.IsMatch(strBackground))
                 return LoginByQrCode(ColorTranslator.FromHtml(strForeground), ColorTranslator.FromHtml(strBackground), IsBorderVisable);
             else if (!reg.IsMatch(strForeground))
                 throw new Exceptions.InvalidColorValue("strForeground");
-            else if (!reg.IsMatch(strBackground))
-                throw new Exceptions.InvalidColorValue("strBackground");
             else
-                throw new Exceptions.InvalidColorValue("strForeground and strBackground can not be same!");
+                throw new Exceptions.InvalidColorValue("strBackground");
         }
 
         /// <summary>
@@ -151,7 +149,10 @@ namespace BiliAccount.Linq
         /// <exception cref="Exceptions.InvalidColorValue">传入了错误的颜色值</exception>
         public static Bitmap LoginByQrCode(System.Drawing.Color Foreground, System.Drawing.Color Background, bool IsBorderVisable = false)
         {
-            return Core.ByQRCode.GetQrcode(Foreground, Background, IsBorderVisable);
+            if(Foreground != Background)
+                return Core.ByQRCode.GetQrcode(Foreground, Background, IsBorderVisable);
+            else
+                throw new Exceptions.InvalidColorValue("strForeground and strBackground can not be same!");
         }
 
         #endregion Public Methods
