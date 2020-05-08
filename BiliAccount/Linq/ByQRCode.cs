@@ -151,24 +151,7 @@ namespace BiliAccount.Linq
         /// <exception cref="Exceptions.InvalidColorValue">传入了错误的颜色值</exception>
         public static Bitmap LoginByQrCode(System.Drawing.Color Foreground, System.Drawing.Color Background, bool IsBorderVisable = false)
         {
-            Bitmap qr = Core.ByQRCode.GetQrcode(Foreground, Background, IsBorderVisable);
-            qr.MakeTransparent();
-
-            if(Background.A != 0)
-            {
-                for (int x = 0; x < qr.Width; x++)
-                {
-                    for(int y = 0; y < qr.Height; y++)
-                    {
-                        if(qr.GetPixel(x,y).ToArgb() == System.Drawing.Color.Empty.ToArgb())
-                        {
-                            qr.SetPixel(x, y, Background);
-                        }
-                    }
-                }
-            }
-
-            return qr;
+            return Core.ByQRCode.GetQrcode(Foreground, Background, IsBorderVisable);
         }
 
         #endregion Public Methods

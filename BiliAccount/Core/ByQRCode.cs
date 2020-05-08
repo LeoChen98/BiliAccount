@@ -80,6 +80,22 @@ namespace BiliAccount.Core
                     //生成二维码位图
                     qrCodeImage = qrcode.GetGraphic(5, Foreground, Background, null, 0, 6, IsBorderVisable);
 
+                    qrCodeImage.MakeTransparent();
+
+                    if (Background.A != 0)
+                    {
+                        for (int x = 0; x < qrCodeImage.Width; x++)
+                        {
+                            for (int y = 0; y < qrCodeImage.Height; y++)
+                            {
+                                if (qrCodeImage.GetPixel(x, y).ToArgb() == 0)
+                                {
+                                    qrCodeImage.SetPixel(x, y, Background);
+                                }
+                            }
+                        }
+                    }
+
                     Monitor = new Timer(MonitorCallback, obj.data.oauthKey, 1000, 1000);
                     Refresher = new Timer(RefresherCallback, new List<object>{ Foreground, Background, IsBorderVisable }, 180000, Timeout.Infinite);
                 }
