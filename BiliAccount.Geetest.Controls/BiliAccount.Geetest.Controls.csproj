@@ -135,15 +135,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BiliAccount" Version="2.4.0.21" />
-    <PackageReference Include="BiliAccount.Geetest" Version="1.0.0.0" />
     <PackageReference Include="CefSharp.WinForms" Version="79.1.360" />
     <PackageReference Include="CefSharp.Wpf" Version="79.1.360" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
     <PackageReference Include="BiliAccount" Version="2.4.0.21" />
-    <PackageReference Include="BiliAccount.Geetest" Version="1.0.0.0" />
+    <PackageReference Include="BiliAccount.Geetest" Version="1.0.1.1" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">

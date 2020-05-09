@@ -1,10 +1,5 @@
 ﻿using BiliAccount.Linq;
-using CefSharp;
-using CefSharp.Wpf;
-using System;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Forms;
 
 namespace BiliAccount.Geetest.Controls
 {
@@ -13,12 +8,20 @@ namespace BiliAccount.Geetest.Controls
     /// </summary>
     public partial class GeetestBrowserWindow : Window
     {
+        #region Private Fields
+
+        private Account account;
+
+        private string tmp_token;
+
+        #endregion Private Fields
+
         #region Public Constructors
 
         /// <summary>
         /// 初始化GeetestBrowser
         /// </summary>
-        public GeetestBrowserWindow( ref Account account)
+        public GeetestBrowserWindow(ref Account account)
         {
             InitializeComponent();
 
@@ -26,8 +29,8 @@ namespace BiliAccount.Geetest.Controls
         }
 
         #endregion Public Constructors
-        private Account account;
-        private string tmp_token;
+
+        #region Public Methods
 
         /// <summary>
         /// 显示验证窗体
@@ -44,7 +47,33 @@ namespace BiliAccount.Geetest.Controls
             window.browser.StartVaildate(url);
 
             return window.ShowDialog();
+        }
 
+        #endregion Public Methods
+
+        #region Private Methods
+
+        private void Browser_OnVaildate_Success(string challenge, string key, string validate)
+        {
+            try
+            {
+                Device_Verify.Send_SMS(challenge, key, tmp_token, validate);
+
+                Dispatcher.Invoke(() =>
+                {
+                    CodeInputMask.Visibility = Visibility.Visible;
+                    browser.Visibility = Visibility.Hidden;
+                });
+            }
+            catch (Exceptions.SMS_Send_Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show($"短信发送失败：{ex.Message}");
+                Dispatcher.Invoke(() =>
+                {
+                    CodeInputMask.Visibility = Visibility.Hidden;
+                    browser.Refresh();
+                });
+            }
         }
 
         private void Btn_Confirm_Click(object sender, RoutedEventArgs e)
@@ -71,28 +100,6 @@ namespace BiliAccount.Geetest.Controls
             browser.Refresh();
         }
 
-
-        private void Browser_OnVaildate_Success(string challenge, string key, string validate)
-        {
-            try
-            {
-                Device_Verify.Send_SMS(challenge, key, tmp_token, validate);
-
-                Dispatcher.Invoke(() =>
-                {
-                    CodeInputMask.Visibility = Visibility.Visible;
-                    browser.Visibility = Visibility.Hidden;
-                });
-            }
-            catch(Exceptions.SMS_Send_Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show($"短信发送失败：{ex.Message}");
-                Dispatcher.Invoke(() =>
-                {
-                    CodeInputMask.Visibility = Visibility.Hidden;
-                    browser.Refresh();
-                });
-            }
-        }
+        #endregion Private Methods
     }
 }

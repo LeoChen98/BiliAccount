@@ -1,11 +1,4 @@
-﻿#if NETSTANDARD2_0 || NETCORE3_0
-using Newtonsoft.Json;
-#else
-
-using System.Web.Script.Serialization;
-
-#endif
-
+﻿
 namespace BiliAccount.Geetest
 {
     /// <summary>

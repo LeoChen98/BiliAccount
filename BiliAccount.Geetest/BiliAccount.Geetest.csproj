@@ -6,7 +6,7 @@
     <RootNamespace>BiliAccount.Geetest</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>BiliAccount.Geetest</PackageId>
-    <Version>1.0.0.0</Version>
+    <Version>1.0.1.1</Version>
     <Authors>LeoChen</Authors>
     <Company>zhangbudademao.com</Company>
     <Product>BiliAccount.Geetest</Product>
@@ -18,12 +18,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>bilibili bililive bililogin biliaccount</PackageTags>
     <PackageIcon>favicon_4.png</PackageIcon>
-    <PackageReleaseNotes>
-      1. 新增退出登录接口，适用于除二维码登录外所有登录方式。
-      2. 修复device_id生成错误的问题。
-      3. 修复AccessToken续期返回错误的问题。
-      4. 密码登录方式使用接口彻底重构到v3。
-      已知问题：无法登录需要二次验证的账号。（解决中，可使用BySMS模式绕过）
+    <PackageReleaseNotes>修改一处意外错误
     </PackageReleaseNotes>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -94,14 +89,10 @@
   </PropertyGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' != 'netstandard2.0' AND '$(TargetFramework)' != 'netstandard2.1' AND '$(TargetFramework)' != 'netcoreapp3.0' AND '$(TargetFramework)' != 'netcoreapp3.1'">
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
-    <Reference Include="System.Net" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'netstandard2.1' OR '$(TargetFramework)' == 'netcoreapp3.0' OR '$(TargetFramework)' == 'netcoreapp3.1'">
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="System.Net.Sockets" Version="4.3.0" />
   </ItemGroup>
   
   <ItemGroup>

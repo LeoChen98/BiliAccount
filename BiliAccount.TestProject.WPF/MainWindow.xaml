@@ -7,8 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid>
-        <Controls:GeetestBrowser x:Name="browser" Margin="0,0,0,39" Width="800" Height="380"/>
-        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="195,385,0,-31" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="21" Margin="365,387,0,-31" VerticalAlignment="Top" Width="75" Click="button_Click"/>
+        <Controls:GeetestBrowser x:Name="browser" Margin="0,0,0,39" Width="800" Height="380" />
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Height="23" Margin="195,385,0,-31" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120" />
+        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Height="21" Margin="365,387,0,-31" VerticalAlignment="Top" Width="75" Click="button_Click" />
     </Grid>
 </Window>
