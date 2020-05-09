@@ -1,10 +1,12 @@
 ﻿using BiliAccount.Linq;
+using BiliAccount.Geetest;
 using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
+
 
 #pragma warning disable CS0649
 
@@ -27,7 +29,10 @@ namespace BiliAccount.TestProject
 
         private static void Main(string[] args)
         {
-            Console.WriteLine($"测试版本：{AssemblyName.GetAssemblyName("BiliAccount.dll").Version.ToString()}");
+            Console.WriteLine($"测试版本：");
+            Console.WriteLine($"BiliAccount：{AssemblyName.GetAssemblyName("BiliAccount.dll").Version.ToString()}");
+            Console.WriteLine($"BiliAccount.Geetest：{AssemblyName.GetAssemblyName("BiliAccount.Geetest.dll").Version.ToString()}");
+            Console.WriteLine($"BiliAccount.Geetest.Controls：{AssemblyName.GetAssemblyName("BiliAccount.Geetest.Controls.dll").Version.ToString()}");
             Console.WriteLine("账号");
             string username = Console.ReadLine();
             Console.WriteLine("密码");
@@ -53,10 +58,10 @@ namespace BiliAccount.TestProject
 
             //Console.WriteLine(var_dump(ByPassword.SSO(account.AccessToken)));
 
-            account.Expires_AccessToken = (DateTime)ByPassword.RefreshToken("76b3e1cb9b0d35a80f8c444dcdcb1a21", "bcb656a377362db92487929a7f258d21");
-            Console.WriteLine(var_dump(account));
+            //account.Expires_AccessToken = (DateTime)ByPassword.RefreshToken("76b3e1cb9b0d35a80f8c444dcdcb1a21", "bcb656a377362db92487929a7f258d21");
+            //Console.WriteLine(var_dump(account));
 
-            ByPassword.Revoke(ref account);
+            //ByPassword.Revoke(ref account);
 
             Application.Run();
         }

@@ -269,3 +269,4 @@ nuget_release.bat
 #Old files
 BiliAccount-StandardRebuild/
 BiliAccount-backup/
+BiliAccount.Geetest/Trace.cs
