@@ -66,6 +66,11 @@ namespace BiliAccount.Geetest.Controls
             }
         }
 
+        private void Btn_Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            browser.Refresh();
+        }
+
 
         private void Browser_OnVaildate_Success(string challenge, string key, string validate)
         {
