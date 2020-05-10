@@ -20,6 +20,7 @@ jobs:
     env:
       username: 'LeoChen98'
       pwd: ${{ secrets.password }}
+      sha: ${{ github.sha }}
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -45,6 +46,6 @@ jobs:
         cp -f ../BiliAccount/BiliAccount/BiliAccount.Geetest/BiliAccount.Geetest.csproj .
         #tree
         git add BiliAccount.Geetest.csproj
-        git commit -m 'async project file from main repository by bot $GITHUB_SHA' -n --allow-empty
+        git commit -m 'async project file from main repository by bot $sha' -n --allow-empty
         git push --set-upstream origin master
 
