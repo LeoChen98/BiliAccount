@@ -45,6 +45,6 @@ jobs:
         cp -f ../BiliAccount/BiliAccount/BiliAccount.Geetest/BiliAccount.Geetest.csproj .
         #tree
         git add BiliAccount.Geetest.csproj
-        git commit -m 'async project file from main repository by bot $GITHUB_SHA'
+        git commit -m 'async project file from main repository by bot $GITHUB_SHA' -n --allow-empty
         git push --set-upstream origin master
 
