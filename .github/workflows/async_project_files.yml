@@ -20,7 +20,7 @@ jobs:
     env:
       username: 'LeoChen98'
       pwd: ${{ secrets.password }}
-      msg: -m 'async project file from main repository by bot ${{ github.sha }}'
+      msg: -m "async project file from main repository by bot ${{ github.sha }}"
     
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
