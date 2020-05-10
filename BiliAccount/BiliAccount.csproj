@@ -6,7 +6,7 @@
     <RootNamespace>BiliAccount</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>BiliAccount</PackageId>
-    <Version>2.3.2.16</Version>
+    <Version>2.4.0.21</Version>
     <Authors>LeoChen</Authors>
     <Company>zhangbudademao.com</Company>
     <Product>BiliAccount</Product>
@@ -19,11 +19,8 @@
     <PackageTags>bilibili bililive bililogin biliaccount</PackageTags>
     <PackageIcon>favicon_4.png</PackageIcon>
     <PackageReleaseNotes>
-      1. 新增退出登录接口，适用于除二维码登录外所有登录方式。
-      2. 修复device_id生成错误的问题。
-      3. 修复AccessToken续期返回错误的问题。
-      4. 密码登录方式使用接口彻底重构到v3。
-      已知问题：无法登录需要二次验证的账号。（解决中，可使用BySMS模式绕过）
+    adds:
+    1. 新增二维码图像自定义可选参数。(close #25)
     </PackageReleaseNotes>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -126,5 +123,4 @@
     </None>
   </ItemGroup>
   
-
 </Project>

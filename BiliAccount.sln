@@ -15,6 +15,7 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiliAccount.Geetest", "BiliAccount.Geetest\BiliAccount.Geetest.csproj", "{D50857E8-CD41-4049-B0E4-FE87CDF2CC88}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BiliAccount.TestProject.WPF", "BiliAccount.TestProject.WPF\BiliAccount.TestProject.WPF.csproj", "{3168ACE0-0736-41E8-90CB-D368379200FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BiliAccount.Core31TestProject", "BiliAccount.Core31TestProject\BiliAccount.Core31TestProject.csproj", "{2B3E6CDE-29C6-4C68-A89B-AF035ED08843}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -85,6 +86,10 @@ Global
 		{3168ACE0-0736-41E8-90CB-D368379200FF}.Release|x64.Build.0 = Release|Any CPU
 		{3168ACE0-0736-41E8-90CB-D368379200FF}.Release|x86.ActiveCfg = Release|Any CPU
 		{3168ACE0-0736-41E8-90CB-D368379200FF}.Release|x86.Build.0 = Release|Any CPU
+		{2B3E6CDE-29C6-4C68-A89B-AF035ED08843}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B3E6CDE-29C6-4C68-A89B-AF035ED08843}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B3E6CDE-29C6-4C68-A89B-AF035ED08843}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B3E6CDE-29C6-4C68-A89B-AF035ED08843}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
