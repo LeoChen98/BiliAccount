@@ -6,7 +6,7 @@
     <RootNamespace>BiliAccount</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>BiliAccount</PackageId>
-    <Version>2.4.0.21</Version>
+    <Version>2.5.0.22</Version>
     <Authors>LeoChen</Authors>
     <Company>zhangbudademao.com</Company>
     <Product>BiliAccount</Product>
@@ -20,7 +20,7 @@
     <PackageIcon>favicon_4.png</PackageIcon>
     <PackageReleaseNotes>
     adds:
-    1. 新增二维码图像自定义可选参数。(close #25)
+    1. 新增Verify_Device的外部方法(#11)
     </PackageReleaseNotes>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>

@@ -29,13 +29,13 @@
   <PropertyGroup Condition="'$(Platform)'=='x86'">
     <PackageId>BiliAccount.Geetest.Controls</PackageId>
     <Product>BiliAccount.Geetest.Controls</Product>
-    <Description>用于处理B站账号操作过程中的极验验证码的控件</Description>
+    <Description>用于处理B站账号操作过程中的极验验证码的控件和窗体</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Platform)'=='x64'">
     <PackageId>BiliAccount.Geetest.Controls.x64</PackageId>
     <Product>BiliAccount.Geetest.Controls.x64</Product>
-    <Description>用于处理B站账号操作过程中的极验验证码的控件(x64版本)</Description>
+    <Description>用于处理B站账号操作过程中的极验验证码的控件和窗体(x64版本)</Description>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TargetFramework)'=='net452' AND '$(Platform)'=='x86'">
@@ -124,7 +124,6 @@
   <ItemGroup>
     <None Remove="nuget.exe" />
     <None Remove="nuget_release.bat" />
-    <None Remove="WPF\GeetestBrowserWindow.xaml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -140,7 +139,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="BiliAccount" Version="2.4.0.21" />
+    <PackageReference Include="BiliAccount" Version="2.5.0.22" />
     <PackageReference Include="BiliAccount.Geetest" Version="1.0.1.1" />
   </ItemGroup>
 
