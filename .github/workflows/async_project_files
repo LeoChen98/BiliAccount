@@ -1,0 +1,50 @@
+# This is a basic workflow to help you get started with Actions
+
+name: async_project_files
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  async_project_files:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    env:
+      username: 'LeoChen98'
+      pwd: ${{ secrets.password }}
+    
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    ## Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    #- uses: actions/checkout@v2
+    
+    # Runs a single command using the runners shell
+    - name: async BiliAccount.Geetest
+      run: |
+        #sudo apt-get install tree
+        git config --global user.email "Leo@zhangbudademao.com"
+        git config --global user.name "Leo Chen"
+        mkdir 'BiliAccount'
+        cd BiliAccount
+        git init
+        git clone -b Geetest https://github.com/LeoChen98/BiliAccount.git
+        cd .. 
+        mkdir 'BiliAccount.Geetest'
+        cd BiliAccount.Geetest
+        git init
+        git remote add origin https://$username:$pwd@github.com/LeoChen98/BiliAccount.Geetest.git
+        git pull origin master
+        cp -f ../BiliAccount/BiliAccount/BiliAccount.Geetest/BiliAccount.Geetest.csproj .
+        #tree
+        git add BiliAccount.Geetest.csproj
+        git commit -m 'async project file from main repository by bot $GITHUB_SHA'
+        git push --set-upstream origin master
+
