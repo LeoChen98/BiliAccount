@@ -121,7 +121,6 @@ namespace BiliAccount.Geetest.Controls.Winforms
             Device_Verify.Send_SMS(challenge, key, tmp_token, validate);
         }
 
-
         #endregion Private Methods
     }
 }

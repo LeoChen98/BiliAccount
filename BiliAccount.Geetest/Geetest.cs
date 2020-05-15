@@ -1,5 +1,4 @@
-﻿
-namespace BiliAccount.Geetest
+﻿namespace BiliAccount.Geetest
 {
     /// <summary>
     /// 极验模块入口

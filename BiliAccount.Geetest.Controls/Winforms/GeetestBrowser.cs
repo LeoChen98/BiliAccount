@@ -1,5 +1,4 @@
 ﻿using CefSharp;
-using CefSharp.Internals;
 using CefSharp.WinForms;
 using System.Windows.Forms;
 
@@ -85,7 +84,7 @@ namespace BiliAccount.Geetest.Controls.Winforms
             settings.CefCommandLineArgs.Add("disable-gpu", "1");
             settings.CefCommandLineArgs.Add("--ignore-urlfetcher-cert-requests", "1");
             settings.CefCommandLineArgs.Add("--ignore-certificate-errors", "1");
-            settings.CefCommandLineArgs.Add("--disable-web-security", "1"); 
+            settings.CefCommandLineArgs.Add("--disable-web-security", "1");
             Cef.Initialize(settings);
 
             browser = new ChromiumWebBrowser(url) { Width = Width, Height = Height };
@@ -97,6 +96,9 @@ namespace BiliAccount.Geetest.Controls.Winforms
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
         }
 
+        #endregion Public Methods
+
+        #region Private Methods
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
@@ -108,10 +110,6 @@ namespace BiliAccount.Geetest.Controls.Winforms
                                     "document.body.style.display='block'" +
                                     $"}},{UIDelay}); ");
         }
-
-        #endregion Public Methods
-
-        #region Private Methods
 
         private void Geetest_OnValidate_Success(string challenge, string key, string validate)
         {
@@ -128,7 +126,5 @@ namespace BiliAccount.Geetest.Controls.Winforms
         }
 
         #endregion Private Methods
-
-
     }
 }
