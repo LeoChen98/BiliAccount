@@ -34,7 +34,7 @@ jobs:
         mkdir 'BiliAccount'
         cd BiliAccount
         git init
-        git clone -b Geetest https://github.com/LeoChen98/BiliAccount.git
+        git clone -b master https://github.com/LeoChen98/BiliAccount.git
         cd .. 
         mkdir 'BiliAccount.Geetest'
         cd BiliAccount.Geetest
@@ -56,7 +56,7 @@ jobs:
         mkdir 'BiliAccount'
         cd BiliAccount
         git init
-        git clone -b Geetest https://github.com/LeoChen98/BiliAccount.git
+        git clone -b master https://github.com/LeoChen98/BiliAccount.git
         cd .. 
         mkdir 'BiliAccount.Geetest.Controls'
         cd BiliAccount.Geetest.Controls
