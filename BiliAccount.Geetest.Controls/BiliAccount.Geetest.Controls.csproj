@@ -1,0 +1,198 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'==''">net48;net472;net471;net47;net462;net461;net46;net452</TargetFrameworks>
+    <TargetFrameworks Condition="'$(LibraryFrameworks)'!=''">$(LibraryFrameworks)</TargetFrameworks>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <RootNamespace>BiliAccount.Geetest.Controls</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>   
+    <Version>1.0.0.0</Version>
+    <Authors>LeoChen</Authors>
+    <Company>zhangbudademao.com</Company>
+    <Copyright>Copyright © 2020 zhangbudademao.com, all rights reserved.</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/LeoChen98/BiliAccount</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/LeoChen98/BiliAccount</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>bilibili bililive bililogin biliaccount</PackageTags>
+    <PackageIcon>favicon_4.png</PackageIcon>
+    <PackageReleaseNotes>1. 完成所有功能部分
+    2. 建议使用WPF
+    3. 控件没有经过美化，如有需要请自行重绘（WPF）或联系开发者定制
+    </PackageReleaseNotes>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <Platforms>x64;x86</Platforms>
+    <UserSecretsId>f19de9f9-31de-4361-a4f5-1b6f6e1aa3ce</UserSecretsId>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Platform)'=='x86'">
+    <PackageId>BiliAccount.Geetest.Controls</PackageId>
+    <Product>BiliAccount.Geetest.Controls</Product>
+    <Description>用于处理B站账号操作过程中的极验验证码的控件和窗体</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Platform)'=='x64'">
+    <PackageId>BiliAccount.Geetest.Controls.x64</PackageId>
+    <Product>BiliAccount.Geetest.Controls.x64</Product>
+    <Description>用于处理B站账号操作过程中的极验验证码的控件和窗体(x64版本)</Description>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='net452' AND '$(Platform)'=='x86'">
+    <AssemblyTitle>BiliAccount.Geetest.Controls .NET 4.5.2</AssemblyTitle>
+    <DefineConstants>NETFRAMEWORK;NET452;$(AdditionalConstants);X86</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net46' AND '$(Platform)'=='x86'">
+    <AssemblyTitle>BiliAccount.Geetest.Controls .NET 4.6</AssemblyTitle>
+    <DefineConstants>NETFRAMEWORK;NET46;$(AdditionalConstants);X86</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net461' AND '$(Platform)'=='x86'">
+    <AssemblyTitle>BiliAccount.Geetest.Controls .NET 4.6.1</AssemblyTitle>
+    <DefineConstants>NETFRAMEWORK;NET61;$(AdditionalConstants);X86</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net462' AND '$(Platform)'=='x86'">
+    <AssemblyTitle>BiliAccount.Geetest.Controls .NET 4.6.2</AssemblyTitle>
+    <DefineConstants>NETFRAMEWORK;NET462;$(AdditionalConstants);X86</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net47' AND '$(Platform)'=='x86'">
+    <AssemblyTitle>BiliAccount.Geetest.Controls .NET 4.7</AssemblyTitle>
+    <DefineConstants>NETFRAMEWORK;NET47;$(AdditionalConstants);X86</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net471' AND '$(Platform)'=='x86'">
+    <AssemblyTitle>BiliAccount.Geetest.Controls .NET 4.7.1</AssemblyTitle>
+    <DefineConstants>NETFRAMEWORK;NET471;$(AdditionalConstants);X86</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net472' AND '$(Platform)'=='x86'">
+    <AssemblyTitle>BiliAccount.Geetest.Controls .NET 4.7.2</AssemblyTitle>
+    <DefineConstants>NETFRAMEWORK;NET472;$(AdditionalConstants);X86</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net48' AND '$(Platform)'=='x86'">
+    <AssemblyTitle>BiliAccount.Geetest.Controls .NET 4.8</AssemblyTitle>
+    <DefineConstants>NETFRAMEWORK;NET48;$(AdditionalConstants);X86</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)'=='net452' AND '$(Platform)'=='x64'">
+    <AssemblyTitle>BiliAccount.Geetest.Controls .NET 4.5.2 x64</AssemblyTitle>
+    <DefineConstants>NETFRAMEWORK;NET452;$(AdditionalConstants);X64</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net46' AND '$(Platform)'=='x64'">
+    <AssemblyTitle>BiliAccount.Geetest.Controls .NET 4.6 x64</AssemblyTitle>
+    <DefineConstants>NETFRAMEWORK;NET46;$(AdditionalConstants);X64</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net461' AND '$(Platform)'=='x64'">
+    <AssemblyTitle>BiliAccount.Geetest.Controls .NET 4.6.1 x64</AssemblyTitle>
+    <DefineConstants>NETFRAMEWORK;NET61;$(AdditionalConstants);X64</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net462' AND '$(Platform)'=='x64'">
+    <AssemblyTitle>BiliAccount.Geetest.Controls .NET 4.6.2 x64</AssemblyTitle>
+    <DefineConstants>NETFRAMEWORK;NET462;$(AdditionalConstants);X64</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net47' AND '$(Platform)'=='x64'">
+    <AssemblyTitle>BiliAccount.Geetest.Controls .NET 4.7 x64</AssemblyTitle>
+    <DefineConstants>NETFRAMEWORK;NET47;$(AdditionalConstants);X64</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net471' AND '$(Platform)'=='x64'">
+    <AssemblyTitle>BiliAccount.Geetest.Controls .NET 4.7.1 x64</AssemblyTitle>
+    <DefineConstants>NETFRAMEWORK;NET471;$(AdditionalConstants);X64</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net472' AND '$(Platform)'=='x64'">
+    <AssemblyTitle>BiliAccount.Geetest.Controls .NET 4.7.2 x64</AssemblyTitle>
+    <DefineConstants>NETFRAMEWORK;NET472;$(AdditionalConstants);X64</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(TargetFramework)'=='net48' AND '$(Platform)'=='x64'">
+    <AssemblyTitle>BiliAccount.Geetest.Controls .NET 4.8 x64</AssemblyTitle>
+    <DefineConstants>NETFRAMEWORK;NET48;$(AdditionalConstants);X64</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Release'">
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+  </PropertyGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' != 'netstandard2.0' AND '$(TargetFramework)' != 'netstandard2.1' AND '$(TargetFramework)' != 'netcoreapp3.0' AND '$(TargetFramework)' != 'netcoreapp3.1'">
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Windows" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="GeetestBrowser.resx" />
+    <EmbeddedResource Remove="GeetestBrowserWindow.resx" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <None Remove="favicon_4.ico" />
+    <None Remove="nuget.exe" />
+    <None Remove="nuget_release.bat" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="favicon_4.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CefSharp.WinForms" Version="79.1.360" />
+    <PackageReference Include="CefSharp.Wpf" Version="79.1.360" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Release'">
+    <PackageReference Include="BiliAccount" Version="2.5.0.22" />
+    <PackageReference Include="BiliAccount.Geetest" Version="1.0.2.2" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)'=='Debug'">
+    <ProjectReference Include="..\BiliAccount\BiliAccount.csproj" />
+    <ProjectReference Include="..\BiliAccount.Geetest\BiliAccount.Geetest.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Winforms\GeetestBrowser.cs" />
+    <Compile Include="Winforms\GeetestBrowser.Designer.cs" />
+    <Compile Include="Winforms\GeetestBrowserWindow.cs" />
+    <Compile Include="Winforms\GeetestBrowserWindow.Designer.cs" />
+    <Compile Include="WPF\GeetestBrowserWindow.xaml.cs">
+      <DependentUpon>GeetestBrowserWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="WPF\GeetestBrowser.xaml.cs">
+      <DependentUpon>GeetestBrowser.xaml</DependentUpon>
+    </Compile>
+    <Page Include="WPF\GeetestBrowserWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="WPF\GeetestBrowser.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="favicon_4.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
+
+  
+</Project>

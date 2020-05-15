@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 
-# pragma warning disable CS0618
+#pragma warning disable CS0618
 
 namespace BiliAccount.Linq
 {
     /// <summary>
     /// 账号密码登录模式
     /// </summary>
-    public class ByPassword
+    public partial class ByPassword
     {
         #region Public Methods
 
