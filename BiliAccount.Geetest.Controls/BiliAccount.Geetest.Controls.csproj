@@ -12,8 +12,8 @@
     <Company>zhangbudademao.com</Company>
     <Copyright>Copyright © 2020 zhangbudademao.com, all rights reserved.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/LeoChen98/BiliAccount</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/LeoChen98/BiliAccount</RepositoryUrl>
+    <PackageProjectUrl>https://github.com/LeoChen98/BiliAccount.Geetest.Controls</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/LeoChen98/BiliAccount.Geetest.Controls</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PackageTags>bilibili bililive bililogin biliaccount</PackageTags>
     <PackageIcon>favicon_4.png</PackageIcon>
