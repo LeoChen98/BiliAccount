@@ -1,34 +1,39 @@
 ﻿using BiliAccount.Linq;
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Windows;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
-namespace BiliAccount.TestProject.WPF
+namespace BiliAccount.TestProject.Winforms
 {
-    /// <summary>
-    /// MainWindow.xaml 的交互逻辑
-    /// </summary>
-    public partial class MainWindow : Window
+    public partial class Form1 : Form
     {
-        #region Private Fields
-
         private Account account;
 
         private string tmp_token;
-
-        #endregion Private Fields
-
-        #region Public Constructors
-
-        public MainWindow()
+        public Form1()
         {
             InitializeComponent();
         }
 
-        #endregion Public Constructors
+        private void Browser_OnVaildate_Success(string challenge, string key, string validate)
+        {
+            Device_Verify.Send_SMS(challenge, key, tmp_token, validate);
+        }
 
-        #region Private Methods
+        private void button_Click(object sender, EventArgs e)
+        {
+            string code = Device_Verify.Verify(textBox.Text, tmp_token);
+            Device_Verify.GetAccount(code, ref account);
+            MessageBox.Show(var_dump(account));
+        }
+
 
         ///<summary>
         /// equiv of PHP's var dump for an object’s properties because i cbf writing all the properties out.
@@ -59,19 +64,7 @@ namespace BiliAccount.TestProject.WPF
             return sb.ToString();
         }
 
-        private void Browser_OnVaildate_Success(string challenge, string key, string validate)
-        {
-            Device_Verify.Send_SMS(challenge, key, tmp_token, validate);
-        }
-
-        private void button_Click(object sender, RoutedEventArgs e)
-        {
-            string code = Device_Verify.Verify(textBox.Text, tmp_token);
-            Device_Verify.GetAccount(code, ref account);
-            System.Windows.Forms.MessageBox.Show(var_dump(account));
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Form1_Load(object sender, EventArgs e)
         {
             Console.WriteLine($"测试版本：");
             Console.WriteLine($"BiliAccount：{AssemblyName.GetAssemblyName("BiliAccount.dll").Version.ToString()}");
@@ -89,11 +82,9 @@ namespace BiliAccount.TestProject.WPF
             {
                 //tmp_token = Device_Verify.Url2TmpToken(account.Url);
                 //browser.StartVaildate(account.Url);
-                Geetest.Controls.WPF.GeetestBrowserWindow.ShowValidateWindowDialog(account.Url, ref account);
+                Geetest.Controls.Winforms.GeetestBrowserWindow.ShowValidateWindowDialog(account.Url, ref account);
                 Console.WriteLine(var_dump(account));
             }
         }
-
-        #endregion Private Methods
     }
 }

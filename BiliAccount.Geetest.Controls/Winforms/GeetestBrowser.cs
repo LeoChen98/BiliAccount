@@ -1,9 +1,9 @@
 ﻿using CefSharp;
-using CefSharp.Wpf;
-using System.Windows;
-using System.Windows.Controls;
+using CefSharp.Internals;
+using CefSharp.WinForms;
+using System.Windows.Forms;
 
-namespace BiliAccount.Geetest.Controls.WPF
+namespace BiliAccount.Geetest.Controls.Winforms
 {
     /// <summary>
     /// DataViewer.xaml 的交互逻辑
@@ -63,7 +63,7 @@ namespace BiliAccount.Geetest.Controls.WPF
         /// <summary>
         /// 刷新验证页
         /// </summary>
-        public void Refresh()
+        public new void Refresh()
         {
             browser.Reload();
         }
@@ -80,30 +80,33 @@ namespace BiliAccount.Geetest.Controls.WPF
 
             var settings = new CefSettings();
 
-            settings.CefCommandLineArgs.Add("proxy-server", $"127.0.0.1:{Geetest.Port}");
+            settings.CefCommandLineArgs.Add("--proxy-server", $"127.0.0.1:{Geetest.Port}");
             settings.CefCommandLineArgs.Add("enable-media-stream", "1");
             settings.CefCommandLineArgs.Add("disable-gpu", "1");
-
+            settings.CefCommandLineArgs.Add("--ignore-urlfetcher-cert-requests", "1");
+            settings.CefCommandLineArgs.Add("--ignore-certificate-errors", "1");
+            settings.CefCommandLineArgs.Add("--disable-web-security", "1"); 
             Cef.Initialize(settings);
 
-            browser = new ChromiumWebBrowser() { Width = content.Width, Height = content.Height };
+            browser = new ChromiumWebBrowser(url) { Width = Width, Height = Height };
 
-            content.Children.Add(browser);
+            Controls.Add(browser);
 
-            browser.Margin = new Thickness(0, 0, 0, 0);
-            browser.Address = url;
+            browser.Left = 0;
+            browser.Top = 0;
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
         }
+
 
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
             browser.GetMainFrame().ExecuteJavaScriptAsync("document.body.style.display='none';" +
-                        "setTimeout(document.getElementById('app').style.display = 'none',100);" +
-                        "setTimeout(function(){" +
-                        "document.getElementById('send-btn').click();" +
-                        "document.getElementsByClassName('geetest_panel_ghost')[0].remove();" +
-                        "document.body.style.display='block'" +
-                        $"}},{UIDelay}); ");
+                                    "setTimeout(document.getElementById('app').style.display = 'none',100);" +
+                                    "setTimeout(function(){" +
+                                    "document.getElementById('send-btn').click();" +
+                                    "document.getElementsByClassName('geetest_panel_ghost')[0].remove();" +
+                                    "document.body.style.display='block'" +
+                                    $"}},{UIDelay}); ");
         }
 
         #endregion Public Methods
@@ -114,8 +117,8 @@ namespace BiliAccount.Geetest.Controls.WPF
         {
             try
             {
-                content.Children.Remove(browser);
-                browser.Visibility = Visibility.Hidden;
+                Controls.Remove(browser);
+                browser.Visible = false;
                 browser.Dispose();
                 Cef.Shutdown();
             }
@@ -125,5 +128,7 @@ namespace BiliAccount.Geetest.Controls.WPF
         }
 
         #endregion Private Methods
+
+
     }
 }

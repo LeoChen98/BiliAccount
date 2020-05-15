@@ -17,13 +17,15 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>bilibili bililive bililogin biliaccount</PackageTags>
     <PackageIcon>favicon_4.png</PackageIcon>
-    <PackageReleaseNotes>
-      
+    <PackageReleaseNotes>1. 完成所有功能部分
+    2. 建议使用WPF
+    3. 控件没有经过美化，如有需要请自行重绘（WPF）或联系开发者定制
     </PackageReleaseNotes>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <Platforms>x64;x86</Platforms>
+    <UserSecretsId>f19de9f9-31de-4361-a4f5-1b6f6e1aa3ce</UserSecretsId>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Platform)'=='x86'">
@@ -120,8 +122,14 @@
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="GeetestBrowser.resx" />
+    <EmbeddedResource Remove="GeetestBrowserWindow.resx" />
+  </ItemGroup>
   
   <ItemGroup>
+    <None Remove="favicon_4.ico" />
     <None Remove="nuget.exe" />
     <None Remove="nuget_release.bat" />
   </ItemGroup>
@@ -140,7 +148,7 @@
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
     <PackageReference Include="BiliAccount" Version="2.5.0.22" />
-    <PackageReference Include="BiliAccount.Geetest" Version="1.0.1.1" />
+    <PackageReference Include="BiliAccount.Geetest" Version="1.0.2.2" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
@@ -149,6 +157,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Winforms\GeetestBrowser.cs" />
+    <Compile Include="Winforms\GeetestBrowser.Designer.cs" />
+    <Compile Include="Winforms\GeetestBrowserWindow.cs" />
+    <Compile Include="Winforms\GeetestBrowserWindow.Designer.cs" />
     <Compile Include="WPF\GeetestBrowserWindow.xaml.cs">
       <DependentUpon>GeetestBrowserWindow.xaml</DependentUpon>
     </Compile>
@@ -163,6 +180,17 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="favicon_4.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 

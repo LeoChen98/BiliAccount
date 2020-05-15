@@ -1,4 +1,4 @@
-﻿<Window xmlns:Controls="clr-namespace:BiliAccount.Geetest.Controls;assembly=BiliAccount.Geetest.Controls"  x:Class="BiliAccount.TestProject.WPF.MainWindow"
+﻿<Window xmlns:Controls="clr-namespace:BiliAccount.Geetest.Controls.WPF;assembly=BiliAccount.Geetest.Controls"  x:Class="BiliAccount.TestProject.WPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"

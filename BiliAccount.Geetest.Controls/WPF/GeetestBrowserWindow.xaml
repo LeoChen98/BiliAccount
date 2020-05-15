@@ -3,18 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:BiliAccount.Geetest.Controls"
+             xmlns:local="clr-namespace:BiliAccount.Geetest.Controls.WPF"
              xmlns:cef="clr-namespace:CefSharp;assembly=CefSharp"
              xmlns:Wpf="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
-             x:Name="window" x:Class="BiliAccount.Geetest.Controls.GeetestBrowserWindow"
-             Width= "300" Height="350" Title="极验验证" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+             x:Name="window" x:Class="BiliAccount.Geetest.Controls.WPF.GeetestBrowserWindow"
+             Width= "300" Height="350" Title="极验验证" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="/BiliAccount.Geetest.Controls;component/favicon_4.ico">
     <Grid>
         <local:GeetestBrowser Width= "285" Height="285" x:Name="browser" HorizontalAlignment="Center" VerticalAlignment="Center" />
         <Grid x:Name="CodeInputMask" Background="White" Visibility="Hidden">
             <Button x:Name="Btn_Confirm" Content="确定" Height="35"  VerticalAlignment="Center" Margin="49,190,150,61" Click="Btn_Confirm_Click" />
             <TextBox x:Name="TB_Code" Height="25" Margin="61,117,60,114" TextWrapping="Wrap" Text="" VerticalAlignment="Center" />
             <TextBlock x:Name="textBlock" Height="40" Margin="85,65,84,0" TextWrapping="Wrap" Text="请输入验证码" VerticalAlignment="Top" FontWeight="Bold" FontSize="18" TextAlignment="Center" />
-            <Button x:Name="Btn_Resend" Content="重新发送" Height="35"  VerticalAlignment="Center" Margin="140,190,59,61" />
+            <Button x:Name="Btn_Resend" Content="重新发送" Height="35"  VerticalAlignment="Center" Margin="140,190,59,61" Click="Btn_Resend_Click" />
         </Grid>
         <Button x:Name="Btn_Refresh" Content="刷新" HorizontalAlignment="Left" Height="24" Margin="178,287,0,0" VerticalAlignment="Top" Width="106" Click="Btn_Refresh_Click" />
     </Grid>

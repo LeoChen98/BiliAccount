@@ -1,17 +1,17 @@
 ﻿using BiliAccount.Linq;
-using System.Windows;
+using System;
+using System.Windows.Forms;
 
-namespace BiliAccount.Geetest.Controls.WPF
+namespace BiliAccount.Geetest.Controls.Winforms
 {
     /// <summary>
     /// DataViewer.xaml 的交互逻辑
     /// </summary>
-    public partial class GeetestBrowserWindow : Window
+    public partial class GeetestBrowserWindow : Form
     {
         #region Private Fields
 
         private Account account;
-
         private string tmp_token, challenge, key, validate;
 
         #endregion Private Fields
@@ -38,7 +38,7 @@ namespace BiliAccount.Geetest.Controls.WPF
         /// <param name="url">验证url</param>
         /// <param name="account">账号实例</param>
         /// <returns>运行结果</returns>
-        public static bool? ShowValidateWindowDialog(string url, ref Account account)
+        public static DialogResult ShowValidateWindowDialog(string url, ref Account account)
         {
             GeetestBrowserWindow window = new GeetestBrowserWindow(ref account);
 
@@ -54,7 +54,7 @@ namespace BiliAccount.Geetest.Controls.WPF
         /// </summary>
         /// <param name="account">账号实例</param>
         /// <returns>运行结果</returns>
-        public static bool? ShowValidateWindowDialog(ref Account account)
+        public static DialogResult ShowValidateWindowDialog(ref Account account)
         {
             return ShowValidateWindowDialog(account.Url, ref account);
         }
@@ -72,52 +72,55 @@ namespace BiliAccount.Geetest.Controls.WPF
                 this.key = key;
                 this.validate = validate;
 
-                Dispatcher.Invoke(() =>
+                Invoke(new Action(() =>
                 {
-                    CodeInputMask.Visibility = Visibility.Visible;
-                    browser.Visibility = Visibility.Hidden;
-                });
+                    CodeInputMask.Visible = true;
+                    browser.Visible = false;
+                }));
             }
             catch (Exceptions.SMS_Send_Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"短信发送失败：{ex.Message}");
-                Dispatcher.Invoke(() =>
+                MessageBox.Show($"短信发送失败：{ex.Message}");
+
+                Invoke(new Action(() =>
                 {
-                    CodeInputMask.Visibility = Visibility.Hidden;
+                    CodeInputMask.Visible = false;
                     browser.Refresh();
-                });
+                }));
+
                 throw ex;
             }
         }
 
-        private void Btn_Confirm_Click(object sender, RoutedEventArgs e)
+        private void Btn_Confirm_Click(object sender, EventArgs e)
         {
             try
             {
                 Device_Verify.GetAccount(Device_Verify.Verify(TB_Code.Text, tmp_token), ref account);
 
-                DialogResult = true;
+                DialogResult = DialogResult.OK;
                 Close();
             }
             catch (Exceptions.Verify_Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"验证码错误：{ex.Message}");
+                MessageBox.Show($"验证码错误：{ex.Message}");
             }
             catch (Exceptions.GetAccount_Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show($"获取账号信息错误：{ex.Message}");
+                MessageBox.Show($"获取账号信息错误：{ex.Message}");
             }
         }
 
-        private void Btn_Refresh_Click(object sender, RoutedEventArgs e)
+        private void Btn_Refresh_Click(object sender, EventArgs e)
         {
             browser.Refresh();
         }
 
-        private void Btn_Resend_Click(object sender, RoutedEventArgs e)
+        private void Btn_Resend_Click(object sender, EventArgs e)
         {
             Device_Verify.Send_SMS(challenge, key, tmp_token, validate);
         }
+
 
         #endregion Private Methods
     }

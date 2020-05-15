@@ -34,8 +34,7 @@ namespace BiliAccount.Geetest
         /// </summary>
         private Proxy()
         {
-            proxyServer = new ProxyServer();
-
+            proxyServer = new ProxyServer(false);
             //proxyServer.CertificateManager.TrustRootCertificate(true);
 
             proxyServer.BeforeRequest += OnRequest;
@@ -73,6 +72,11 @@ namespace BiliAccount.Geetest
         }
 
         /// <summary>
+        /// 指示代理是否正在运行
+        /// </summary>
+        public bool IsRuning { get; private set; } = false;
+
+        /// <summary>
         /// 代理端口
         /// </summary>
         public int Port { get; private set; }
@@ -86,7 +90,11 @@ namespace BiliAccount.Geetest
         /// </summary>
         public void Run()
         {
-            proxyServer.Start();
+            if (IsRuning)
+            {
+                proxyServer.Start();
+                IsRuning = true;
+            }
         }
 
         #endregion Public Methods
@@ -187,6 +195,7 @@ namespace BiliAccount.Geetest
                     {
                         Geetest.Call_Validate_Success(challenge, key, validate);
                         proxyServer.Stop();
+                        IsRuning = false;
                     }
                 }
             }
