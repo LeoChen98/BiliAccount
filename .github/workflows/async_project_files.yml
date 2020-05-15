@@ -25,8 +25,7 @@ jobs:
     ## Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     #- uses: actions/checkout@v2
     
-    # Runs a single command using the runners shell
-    - name: async BiliAccount.Geetest
+    - name: checkout BiliAccount
       run: |
         #sudo apt-get install tree
         git config --global user.email "Leo@zhangbudademao.com"
@@ -36,6 +35,10 @@ jobs:
         git init
         git clone -b master https://github.com/LeoChen98/BiliAccount.git
         cd .. 
+    
+    # Runs a single command using the runners shell
+    - name: async BiliAccount.Geetest
+      run: |
         mkdir 'BiliAccount.Geetest'
         cd BiliAccount.Geetest
         git init
@@ -46,18 +49,11 @@ jobs:
         git add BiliAccount.Geetest.csproj
         git commit -m "async transfer project file from main repository by bot "${{ github.sha }} -n --allow-empty
         git push --set-upstream origin master
+        cd .. 
 
     # Runs a single command using the runners shell
     - name: async BiliAccount.Geetest.Controls
       run: |
-        #sudo apt-get install tree
-        git config --global user.email "Leo@zhangbudademao.com"
-        git config --global user.name "Leo Chen"
-        mkdir 'BiliAccount'
-        cd BiliAccount
-        git init
-        git clone -b master https://github.com/LeoChen98/BiliAccount.git
-        cd .. 
         mkdir 'BiliAccount.Geetest.Controls'
         cd BiliAccount.Geetest.Controls
         git init
