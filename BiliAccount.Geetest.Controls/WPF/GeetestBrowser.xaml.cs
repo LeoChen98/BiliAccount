@@ -95,6 +95,10 @@ namespace BiliAccount.Geetest.Controls.WPF
             browser.FrameLoadEnd += Browser_FrameLoadEnd;
         }
 
+        #endregion Public Methods
+
+        #region Private Methods
+
         private void Browser_FrameLoadEnd(object sender, FrameLoadEndEventArgs e)
         {
             browser.GetMainFrame().ExecuteJavaScriptAsync("document.body.style.display='none';" +
@@ -105,10 +109,6 @@ namespace BiliAccount.Geetest.Controls.WPF
                         "document.body.style.display='block'" +
                         $"}},{UIDelay}); ");
         }
-
-        #endregion Public Methods
-
-        #region Private Methods
 
         private void Geetest_OnValidate_Success(string challenge, string key, string validate)
         {

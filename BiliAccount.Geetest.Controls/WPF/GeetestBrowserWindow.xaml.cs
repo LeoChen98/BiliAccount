@@ -21,6 +21,7 @@ namespace BiliAccount.Geetest.Controls.WPF
         /// <summary>
         /// 初始化GeetestBrowser
         /// </summary>
+        /// <param name="account">账号实例</param>
         public GeetestBrowserWindow(ref Account account)
         {
             InitializeComponent();
