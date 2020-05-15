@@ -3,7 +3,7 @@
     /// <summary>
     /// 短信登录
     /// </summary>
-    public class BySMS
+    public partial class BySMS
     {
         #region Private Fields
 

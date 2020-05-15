@@ -7,7 +7,7 @@ B站账号操作封装
 [![Language](https://img.shields.io/badge/%E8%AF%AD%E8%A8%80-%E4%B8%AD%E6%96%87-brightgreen.svg)](#)
 [![DevLanguage](https://img.shields.io/badge/%E5%BC%80%E5%8F%91%E8%AF%AD%E8%A8%80-C%23-brightgreen.svg)](#)
 [![Pull Request Welcome](https://img.shields.io/badge/Pull%20request-welcome-brightgreen.svg)](#)
-[![GitHub license](https://img.shields.io/github/license/LeoChen98/BiliUPDesktopTool.svg)](https://github.com/LeoChen98/BiliUPDesktopTool/blob/master/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/LeoChen98/BiliAccount.svg)](https://github.com/LeoChen98/BiliAccount/blob/master/LICENSE)
 
 ## 支持与依赖
 框架|版本|依赖|备注
@@ -19,15 +19,20 @@ B站账号操作封装
 ## 项目结构
 项目名|备注
 --|--
-[BiliAccount](https://github.com/LeoChen98/BiliAccount/wiki/BiliAccount)|BiliAccount类库
-[BiliAccount.TestProject](https://github.com/LeoChen98/BiliAccount/wiki/BiliAccount.TestProject)|测试工程
+[BiliAccount](//github.com/LeoChen98/BiliAccount/wiki/BiliAccount)|BiliAccount类库
+[BiliAccount.Geetest](//github.com/LeoChen98/BiliAccount.Geetest)|用于处理B站账号操作过程中的极验验证码的类库
+[BiliAccount.Geetest.Controls](//github.com/LeoChen98/BiliAccount.Geetest.Controls)|用于处理B站账号操作过程中的极验验证码的控件和窗体类库
+[BiliAccount.TestProject](//github.com/LeoChen98/BiliAccount/wiki/BiliAccount.TestProject)|测试工程
+[BiliAccount.TestProject.Winforms](//github.com/LeoChen98/BiliAccount/wiki/BiliAccount.TestProject.Winforms)|Winform测试工程
+[BiliAccount.TestProject.WPF](//github.com/LeoChen98/BiliAccount/wiki/BiliAccount.TestProject.WPF)|WPF测试工程
+[BiliAccount.Core31TestProject](//github.com/LeoChen98/BiliAccount/wiki/BiliAccount.Core31TestProject)|Core3.1命令行测试工程
 
 ## 获取与使用
 
 [![Nuget (with prereleases)](https://img.shields.io/nuget/vpre/BiliAccount?color=%23004080&logo=nuget)](https://www.nuget.org/packages/BiliAccount/)
 [![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/LeoChen98/BiliAccount?include_prereleases&logo=github)](https://github.com/LeoChen98/BiliAccount/releases/latest)
 
-*在使用以下命令时请将`Version`节点改为上述最新版本，否则可能会有错误。
+**在使用以下命令时请将`Version`节点改为上述最新版本，否则可能会有错误。**
 
 工具|命令/代码
 --|--
@@ -39,23 +44,4 @@ Packet CLI|`paket add BiliAccount --version 2.2.0.12`
 具体使用方法请见[Wiki](https://github.com/LeoChen98/BiliAccount/wiki)
 
 ## 开放源代码许可
-### Newtonsoft.Json 12.0.3
-<https://www.newtonsoft.com/json>
-
-Copyright (c) 2019 Newtonsoft
-
-Licensed under MIT
-
-### QRCoder 1.3.5/1.3.6
-<https://github.com/codebude/QRCoder/>
-
-Copyright © 2011 - 2018 Raffael Herrmann
-
-Licensed under MIT
-
-### System.Drawing.Common 4.7.0
-<https://github.com/dotnet/corefx>
-
-© Microsoft Corporation. All rights reserved.
-
-Licensed under MIT
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FLeoChen98%2FBiliAccount.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FLeoChen98%2FBiliAccount?ref=badge_large)
