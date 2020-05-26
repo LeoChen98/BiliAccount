@@ -7,7 +7,7 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <RootNamespace>BiliAccount.Geetest.Controls</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>   
-    <Version>1.0.0.0</Version>
+    <Version>1.0.1.1</Version>
     <Authors>LeoChen</Authors>
     <Company>zhangbudademao.com</Company>
     <Copyright>Copyright © 2020 zhangbudademao.com, all rights reserved.</Copyright>
@@ -17,9 +17,8 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>bilibili bililive bililogin biliaccount</PackageTags>
     <PackageIcon>favicon_4.png</PackageIcon>
-    <PackageReleaseNotes>1. 完成所有功能部分
-    2. 建议使用WPF
-    3. 控件没有经过美化，如有需要请自行重绘（WPF）或联系开发者定制
+    <PackageReleaseNotes>1. 更新BiliAccount.Geetest版本到1.0.3.3。
+2. 更新Chromium内核版本到81。
     </PackageReleaseNotes>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -142,13 +141,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CefSharp.WinForms" Version="79.1.360" />
-    <PackageReference Include="CefSharp.Wpf" Version="79.1.360" />
+    <PackageReference Include="CefSharp.WinForms" Version="81.3.100" />
+    <PackageReference Include="CefSharp.Wpf" Version="81.3.100" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
     <PackageReference Include="BiliAccount" Version="2.5.0.22" />
-    <PackageReference Include="BiliAccount.Geetest" Version="1.0.2.2" />
+    <PackageReference Include="BiliAccount.Geetest" Version="1.0.3.3" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
