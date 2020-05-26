@@ -12,6 +12,8 @@ on:
 jobs:
   # This workflow contains a single job called "build"
   async_project_files:
+    #ignore Bump braches created by bot
+    if: contains(github.head_ref, 'Bump') == false
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
