@@ -1,7 +1,7 @@
 ﻿{
   "appkey": "bca7e84c2d947ac6",
   "appsecret": "60698ba2f68e01ce44738920a0ffe768",
-  "build": "6010600",
-  "version": "6.1.0",
-  "user_agent": "Mozilla/5.0 BiliDroid/6.1.0(bbcallen@gmail.com) os/android model/MI 9 mobi_app/android build/6010600 channel/master innerVer/6010600 osVer/10 network/2"
+  "build": "6021000",
+  "version": "6.2.1",
+  "user_agent": "Mozilla/5.0 BiliDroid/6.2.1(bbcallen@gmail.com) os/android model/MI 9 mobi_app/android build/6021000 channel/master innerVer/6021000 osVer/10 network/2"
 }
