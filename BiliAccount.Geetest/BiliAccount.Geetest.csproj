@@ -108,7 +108,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="BiliAccount" Version="2.5.0.22" />
+    <PackageReference Include="BiliAccount" Version="2.5.1.23" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
