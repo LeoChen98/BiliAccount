@@ -290,6 +290,24 @@ namespace BiliAccount.Core
                         csrf_token = tmp2[1];
                 }
                 cookies = cookies.Substring(0, cookies.Length - 2);
+            }catch(WebException wex)
+            {
+                if(wex.Status == WebExceptionStatus.ProtocolError && ((HttpWebResponse)wex.Response).StatusCode == HttpStatusCode.Found)
+                {
+                    foreach (string i in ((HttpWebResponse)wex.Response).Headers.GetValues("Set-Cookie"))
+                    {
+                        string[] tmp = i.Split(';');
+                        string[] tmp2 = tmp[0].Split('=');
+
+                        cookies += tmp[0] + "; ";
+                        cookiesC.Add(new Cookie(tmp2[0], tmp2[1]) { Domain = ".bilibili.com" });
+                        expires = DateTime.Parse(tmp[2].Split('=')[1]);
+
+                        if (tmp2[0] == "bili_jct")
+                            csrf_token = tmp2[1];
+                    }
+                    cookies = cookies.Substring(0, cookies.Length - 2);
+                }
             }
             finally
             {

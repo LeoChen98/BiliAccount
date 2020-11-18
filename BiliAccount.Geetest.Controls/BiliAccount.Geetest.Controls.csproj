@@ -7,7 +7,7 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <RootNamespace>BiliAccount.Geetest.Controls</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>   
-    <Version>1.0.1.1</Version>
+    <Version>1.0.3.3</Version>
     <Authors>LeoChen</Authors>
     <Company>zhangbudademao.com</Company>
     <Copyright>Copyright © 2020 zhangbudademao.com, all rights reserved.</Copyright>
@@ -17,8 +17,11 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>bilibili bililive bililogin biliaccount</PackageTags>
     <PackageIcon>favicon_4.png</PackageIcon>
-    <PackageReleaseNotes>1. 更新BiliAccount.Geetest版本到1.0.3.3。
-2. 更新Chromium内核版本到81。
+    <PackageReleaseNotes>
+      enhancements:
+        1. 更新了BiliAccount到2.5.2.24(fixed #49)
+        2. 更新BiliAccount.Geetest版本到1.0.4.4。
+        3. 更新Chromium内核版本到85。（安全更新）
     </PackageReleaseNotes>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -146,8 +149,8 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="BiliAccount" Version="2.5.0.22" />
-    <PackageReference Include="BiliAccount.Geetest" Version="1.0.3.3" />
+    <PackageReference Include="BiliAccount" Version="2.5.2.24" />
+    <PackageReference Include="BiliAccount.Geetest" Version="1.0.4.4" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
