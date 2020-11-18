@@ -6,7 +6,7 @@
     <RootNamespace>BiliAccount</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>BiliAccount</PackageId>
-    <Version>2.5.1.23</Version>
+    <Version>2.5.2.24</Version>
     <Authors>LeoChen</Authors>
     <Company>zhangbudademao.com</Company>
     <Product>BiliAccount</Product>
@@ -19,8 +19,10 @@
     <PackageTags>bilibili bililive bililogin biliaccount</PackageTags>
     <PackageIcon>favicon_4.png</PackageIcon>
     <PackageReleaseNotes>
-     fixes:
-        1. 修复 `ByQRCode.LoginByQrCode` 方法背景色存在透明度时，二维码绘制概率性出现无前景色的问题。(#47)
+     enhancements:
+        1. 更新了QRCoder到1.4.1版本（针对.net standard和.net core平台）
+        2. 更新了System.Drawing.Common到5.0.0（针对.net standard和.net core平台）
+        3. 优化了对SSO过程中对低版本IDE环境的兼容性。(#18)
     </PackageReleaseNotes>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -106,9 +108,9 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'netstandard2.1' OR '$(TargetFramework)' == 'netcoreapp3.0' OR '$(TargetFramework)' == 'netcoreapp3.1'">
-    <PackageReference Include="QRCoder" Version="1.3.9" />
+    <PackageReference Include="QRCoder" Version="1.4.1" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="System.Drawing.Common" Version="4.7.0" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
