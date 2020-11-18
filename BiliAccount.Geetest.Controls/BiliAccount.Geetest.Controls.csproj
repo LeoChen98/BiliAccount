@@ -7,7 +7,7 @@
     <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
     <RootNamespace>BiliAccount.Geetest.Controls</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>   
-    <Version>1.0.1.1</Version>
+    <Version>1.0.2.2-beta</Version>
     <Authors>LeoChen</Authors>
     <Company>zhangbudademao.com</Company>
     <Copyright>Copyright © 2020 zhangbudademao.com, all rights reserved.</Copyright>
@@ -17,8 +17,9 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>bilibili bililive bililogin biliaccount</PackageTags>
     <PackageIcon>favicon_4.png</PackageIcon>
-    <PackageReleaseNotes>1. 更新BiliAccount.Geetest版本到1.0.3.3。
-2. 更新Chromium内核版本到81。
+    <PackageReleaseNotes>1. 更新Chromium内核版本到85。（安全更新）
+    
+* 此版本为beta版本，可能有未知风险。
     </PackageReleaseNotes>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -141,8 +142,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CefSharp.WinForms" Version="81.3.100" />
-    <PackageReference Include="CefSharp.Wpf" Version="81.3.100" />
+    <PackageReference Include="CefSharp.WinForms" Version="85.3.130" />
+    <PackageReference Include="CefSharp.Wpf" Version="85.3.130" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
