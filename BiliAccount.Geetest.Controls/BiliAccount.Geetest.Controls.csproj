@@ -144,7 +144,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CefSharp.WinForms" Version="81.3.100" />
+    <PackageReference Include="CefSharp.WinForms" Version="86.0.241" />
     <PackageReference Include="CefSharp.Wpf" Version="81.3.100" />
   </ItemGroup>
 
