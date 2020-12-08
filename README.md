@@ -41,6 +41,7 @@ Package Manager|`Install-Package BiliAccount -Version 2.2.0.12`
 PackageReference|`<PackageReference Include="BiliAccount" Version="2.2.0.12" />`
 Packet CLI|`paket add BiliAccount --version 2.2.0.12`
 
+**当前已知`CentOS`环境下需要手动安装gdi+组件**<br />
 具体使用方法请见[Wiki](https://github.com/LeoChen98/BiliAccount/wiki)
 
 ## 开放源代码许可

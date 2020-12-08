@@ -6,7 +6,7 @@
     <RootNamespace>BiliAccount.Geetest</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>BiliAccount.Geetest</PackageId>
-    <Version>1.0.3.3</Version>
+    <Version>1.0.4.4</Version>
     <Authors>LeoChen</Authors>
     <Company>zhangbudademao.com</Company>
     <Product>BiliAccount.Geetest</Product>
@@ -18,7 +18,10 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>bilibili bililive bililogin biliaccount</PackageTags>
     <PackageIcon>favicon_4.png</PackageIcon>
-    <PackageReleaseNotes>移除不必要的引用
+    <PackageReleaseNotes>
+      enhancements:
+          1. 更新了BiliAccount到2.5.2.24
+          2. 更新了Titanium.Web.Proxy到3.1.1341
     </PackageReleaseNotes>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -108,7 +111,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Release'">
-    <PackageReference Include="BiliAccount" Version="2.5.0.22" />
+    <PackageReference Include="BiliAccount" Version="2.5.2.24" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(Configuration)'=='Debug'">
@@ -116,7 +119,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Titanium.Web.Proxy" Version="3.1.1301" />
+    <PackageReference Include="Titanium.Web.Proxy" Version="3.1.1341" />
   </ItemGroup>
 
 </Project>
