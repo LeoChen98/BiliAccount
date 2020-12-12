@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 #if NETSTANDARD2_0 || NETCORE3_0
 using Newtonsoft.Json;
@@ -22,6 +23,17 @@ namespace BiliAccount.Core
         private const string init_url = "http://ctrl.zhangbudademao.com/118/Init.json";
 
         #endregion Private Fields
+
+        /// <summary>
+        /// 当前程序集版本号
+        /// </summary>
+        public static string Dll_Version
+        {
+            get
+            {
+                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            }
+        }
 
         #region Private Constructors
 

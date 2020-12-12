@@ -61,7 +61,7 @@ namespace BiliAccount.Core
             Bitmap qrCodeImage = null;
         re:
             //获取二维码要包含的url
-            string str = Http.GetBody("https://passport.bilibili.com/qrcode/getLoginUrl", null, "https://passport.bilibili.com/login");
+            string str = Http.GetBody("https://passport.bilibili.com/qrcode/getLoginUrl", null, "https://passport.bilibili.com/login",$"BiliAccount/{Config.Dll_Version}");
             if (!string.IsNullOrEmpty(str))
             {
 #if NETSTANDARD2_0 || NETCORE3_0
@@ -117,7 +117,7 @@ namespace BiliAccount.Core
         {
             string oauthKey = o.ToString();
 
-            string str = Http.PostBody("https://passport.bilibili.com/qrcode/getLoginInfo", "oauthKey=" + oauthKey + "&gourl=https%3A%2F%2Fwww.bilibili.com%2F", null, "application/x-www-form-urlencoded; charset=UTF-8", "https://passport.bilibili.com/login");
+            string str = Http.PostBody("https://passport.bilibili.com/qrcode/getLoginInfo", "oauthKey=" + oauthKey + "&gourl=https%3A%2F%2Fwww.bilibili.com%2F", null, "application/x-www-form-urlencoded; charset=UTF-8", "https://passport.bilibili.com/login",$"BiliAccount/{Config.Dll_Version}");
             if (!string.IsNullOrEmpty(str))
             {
 #if NETSTANDARD2_0 || NETCORE3_0

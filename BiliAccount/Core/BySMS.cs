@@ -48,10 +48,10 @@ namespace BiliAccount.Core
         public static Account Login(string captcha_key, string code, string tel)
         {
             Account account = new Account();
-            string param = $"appkey={Config.Instance.Appkey}&bili_local_id={account.DeviceId}&build={Config.Instance.Build}&buvid={account.Buvid}&captcha_key={captcha_key}&channel=bili&cid=86&code={code}&device=phone&device_id={account.DeviceId}&device_name=BiliAccount{account.DeviceGuid}&device_platform=BiliAccount{Assembly.GetExecutingAssembly().GetName().Version}&local_id={account.Buvid}&mobi_app=android&platform=android&statistics=%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%22{Config.Instance.Version}%22%2C%22abtest%22%3A%22%22%7D&tel={tel}&ts={TimeStamp}";
+            string param = $"appkey={Config.Instance.Appkey}&bili_local_id={account.DeviceId}&build={Config.Instance.Build}&buvid={account.Buvid}&captcha_key={captcha_key}&channel=bili&cid=86&code={code}&device=phone&device_id={account.DeviceId}&device_name=BiliAccount{account.DeviceGuid}&device_platform=BiliAccount{Config.Dll_Version}&local_id={account.Buvid}&mobi_app=android&platform=android&statistics=%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%22{Config.Instance.Version}%22%2C%22abtest%22%3A%22%22%7D&tel={tel}&ts={TimeStamp}";
             param += $"&sign={GetSign(param)}";
 
-            string str = Http.PostBody("https://passport.bilibili.com/x/passport-login/login/sms", param);
+            string str = Http.PostBody("https://passport.bilibili.com/x/passport-login/login/sms", param,null, $"BiliAccount/{Config.Dll_Version}");
 #if NETSTANDARD2_0 || NETCORE3_0
             Login_DataTemplete obj = JsonConvert.DeserializeObject<Login_DataTemplete>(str);
 #else
@@ -92,7 +92,7 @@ namespace BiliAccount.Core
         {
             string param = $"appkey={Config.Instance.Appkey}&build={Config.Instance.Build}&channel=bili&cid=86&mobi_app=android&platform=android&statistics=%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%22{Config.Instance.Version}%22%2C%22abtest%22%3A%22%22%7D&tel={tel}&ts={TimeStamp}";
             param += $"&sign={GetSign(param)}";
-            string str = Http.PostBody("https://passport.bilibili.com/x/passport-login/sms/send", param);
+            string str = Http.PostBody("https://passport.bilibili.com/x/passport-login/sms/send", param,null, $"BiliAccount/{Config.Dll_Version}");
 #if NETSTANDARD2_0 || NETCORE3_0
             SMS_Send_DataTemplete obj = JsonConvert.DeserializeObject<SMS_Send_DataTemplete>(str);
 #else
