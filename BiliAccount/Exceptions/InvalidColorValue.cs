@@ -5,12 +5,9 @@ namespace BiliAccount.Exceptions
     /// <summary>
     /// 传入了错误的颜色值
     /// </summary>
-    public class InvalidColorValue:Exception
+    public class InvalidColorValue : Exception
     {
-        /// <summary>
-        /// 错误的属性名
-        /// </summary>
-        public string PropertyName { get; private set; }
+        #region Public Constructors
 
         /// <summary>
         /// 以指定的属性名初始化<see cref="InvalidColorValue"/>
@@ -20,5 +17,16 @@ namespace BiliAccount.Exceptions
         {
             PropertyName = name;
         }
+
+        #endregion Public Constructors
+
+        #region Public Properties
+
+        /// <summary>
+        /// 错误的属性名
+        /// </summary>
+        public string PropertyName { get; private set; }
+
+        #endregion Public Properties
     }
 }

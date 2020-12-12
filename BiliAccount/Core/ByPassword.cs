@@ -52,7 +52,8 @@ namespace BiliAccount.Core
              */
             string parm = $"appkey={Config.Instance.Appkey}&bili_local_id={account.DeviceId}&build={Config.Instance.Build}&buvid={account.Buvid}&channel=bili&device=phone&device_id={account.DeviceId}&device_name=BiliAccount{account.DeviceGuid}&device_platform=BiliAccount{Assembly.GetExecutingAssembly().GetName().Version}&local_id={account.Buvid}&mobi_app=android&password={account.EncryptedPassword}&platform=android&statistics=%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%22{Config.Instance.Version}%22%2C%22abtest%22%3A%22%22%7D&ts={TimeStamp}&username={account.UserName}";
             parm += "&sign=" + GetSign(parm);
-            string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v3/oauth2/login", out account.Cookies, parm, null, "application/x-www-form-urlencoded;charset=utf-8", "", Config.Instance.User_Agent);
+            //string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v3/oauth2/login", out account.Cookies, parm, null, "application/x-www-form-urlencoded;charset=utf-8", "", Config.Instance.User_Agent);
+            string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v3/oauth2/login", out account.Cookies, parm, null, "application/x-www-form-urlencoded;charset=utf-8", "", $"BiliAccount/{Config.Dll_Version}");
             if (!string.IsNullOrEmpty(str))
             {
 #if NETSTANDARD2_0 || NETCORE3_0
@@ -93,7 +94,8 @@ namespace BiliAccount.Core
         {
             string parm = "actionKey=" + Config.Instance.Appkey + "&appkey=" + Config.Instance.Appkey + "&build=" + Config.Instance.Build + "&captcha=" + captcha + "&mobi_app=android&password=" + account.EncryptedPassword + "&device=android&platform=android&ts=" + TimeStamp + "&username=" + account.UserName;
             parm += "&sign=" + GetSign(parm);
-            string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v3/oauth2/login", out account.Cookies, parm, account.Cookies, "application/x-www-form-urlencoded;charset=utf-8", "", Config.Instance.User_Agent);
+            //string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v3/oauth2/login", out account.Cookies, parm, account.Cookies, "application/x-www-form-urlencoded;charset=utf-8", "", Config.Instance.User_Agent);
+            string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v3/oauth2/login", out account.Cookies, parm, account.Cookies, "application/x-www-form-urlencoded;charset=utf-8", "", $"BiliAccount/{Config.Dll_Version}");
             if (!string.IsNullOrEmpty(str))
             {
 #if NETSTANDARD2_0 || NETCORE3_0

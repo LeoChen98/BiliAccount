@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace BiliAccount.Exceptions
 {
@@ -25,5 +22,4 @@ namespace BiliAccount.Exceptions
 
         #endregion Public Constructors
     }
-
 }
