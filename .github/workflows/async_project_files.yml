@@ -36,7 +36,7 @@ jobs:
         mkdir 'BiliAccount'
         cd BiliAccount
         git init
-        git clone -b ${{ github.head_ref }} https://github.com/LeoChen98/BiliAccount.git
+        git clone -b master https://github.com/LeoChen98/BiliAccount.git
         cd .. 
     
     # Runs a single command using the runners shell
