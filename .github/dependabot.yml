@@ -1,0 +1,21 @@
+version: 2
+updates:
+- package-ecosystem: nuget
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "21:00"
+    timezone: Asia/Shanghai
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: CefSharp.WinForms
+    versions:
+    - 87.1.132
+    - 88.2.90
+  - dependency-name: CefSharp.Wpf
+    versions:
+    - 87.1.132
+    - 88.2.90
+  - dependency-name: System.Drawing.Common
+    versions:
+    - 5.0.1
