@@ -140,7 +140,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CefSharp.WinForms" Version="86.0.241" />
+    <PackageReference Include="CefSharp.WinForms" Version="91.1.210" />
     <PackageReference Include="CefSharp.Wpf" Version="86.0.241" />
   </ItemGroup>
 
