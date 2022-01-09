@@ -1,11 +1,10 @@
-
 using System;
 
 namespace BiliAccount
 {
     internal static class String40Methods
     {
-#region Public Methods
+        #region Public Methods
 
         public static bool IsAllDigit(string str)
         {
@@ -48,6 +47,6 @@ namespace BiliAccount
             return new string(result);
         }
 
-#endregion Public Methods
+        #endregion Public Methods
     }
 }

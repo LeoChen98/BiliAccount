@@ -47,7 +47,8 @@ namespace BiliAccount.Core
             param += $"&sign={GetSign(param)}";
             WebHeaderCollection headers = new WebHeaderCollection();
             headers.Add("Buvid", account.Buvid);
-            string str = Http.GetBody($"https://passport.bilibili.com/api/v2/oauth2/access_token?{param}", null, "", Config.Instance.User_Agent, headers);
+            //string str = Http.GetBody($"https://passport.bilibili.com/api/v2/oauth2/access_token?{param}", null, "", Config.Instance.User_Agent, headers);
+            string str = Http.GetBody($"https://passport.bilibili.com/api/v2/oauth2/access_token?{param}", null, "", $"BiliAccount/{Config.Dll_Version}", headers);
             if (!string.IsNullOrEmpty(str))
             {
 #if NETSTANDARD2_0 || NETCORE3_0
@@ -88,7 +89,7 @@ namespace BiliAccount.Core
         /// <exception cref="Exceptions.SMS_Send_Exception"/>
         public static void SMS_Send(string challenge, string key, string tmp_token, string validate)
         {
-            string str = Http.PostBody("https://api.bilibili.com/x/safecenter/sms/send", $"csrf=&csrf_token=&type=18&captcha_type=7&captcha_key={key}&captcha=&challenge={challenge}&seccode={validate}%7Cjordan&validate={validate}&tmp_code={tmp_token}");
+            string str = Http.PostBody("https://api.bilibili.com/x/safecenter/sms/send", $"csrf=&csrf_token=&type=18&captcha_type=7&captcha_key={key}&captcha=&challenge={challenge}&seccode={validate}%7Cjordan&validate={validate}&tmp_code={tmp_token}",null, $"BiliAccount/{Config.Dll_Version}");
             if (!string.IsNullOrEmpty(str))
             {
                 int code = int.Parse(new Regex("(?<=\"code\":)(\\d+)(?=,)").Match(str).Value);
@@ -112,7 +113,7 @@ namespace BiliAccount.Core
         {
             string param = $"appkey={Config.Instance.Appkey}&build={Config.Instance.Build}&channel=bili&code={code}&csrf=&csrf_token=&mobi_app=android&platform=android&statistics=%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%22{Config.Instance.Version}%22%2C%22abtest%22%3A%22%22%7D&tmp_token={tmp_token}&ts={TimeStamp * 1000}";
             param += $"&sign={GetSign(param)}";
-            string str = Http.PostBody("https://passport.bilibili.com/api/login/verify_device", param);
+            string str = Http.PostBody("https://passport.bilibili.com/api/login/verify_device", param,null, $"BiliAccount/{Config.Dll_Version}");
             if (!string.IsNullOrEmpty(str))
             {
 #if NETSTANDARD2_0 || NETCORE3_0

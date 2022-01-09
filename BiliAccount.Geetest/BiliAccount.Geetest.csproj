@@ -6,7 +6,7 @@
     <RootNamespace>BiliAccount.Geetest</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>BiliAccount.Geetest</PackageId>
-    <Version>1.0.4.4</Version>
+    <Version>1.0.5.5</Version>
     <Authors>LeoChen</Authors>
     <Company>zhangbudademao.com</Company>
     <Product>BiliAccount.Geetest</Product>
@@ -20,8 +20,7 @@
     <PackageIcon>favicon_4.png</PackageIcon>
     <PackageReleaseNotes>
       enhancements:
-          1. 更新了BiliAccount到2.5.2.24
-          2. 更新了Titanium.Web.Proxy到3.1.1341
+          1. 更新了Titanium.Web.Proxy到3.1.1344
     </PackageReleaseNotes>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -119,7 +118,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Titanium.Web.Proxy" Version="3.1.1341" />
+    <PackageReference Include="Titanium.Web.Proxy" Version="3.1.1344" />
   </ItemGroup>
 
 </Project>
