@@ -6,12 +6,12 @@
     <RootNamespace>BiliAccount</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>BiliAccount</PackageId>
-    <Version>2.5.4.26</Version>
+    <Version>2.5.5.27</Version>
     <Authors>LeoChen</Authors>
     <Company>zhangbudademao.com</Company>
     <Product>BiliAccount</Product>
     <Description>用于处理B站账号类的操作</Description>
-    <Copyright>Copyright © 2020 zhangbudademao.com, all rights reserved.</Copyright>
+    <Copyright>Copyright © 2022 zhangbudademao.com, all rights reserved.</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/LeoChen98/BiliAccount</PackageProjectUrl>
     <RepositoryUrl>https://github.com/LeoChen98/BiliAccount</RepositoryUrl>
@@ -19,8 +19,10 @@
     <PackageTags>bilibili bililive bililogin biliaccount</PackageTags>
     <PackageIcon>favicon_4.png</PackageIcon>
     <PackageReleaseNotes>
-     fixes:
-	    1. 修复了由于破站改接口导致无法通过密码登录的问题。
+      adds:
+        1. 新增 `Linq.ByQRCode.LoginByQrCodeUrl`。
+      enhancements:
+        1. 更新引用库版本。
     </PackageReleaseNotes>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
@@ -114,9 +116,9 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0' OR '$(TargetFramework)' == 'netstandard2.1' OR '$(TargetFramework)' == 'netcoreapp3.0' OR '$(TargetFramework)' == 'netcoreapp3.1'">
-    <PackageReference Include="QRCoder" Version="1.4.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
+    <PackageReference Include="QRCoder" Version="1.4.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>

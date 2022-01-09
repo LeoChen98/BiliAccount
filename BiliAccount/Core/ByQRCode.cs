@@ -50,6 +50,42 @@ namespace BiliAccount.Core
         }
 
         /// <summary>
+        /// 获取二维码要包含的登录url
+        /// </summary>
+        /// <returns>二维码要包含的登录url</returns>
+        public static string GetQrcodeUrl()
+        {
+            return Http.GetBody("https://passport.bilibili.com/qrcode/getLoginUrl", null, "https://passport.bilibili.com/login", $"BiliAccount/{Config.Dll_Version}"); 
+        }
+
+        /// <summary>
+        /// 获取二维码(只返回登录url）
+        /// </summary>
+        /// <returns>登录url</returns>
+        public static string GetQrcode()
+        {
+        re:
+            string str = GetQrcodeUrl();
+            if (!string.IsNullOrEmpty(str))
+            {
+#if NETSTANDARD2_0 || NETCORE3_0
+                GetQrcode_DataTemplete obj = JsonConvert.DeserializeObject<GetQrcode_DataTemplete>(str);
+#else
+                GetQrcode_DataTemplete obj = (new JavaScriptSerializer()).Deserialize<GetQrcode_DataTemplete>(str);
+#endif
+
+                if (obj.code == 0)
+                {
+                    Monitor = new Timer(MonitorCallback, obj.data.oauthKey, 1000, 1000);
+                    Refresher = new Timer(RefresherCallback, null, 180000, Timeout.Infinite);
+                }
+            }
+            else goto re;
+
+            return str;
+        }
+
+        /// <summary>
         /// 获取二维码
         /// </summary>
         /// <param name="Foreground">前景颜色</param>
@@ -60,8 +96,7 @@ namespace BiliAccount.Core
         {
             Bitmap qrCodeImage = null;
         re:
-            //获取二维码要包含的url
-            string str = Http.GetBody("https://passport.bilibili.com/qrcode/getLoginUrl", null, "https://passport.bilibili.com/login",$"BiliAccount/{Config.Dll_Version}");
+            string str = GetQrcodeUrl();
             if (!string.IsNullOrEmpty(str))
             {
 #if NETSTANDARD2_0 || NETCORE3_0
@@ -201,7 +236,10 @@ namespace BiliAccount.Core
         /// <param name="state"></param>
         private static void RefresherCallback(object state)
         {
-            Linq.ByQRCode.RaiseQrCodeRefresh(GetQrcode((Color)((List<object>)state)[0], (Color)((List<object>)state)[1], (bool)((List<object>)state)[2]));
+            if (state == null)
+                Linq.ByQRCode.RaiseQrCodeRefresh(GetQrcode());
+            else
+                Linq.ByQRCode.RaiseQrCodeRefresh(GetQrcode((Color)((List<object>)state)[0], (Color)((List<object>)state)[1], (bool)((List<object>)state)[2]));
         }
 
         #endregion Private Methods

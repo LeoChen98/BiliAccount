@@ -31,6 +31,12 @@ namespace BiliAccount.Linq
         public delegate void QrCodeRefresh_Handle(Bitmap newQrCode);
 
         /// <summary>
+        /// 二维码刷新处理程序(仅登录url）
+        /// </summary>
+        /// <param name="newQrCodeUrl">新二维码</param>
+        public delegate void QrCodeUrlRefresh_Handle(string newQrCodeUrl);
+
+        /// <summary>
         /// 二维码登录状态变更处理程序
         /// </summary>
         /// <param name="status">二维码状态</param>
@@ -45,6 +51,11 @@ namespace BiliAccount.Linq
         /// 二维码刷新事件
         /// </summary>
         public static event QrCodeRefresh_Handle QrCodeRefresh;
+
+        /// <summary>
+        /// 登录Url刷新事件
+        /// </summary>
+        public static event QrCodeUrlRefresh_Handle QrCodeUrlRefresh;
 
         /// <summary>
         /// 二维码登录状态变更事件
@@ -121,6 +132,16 @@ namespace BiliAccount.Linq
 #endif
 
         /// <summary>
+        /// 获取登录Url
+        /// </summary>
+        /// <returns>登录Url</returns>
+        /// <exception cref="Exceptions.InvalidColorValue">传入了错误的颜色值</exception>
+        public static string LoginByQrCodeUrl()
+        {
+            return Core.ByQRCode.GetQrcode();
+        }
+
+        /// <summary>
         /// 获取二维码
         /// </summary>
         /// <param name="strForeground">前景颜色</param>
@@ -166,6 +187,15 @@ namespace BiliAccount.Linq
         internal static void RaiseQrCodeRefresh(Bitmap newQrCode)
         {
             QrCodeRefresh?.Invoke(newQrCode);
+        }
+
+        /// <summary>
+        /// 调起二维码刷新
+        /// </summary>
+        /// <param name="newQrCodeUrl">新二维码</param>
+        internal static void RaiseQrCodeRefresh(string newQrCodeUrl)
+        {
+            QrCodeUrlRefresh?.Invoke(newQrCodeUrl);
         }
 
         /// <summary>
