@@ -51,6 +51,7 @@ namespace BiliAccount.Core
              * string parm = "appkey=" + Config.Instance.Appkey + "&build=" + Config.Instance.Build + "&mobi_app=android&password=" + account.EncryptedPassword + "&platform=android&ts=" + TimeStamp + "&username=" + account.UserName;
              */
             string parm = $"appkey={Config.Instance.Appkey}&bili_local_id={account.DeviceId}&build={Config.Instance.Build}&buvid={account.Buvid}&channel=bili&device=phone&device_id={account.DeviceId}&device_name=BiliAccount{account.DeviceGuid}&device_platform=BiliAccount{Assembly.GetExecutingAssembly().GetName().Version}&local_id={account.Buvid}&mobi_app=android&password={account.EncryptedPassword}&platform=android&statistics=%7B%22appId%22%3A1%2C%22platform%22%3A3%2C%22version%22%3A%22{Config.Instance.Version}%22%2C%22abtest%22%3A%22%22%7D&ts={TimeStamp}&username={account.UserName}";
+            //string parm = $"appkey={Config.Instance.Appkey}&build={Config.Instance.Build}&buvid={account.Buvid}&channel=bili&local_id={account.Buvid}&mobi_app=android&password={account.EncryptedPassword}&platform=android&ts={TimeStamp}&username={account.UserName}";
             parm += "&sign=" + GetSign(parm);
             string str = Http.PostBodyOutCookies("http://passport.bilibili.com/api/v3/oauth2/login", out account.Cookies, parm, null, "application/x-www-form-urlencoded;charset=utf-8", "", Config.Instance.User_Agent);
             if (!string.IsNullOrEmpty(str))
@@ -393,7 +394,8 @@ namespace BiliAccount.Core
                     account.LoginStatus = Account.LoginStatusEnum.NeedTelVerify;
                     break;
 
-                case 3://设备登录验证
+                case 2://设备登录验证
+                case 3:
                     account.Url = obj.data.url;
                     account.LoginStatus = Account.LoginStatusEnum.NeedSafeVerify;
                     break;
