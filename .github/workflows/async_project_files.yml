@@ -5,7 +5,8 @@ name: async_project_files
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
 on:
-  pull_request:
+  pull_request_target:
+    types: [ closed ]
     branches: [ master ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -35,7 +36,7 @@ jobs:
         mkdir 'BiliAccount'
         cd BiliAccount
         git init
-        git clone -b ${{ github.head_ref }} https://github.com/LeoChen98/BiliAccount.git
+        git clone -b master https://github.com/LeoChen98/BiliAccount.git
         cd .. 
     
     # Runs a single command using the runners shell
