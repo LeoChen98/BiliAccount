@@ -395,7 +395,8 @@ namespace BiliAccount.Core
                     account.LoginStatus = Account.LoginStatusEnum.NeedTelVerify;
                     break;
 
-                case 3://设备登录验证
+                case 2://设备登录验证
+                case 3:
                     account.Url = obj.data.url;
                     account.LoginStatus = Account.LoginStatusEnum.NeedSafeVerify;
                     break;
