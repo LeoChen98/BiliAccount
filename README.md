@@ -9,6 +9,8 @@ B站账号操作封装
 [![Pull Request Welcome](https://img.shields.io/badge/Pull%20request-welcome-brightgreen.svg)](#)
 [![GitHub license](https://img.shields.io/github/license/LeoChen98/BiliAccount.svg)](https://github.com/LeoChen98/BiliAccount/blob/master/LICENSE)
 
+## 项目已经停止维护，虽然部分功能仍可使用，但可能由于B站的后续更新不再可用。
+
 ## 支持与依赖
 框架|版本|依赖|备注
 ---|---|---|---
